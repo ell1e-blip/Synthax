@@ -1,0 +1,445 @@
+@font-face {
+    font-family: "wonome";
+    font-style: normal;
+    font-weight: 400;
+    src: url("fonts/wonome.ttf");
+}
+@font-face {
+    font-family: "Handel Gothic";
+    font-style: normal;
+    font-weight: 400;
+    src: url("fonts/Handel.ttf");
+}
+@font-face {
+    font-family: "RocketRinder-yV5d";
+    font-style: normal;
+    font-weight: 400;
+    src: url("fonts/RocketRinder-yV5d.ttf");
+}
+.root {
+    -fx-font-family: "Handel Gothic";
+    -fx-base: #bfbbb4;
+    -fx-background: #d6d1c9;
+    -fx-accent: #f78000;
+    -fx-focus-color: #f78000;
+    -fx-faint-focus-color: #f7800022;
+    -fx-control-inner-background: #b0aaa0;
+    -fx-shadow-highlight-color: #a6a4a270;
+}
+
+.button {
+    -fx-background-color: #78736b;
+        -fx-text-fill: #d6d1c9;
+        -fx-font-family: "Handel Gothic";
+        -fx-font-size: 14;
+        -fx-body-color: #78736b;
+        -fx-background-insets: 0, 0, 0;
+}
+
+.button:focused {
+    -fx-text-fill: #f78000;
+}
+
+.knob:focused {
+    -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color;
+        -fx-background-insets: 0, 1, 2;
+}
+
+.knob {
+    -fx-text-fill: #f78000;
+    -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color;
+        -fx-background-insets: 0, 1, 2;
+    -fx-background-radius: 30px;
+    -fx-background-image: url("Images/knobVit2d2.png");
+        -fx-background-size: 30px 30px;
+        -fx-background-repeat: no-repeat;
+        -fx-background-position: center;
+    -fx-min-width: 30px;
+    -fx-min-height: 30px;
+    -fx-max-width: 30px;
+    -fx-max-height: 30px;
+    -fx-cursor: v_resize;
+}
+
+.bigKnob:focused {
+    -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color;
+        -fx-background-insets: 0, 1, 2;
+}
+
+.bigKnob {
+    -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color;
+        -fx-background-insets: 0, 1, 2;
+    -fx-background-radius: 30px;
+    -fx-background-image: url("Images/knobVit2d2.png");
+        -fx-background-size: 40px 40px;
+        -fx-background-repeat: no-repeat;
+        -fx-background-position: center;
+    -fx-min-width: 40px;
+    -fx-min-height: 40px;
+    -fx-max-width: 40px;
+    -fx-max-height: 40px;
+    -fx-cursor: v_resize;
+}
+
+.slider .thumb {
+    -fx-background-image: url("Images/slider2dw.png");
+    -fx-background-size: 28px, 15px;
+    -fx-pref-width: 28px;
+    -fx-pref-height: 15px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+#masterSlider .thumb {
+    -fx-background-size: 40px, 20px;
+    -fx-pref-width: 40px;
+    -fx-pref-height: 20px;
+}
+
+.spinner .increment-arrow-button,
+.spinner .decrement-arrow-button,
+.toggle-switch .thumb-area {
+    -fx-background-color: #78736b;
+    -fx-text-fill: #d6d1c9;
+    -fx-font-family: "Handel Gothic";
+    -fx-font-size: 14;
+}
+
+.check-box {
+    -fx-text-fill: black;
+    -fx-font-family: "Handel Gothic";
+    -fx-font-size: 12px
+}
+
+.check-box-big {
+    -fx-text-fill: black;
+    -fx-font-family: "Handel Gothic";
+    -fx-font-size: 17px
+}
+
+.check-box-big .box,
+.check-box .box {
+    -fx-background-color: #78736b;
+    -fx-background-insets: 0, 0, 0;
+}
+
+.check-box-big:selected . mark,
+.check-box:selected .mark {
+    -fx-background-color: #f78000;
+}
+
+.presetsComboBox {
+    -fx-background-color: #a6a097;
+    -fx-background-insets: 0, 0, 0;
+}
+
+.settingsButton {
+    -fx-background-color: #78736b;
+    -fx-background-image: url("Images/gearNew.png");
+    -fx-background-size: 35px, 35px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-insets: 0, 1, 2;
+}
+
+.refreshButton {
+    -fx-background-color: #78736b;
+    -fx-background-image: url("Images/circArrow.png");
+    -fx-background-size: 23px, 23px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-insets: 0, 1, 2;
+}
+
+.drumButton {
+    -fx-background-color: #78736b;
+    -fx-background-image: url("Images/drumIcon.png");
+    -fx-background-size: 25px, 25px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-insets: 0, 1, 2;
+}
+
+.saveButton {
+    -fx-background-color: #78736b;
+    -fx-background-image: url("Images/floppy.png");
+    -fx-background-size: 18px, 18px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-insets: 0, 1, 2;
+}
+
+.deleteButton {
+    -fx-background-color: #78736b;
+    -fx-background-image: url("Images/bin.png");
+    -fx-background-size: 18px, 18px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-insets: 0, 1, 2;
+}
+
+.addButton {
+    -fx-background-color: #78736b;
+    -fx-background-image: url("Images/add.png");
+    -fx-background-size: 9px, 9px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-insets: 0, 1, 2;
+    -fx-padding: 0px;
+}
+
+.timesButton {
+    -fx-background-color: #78736b;
+    -fx-background-image: url("Images/times.png");
+    -fx-background-size: 9px, 9px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-insets: 0, 1, 2;
+    -fx-padding: 0px;
+}
+
+.arrowButton {
+    -fx-background-color: #78736b;
+    -fx-background-image: url("Images/arrow.png");
+    -fx-background-size: 18px, 18px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-insets: 0, 1, 2;
+}
+
+.toggle-switch .thumb {
+    -fx-background-color: linear-gradient(to bottom, derive(-fx-background, -20%), derive(-fx-base, -30%));
+}
+
+.sampleButton {
+    -fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;
+    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
+}
+
+.sampleButton:focused {
+    -fx-background-color: -fx-focus-color, -fx-inner-border, -fx-body-color, -fx-faint-focus-color, -fx-body-color;
+    -fx-background-insets: -0.2, 1, 2, -1.4, 2.6;
+    -fx-background-radius: 3, 2, 1, 4, 1;
+}
+
+#btnSamplePad {
+    -fx-base: #78736b;
+}
+
+#btnSamplePad:pressed {
+    -fx-text-fill: #f78000;
+}
+
+.popover > .border  {
+    -fx-stroke-width: 1px;
+    -fx-fill: #a6a097;
+}
+
+.popoverSettings > .border {
+    -fx-stroke-width: 1px;
+    -fx-fill: -fx-base;
+}
+
+.popover > .content > .title > .text,
+.popoverSettings > .content > .title > .text {
+    -fx-text-fill: black;
+    -fx-font-size: 16px;
+}
+
+.popover > .content > .title > .icon > .graphics > .circle,
+.popoverSettings > .content > .title > .icon > .graphics > .circle {
+	-fx-fill: #78736b;
+	-fx-effect: null;
+	-fx-scale-x: 2px;
+	-fx-scale-y: 2px;
+	-fx-scale-z: 2px;
+}
+
+.popover > .content > .title > .icon > .graphics > .line,
+.popover > .content > .title > .icon > .graphics > .line {
+	-fx-stroke: #f78000;
+	-fx-stroke-width: 1px;
+	-fx-scale-x: 2px;
+    -fx-scale-y: 2px;
+   	-fx-scale-z: 2px;
+}
+
+.resetButton {
+    -fx-background-color: #78736b;
+    -fx-text-fill: #d6d1c9;
+    -fx-font-family: "Handel Gothic";
+    -fx-font-size: 12;
+    -fx-body-color: #78736b;
+    -fx-background-insets: 0, 0, 0;
+    -fx-padding: 2px;
+}
+
+#btnStartStop,
+#btnStartStopDrums {
+    -fx-font-size: 20;
+}
+
+
+#btnHelp {
+    -fx-font-size: 18;
+    -fx-padding: 3px;
+}
+
+.spinner .increment-arrow-button .increment-arrow,
+.spinner .decrement-arrow-button .decrement-arrow,
+.presetsComboBox .arrow {
+    -fx-background-color: black;
+}
+
+.timesButton:selected,
+.addButton:selected,
+.toggle-switch:selected .thumb-area {
+    -fx-background-color: #f78000;
+}
+
+
+.toggleSeq,
+.tglSampleSeq {
+    -fx-padding: 0,3px;
+    -fx-background-color: #78736b;
+    -fx-text-fill: #d6d1c9;
+    -fx-font-family: "Handel Gothic";
+    -fx-font-size: 10;
+    -fx-background-insets: 0, 0, 0;
+}
+
+.tglSampleSeqFourths {
+    -fx-background-color: #78736b95;
+    -fx-padding: 0,3px;
+    -fx-text-fill: #d6d1c9;
+    -fx-font-family: "Handel Gothic";
+    -fx-font-size: 10;
+    -fx-background-insets: 0, 0, 0;
+}
+
+.tglSampleSeqFourths:selected,
+.tglSampleSeq:selected {
+    -fx-background-color: #f78000;
+}
+
+.toggleSeq:selected {
+    -fx-text-fill: #f78000;
+}
+
+.spinner .text-field,
+.titled-pane > .title {
+    -fx-background-color: #a6a097;
+    -fx-text-fill: black;
+    -fx-background-insets: 0, 0, 0;
+}
+
+.spinner,
+.titled-pane .content {
+    -fx-background-color: -fx-base;
+}
+
+.scroll-bar:horizontal,
+.scroll-bar:vertical,
+.scroll-pane > .corner,
+.chart-plot-background,
+.tool-bar:horizontal,
+.scroll-pane,
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.increment-button, .decrement-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0em;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #b0ada7;
+    -fx-background-radius: 5em;
+}
+
+.bigLabel {
+    -fx-font-family: "Handel Gothic";
+    -fx-text-fill: #000000;
+    -fx-font-size: 17px;
+}
+
+.smallLabel {
+    -fx-font-family: "Handel Gothic";
+    -fx-text-fill: #000000;
+    -fx-font-size: 10px;
+}
+.smallLabel2 {
+    -fx-font-family: "Handel Gothic";
+    -fx-text-fill: #000000;
+    -fx-font-size: 12px;
+}
+
+.filterLabel {
+    -fx-font-family: "Handel Gothic";
+    -fx-text-fill: #000000;
+    -fx-font-size: 14px;
+}
+
+.connectedLabel {
+    -fx-font-family: "Handel Gothic";
+    -fx-text-fill: #f78000;
+    -fx-font-size: 14px;
+}
+
+
+.lightLabel {
+    -fx-font-family: "Handel Gothic";
+    -fx-text-fill: #d6d1c9;
+}
+
+.oscLabel {
+    -fx-font-size: 10px;
+}
+
+.oscLabelBig {
+    -fx-font-size: 15px;
+}
+
+#oscBox {
+    -fx-background-color: transparent;
+}
+
+.logo {
+    -fx-font-family: "Rocket Rinder";
+    -fx-text-fill: #f78000;
+}
+
+.chart {
+    -fx-background-color:  #78736b;
+    -fx-background-radius: 10px;
+}
+
+.chart-series-line {
+    -fx-stroke-width: 4px;
+}
+
+.chart-line-symbol {
+    -fx-padding: 5px;
+}
+
+.default-color0.chart-series-line {
+    -fx-stroke: #f78000;
+}
+
+.default-color0.chart-line-symbol {
+    -fx-background-color: #f78000, #78736b;
+}
+
+.contentSquare {
+    -fx-fill: -fx-base;
+}
+
