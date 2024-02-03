@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.ToggleSwitch?>
 
-<AnchorPane prefHeight="211.0" prefWidth="460.0" stylesheets="@../skins.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.synthax.view.SettingsView">
+<AnchorPane prefHeight="211.0" prefWidth="660.0" stylesheets="@../skins.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.synthax.view.SettingsView">
    <children>
       <Label layoutX="18.0" layoutY="64.0" styleClass="smallLabel2" text="Monophonic" />
       <Label layoutX="18.0" layoutY="115.0" styleClass="smallLabel2" text="Number of voices" />
@@ -28,6 +28,8 @@
       <Label layoutX="183.0" layoutY="47.0" styleClass="smallLabel2" text="Add preset" />
       <Label layoutX="18.0" layoutY="13.0" styleClass="bigLabel" text="General" />
       <Line endX="-0.998321533203125" endY="-48.753929138183594" layoutX="160.0" layoutY="62.0" startX="-0.998291015625" startY="127.5" stroke="#78736b" />
+      <Line endX="-0.998321533203125" endY="-48.753929138183594" layoutX="460.0" layoutY="62.0" startX="-0.998291015625" startY="127.5" stroke="#78736b" />
+      <Label layoutX="483.0" layoutY="13.0" styleClass="bigLabel" text="Program Presets" />
       <ScrollPane hbarPolicy="NEVER" hmax="0.0" layoutX="300.0" layoutY="71.0" prefHeight="127.0" prefWidth="142.0">
          <content>
             <VBox fx:id="presetsList" prefHeight="124.0" prefWidth="131.0" spacing="2.0" />
