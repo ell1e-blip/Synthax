@@ -113,11 +113,19 @@ public class OscillatorView implements Initializable {
         });
     }
 
+    /**
+     * [FK_A_OSC_002] Välja vågform M
+     * En användare ska kunna välja vågform på en oscillator
+     * Denna GUI-komponent är Waveform komponenten i GUI:t
+     * Skickar newValue från behaviorKnowWave.knowValueProperty till oscillatorController.setWaveForm
+     * -Kommentar av Ellie Rosander Utvecklare Sprint 1
+     */
     private void initWaveFormKnob() {
         KnobBehaviorWave behaviorKnobWave = new KnobBehaviorWave(knobWave);
         knobWave.setOnMouseDragged(behaviorKnobWave);
         behaviorKnobWave.knobValueProperty().addListener((v, oldValue, newValue) -> {
             oscillatorController.setWaveform(Waveforms.values()[newValue.intValue()]);
+
         });
     }
 
