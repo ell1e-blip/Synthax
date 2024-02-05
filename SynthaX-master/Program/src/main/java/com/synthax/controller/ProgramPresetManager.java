@@ -9,7 +9,7 @@ public class ProgramPresetManager {
 
     private final SynthaxController synthaxController;
 
-    private File presetRoot = new File("src/main/resources/com/synthax/sequencer_presets");
+    private File presetRoot = new File("src/main/resources/com/synthax/program_presets");
 
     private final static String PRESET_FILE_EXTENSION = ".dat";
 
@@ -36,18 +36,21 @@ public class ProgramPresetManager {
         float rateFreq = synthaxLFO.getRateFrequency();
         System.out.println("depthvalue: " + depthvalue);
         System.out.println("Buffer:" + waveformBuffer);
+        System.out.println("Buffer: " + waveformBuffer.toString());
         System.out.println("rateFreq: " + rateFreq);
-        /**
-         * try (DataOutputStream dos = new DataOutputStream(new FileOutputStream(saveFile))) {
-         *
-         *
-         *
-         *         } catch (FileNotFoundException e) {
-         *             throw new RuntimeException(e);
-         *         } catch (IOException e) {
-         *             throw new RuntimeException(e);
-         *         }
-         */
+
+
+        try (DataOutputStream dos = new DataOutputStream(new FileOutputStream(saveFile))) {
+            dos.writeFloat(depthvalue);
+            dos.writeChars(waveformBuffer.toString());
+            dos.writeFloat(rateFreq);
+            dos.flush();
+
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
 
 
