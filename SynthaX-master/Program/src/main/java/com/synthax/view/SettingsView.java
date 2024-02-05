@@ -74,4 +74,9 @@ public class SettingsView implements Initializable {
             }
         });
     }
+
+    @FXML
+    public void onActionSavePresetTest() {
+        //showSavePresetDialog();
+    }
 }

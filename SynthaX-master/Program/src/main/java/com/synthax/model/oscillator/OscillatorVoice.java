@@ -86,6 +86,12 @@ public class OscillatorVoice extends Voice {
         return delay;
     }
 
+    /**
+     * [FK_A_OSC_002] Välja vågform M
+     * En användare ska kunna välja vågform på en oscillator
+     * Sätter värdet från WaveForm som fås av waveform i GUI till wavePlayer som är från nedbeadsproject
+     * -Kommentar av Ellie Rosander Utvecklare Sprint 1
+     */
     public void setWavePlayerBuffer(Buffer buffer){
         wavePlayer.setBuffer(buffer);
     }
