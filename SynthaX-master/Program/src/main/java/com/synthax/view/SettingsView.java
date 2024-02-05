@@ -77,6 +77,13 @@ public class SettingsView implements Initializable {
 
     @FXML
     public void onActionSavePresetTest() {
-        //showSavePresetDialog();
+        savePresetDialog();
+    }
+
+    public void savePresetDialog() {
+        String presetName = Dialogs.getTextInput("Preset Name", "Preset Name:", "currentPresetName");
+        if(presetName != null && !presetName.equals("")) {
+            synthaxView.onActionSavePresetTest(presetName);
+        }
     }
 }

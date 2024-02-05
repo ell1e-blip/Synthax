@@ -93,4 +93,21 @@ public class SynthaxLFO {
             depth.setValue(DEPTH_DISABLE);
         }
     }
+
+    public boolean getActive() {
+        return isActive;
+    }
+
+    public float getDepthValue() {
+        return depth.getValue();
+    }
+
+    public Buffer getWaveformBuffer() {
+        return lfo.getBuffer();
+    }
+
+    public float getRateFrequency() {
+        return lfo.getFrequency();
+    }
+
 }

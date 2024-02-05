@@ -1114,5 +1114,9 @@ public class SynthaxView implements Initializable {
             }
         });
     }
+
+    public void onActionSavePresetTest(String presetName) {
+        synthaxController.onSavePresetTest(presetName);
+    }
     //endregion initialize methods
 }

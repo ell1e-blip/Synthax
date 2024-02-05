@@ -32,6 +32,8 @@ public class SynthaxController {
     private final SynthaxView synthaxView;
     private final SeqPresetLoader seqPresetLoader;
 
+    private final ProgramPresetManager programPresetManager;
+
     private final Glide masterGainGlide;
     private final SynthaxLFO synthaxLFO;
     private final OscillatorManager oscillatorManager;
@@ -55,6 +57,9 @@ public class SynthaxController {
 
         sequencer = new Sequencer(this);
         seqPresetLoader = new SeqPresetLoader(sequencer);
+
+        programPresetManager = new ProgramPresetManager(this);
+
 
         masterGainGlide = new Glide(ac, 0.5f, 50);
         Gain masterGain = new Gain(ac, 1, masterGainGlide);
@@ -469,5 +474,15 @@ public class SynthaxController {
             }
         });
         voiceChanger.start();
+    }
+
+    public void onSavePresetTest(String presetname) {
+        /**boolean presetNameConflict = seqPresetLoader.presetExists(presetName);
+        if(presetNameConflict) {
+            synthaxView.showPresetSaveConflictPopup(presetName);
+        } else {
+            savePreset(presetName);
+        }**/
+        programPresetManager.savePresetGetFile(presetname, synthaxLFO);
     }
 }
