@@ -124,4 +124,8 @@ public class SynthaxDelay {
     public float getFeedbackDuration() {
         return feedbackDuration;
     }
+
+    public float getCachedDelayTime() {
+        return cachedDelayTime;
+    }
 }
