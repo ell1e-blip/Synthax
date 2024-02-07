@@ -4,6 +4,7 @@ import com.synthax.model.effects.SynthaxLFO;
 import net.beadsproject.beads.data.Buffer;
 
 import java.io.*;
+import java.util.ArrayList;
 
 public class ProgramPresetManager {
 
@@ -28,6 +29,25 @@ public class ProgramPresetManager {
 
     private File getFileFromPresetName(String presetName) {
         return new File(presetRoot, presetName + PRESET_FILE_EXTENSION);
+    }
+
+    public String[] getPresetNames() {
+        ArrayList<String> presetNames = new ArrayList<>();
+
+        File[] children = presetRoot.listFiles();
+        if(children != null) {
+            for(File child : children) {
+                if(child.isFile()) {
+                    String childName = child.getName();
+                    if(childName.endsWith(PRESET_FILE_EXTENSION)) {
+                        childName = childName.substring(0, childName.length() - 4);
+                        presetNames.add(childName);
+                    }
+                }
+            }
+        }
+
+        return presetNames.toArray(new String[0]);
     }
 
     private void savePreset(File saveFile, SynthaxLFO synthaxLFO) {
@@ -56,4 +76,6 @@ public class ProgramPresetManager {
 
     }
 
+    public void loadPreset(String presetName) {
+    }
 }

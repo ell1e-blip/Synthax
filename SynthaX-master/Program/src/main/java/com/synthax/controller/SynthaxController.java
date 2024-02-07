@@ -361,6 +361,7 @@ public class SynthaxController {
         synthaxView.setSequencerPresetList(presetNames, chosenPreset);
     }
 
+
     public void updateSequencerPresetList() {
         updateSequencerPresetList("");
     }
@@ -484,5 +485,38 @@ public class SynthaxController {
             savePreset(presetName);
         }**/
         programPresetManager.savePresetGetFile(presetname, synthaxLFO);
+        updateProgramPresetList(presetname);
+    }
+
+    public void updateProgramPresetList(String chosenPreset) {
+        String[] presetNames = programPresetManager.getPresetNames();
+        System.out.println(presetNames);
+        synthaxView.setProgramPresetList(presetNames, chosenPreset);
+    }
+
+    public void updateProgramPresetList() {
+        updateProgramPresetList("");
+    }
+
+    public String[] getProgramPresetList() {
+        return programPresetManager.getPresetNames();
+    }
+
+    public void onSelectProgramPreset(String presetName) {
+        if(presetName == null || presetName.equals("")) {
+            return;
+        }
+
+        Thread loader = new Thread(() -> {
+            // If sequencer is playing, stop it and do the loading after
+            boolean stopSuccessful = waitForSequencerToStop(250, "CANT LOAD WHILE SEQUENCER IS RUNNING!");
+
+            if(stopSuccessful) {
+                programPresetManager.loadPreset(presetName);
+                updateSequencerGUI();
+                updateSequencerStepsGUI();
+            }
+        });
+        loader.start();
     }
 }

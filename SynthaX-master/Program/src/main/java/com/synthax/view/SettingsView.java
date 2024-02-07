@@ -2,6 +2,8 @@ package com.synthax.view;
 
 import com.synthax.controller.VoiceController;
 import com.synthax.view.utils.Dialogs;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -9,12 +11,14 @@ import javafx.scene.layout.VBox;
 import org.controlsfx.control.ToggleSwitch;
 
 import java.net.URL;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 public class SettingsView implements Initializable {
     @FXML private ToggleSwitch toggleMonophonic;
     @FXML private VBox presetsList;
     @FXML private Spinner<Integer> voiceCountSpinner;
+    @FXML private ComboBox<String> cmbLoadPresets;
     private SynthaxView synthaxView;
 
 
@@ -38,8 +42,11 @@ public class SettingsView implements Initializable {
         }
     }
 
-    @FXML
-    public void onActionChooseFile() {
+    private void initProgramPresetButtons() {
+        synthaxView.updateProgramPresetList();
+
+
+         synthaxView.onSelectProgramPreset(cmbLoadPresets.getValue());
 
     }
 
@@ -65,6 +72,7 @@ public class SettingsView implements Initializable {
             setMonophonicState(newValue);
         });
 
+
         SpinnerValueFactory<Integer> svf = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, VoiceController.MAX_OSC_VOICE_COUNT, VoiceController.VOICE_COUNT);
         voiceCountSpinner.setValueFactory(svf);
         voiceCountSpinner.valueProperty().addListener((observableValue, oldValue, newValue) -> {
@@ -77,7 +85,9 @@ public class SettingsView implements Initializable {
 
     @FXML
     public void onActionSavePresetTest() {
+
         savePresetDialog();
+        initProgramPresetButtons();
     }
 
     public void savePresetDialog() {
@@ -85,5 +95,16 @@ public class SettingsView implements Initializable {
         if(presetName != null && !presetName.equals("")) {
             synthaxView.onActionSavePresetTest(presetName);
         }
+    }
+
+    public void setProgramPresetList(String[] presetNames, String chosenPreset) {
+        Platform.runLater(() -> {
+            cmbLoadPresets.setItems(FXCollections.observableList(Arrays.stream(presetNames).toList()));
+            if (chosenPreset.equals("")) {
+                cmbLoadPresets.getSelectionModel().selectFirst();
+            } else {
+                cmbLoadPresets.getSelectionModel().select(chosenPreset);
+            }
+        });
     }
 }

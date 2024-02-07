@@ -232,6 +232,8 @@ public class SynthaxView implements Initializable {
 
     private int easterCounter = 0;
 
+    private SettingsView settingsView;
+
     public SynthaxView() {
         synthaxController = new SynthaxController(this);
     }
@@ -402,8 +404,9 @@ public class SynthaxView implements Initializable {
                 URL fxmlLocation = MainApplication.class.getResource("view/Settings-view.fxml");
                 FXMLLoader fxmlLoader = new FXMLLoader(fxmlLocation);
                 Node settingsRoot = fxmlLoader.load();
-                SettingsView settingsView = fxmlLoader.getController();
+                settingsView = fxmlLoader.getController();
                 settingsView.populatePresetsBox(synthaxController.getSequencerPresetList(), this);
+                synthaxController.updateProgramPresetList();
                 popOverSettings = new PopOver(settingsRoot);
                 popOverSettings.setTitle("Settings");
                 popOverSettings.setDetachable(false);
@@ -1117,6 +1120,19 @@ public class SynthaxView implements Initializable {
 
     public void onActionSavePresetTest(String presetName) {
         synthaxController.onSavePresetTest(presetName);
+    }
+
+    public void setProgramPresetList(String[] presetNames, String chosenPreset) {
+        settingsView.setProgramPresetList(presetNames, chosenPreset);
+
+    }
+
+    public void updateProgramPresetList() {
+        synthaxController.updateProgramPresetList();
+    }
+
+    public void onSelectProgramPreset(String value) {
+        synthaxController.onSelectProgramPreset(value);
     }
     //endregion initialize methods
 }
