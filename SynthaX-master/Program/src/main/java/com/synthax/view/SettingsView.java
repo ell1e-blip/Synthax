@@ -44,9 +44,12 @@ public class SettingsView implements Initializable {
 
     private void initProgramPresetButtons() {
         synthaxView.updateProgramPresetList();
+        cmbLoadPresets.setOnAction(actionEvent -> {
+            synthaxView.onSelectProgramPreset(cmbLoadPresets.getValue());
+        });
 
 
-         synthaxView.onSelectProgramPreset(cmbLoadPresets.getValue());
+
 
     }
 
@@ -60,6 +63,7 @@ public class SettingsView implements Initializable {
 
     public void populatePresetsBox(String[] presetName, SynthaxView synthaxView) {
         this.synthaxView = synthaxView;
+        initProgramPresetButtons();
         for (String s : presetName) {
             presetsList.getChildren().add(new CheckBox(s));
         }
@@ -71,7 +75,6 @@ public class SettingsView implements Initializable {
         toggleMonophonic.selectedProperty().addListener((observableValue, oldValue, newValue) -> {
             setMonophonicState(newValue);
         });
-
 
         SpinnerValueFactory<Integer> svf = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, VoiceController.MAX_OSC_VOICE_COUNT, VoiceController.VOICE_COUNT);
         voiceCountSpinner.setValueFactory(svf);
@@ -101,9 +104,9 @@ public class SettingsView implements Initializable {
         Platform.runLater(() -> {
             cmbLoadPresets.setItems(FXCollections.observableList(Arrays.stream(presetNames).toList()));
             if (chosenPreset.equals("")) {
-                cmbLoadPresets.getSelectionModel().selectFirst();
+                //cmbLoadPresets.getSelectionModel().selectFirst();
             } else {
-                cmbLoadPresets.getSelectionModel().select(chosenPreset);
+                //cmbLoadPresets.getSelectionModel().select(chosenPreset);
             }
         });
     }

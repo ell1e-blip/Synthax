@@ -77,5 +77,6 @@ public class ProgramPresetManager {
     }
 
     public void loadPreset(String presetName) {
+        System.out.println(presetName + "IN LOAD PRESET METHOD");
     }
 }
