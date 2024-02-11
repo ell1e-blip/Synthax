@@ -512,7 +512,7 @@ public class SynthaxController {
             boolean stopSuccessful = waitForSequencerToStop(250, "CANT LOAD WHILE SEQUENCER IS RUNNING!");
 
             if(stopSuccessful) {
-                programPresetManager.loadPreset(presetName);
+                programPresetManager.loadPreset(presetName, synthaxLFO);
                 updateSequencerGUI();
                 updateSequencerStepsGUI();
             }
