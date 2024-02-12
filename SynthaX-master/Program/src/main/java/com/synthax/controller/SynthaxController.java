@@ -12,6 +12,7 @@ import com.synthax.model.sequencer.SequencerStep;
 import com.synthax.view.SynthaxView;
 import net.beadsproject.beads.core.AudioContext;
 import net.beadsproject.beads.core.io.JavaSoundAudioIO;
+import net.beadsproject.beads.data.Buffer;
 import net.beadsproject.beads.ugens.*;
 
 import java.util.Random;
@@ -162,6 +163,8 @@ public class SynthaxController {
     public void setLFOWaveform(Waveforms waveform) {
         synthaxLFO.setWaveform(waveform);
     }
+
+
 
     public void setLFOActive() {
         synthaxLFO.setActive();
@@ -512,11 +515,28 @@ public class SynthaxController {
             boolean stopSuccessful = waitForSequencerToStop(250, "CANT LOAD WHILE SEQUENCER IS RUNNING!");
 
             if(stopSuccessful) {
-                programPresetManager.loadPreset(presetName, synthaxLFO);
+                programPresetManager.loadPreset(presetName);
                 updateSequencerGUI();
                 updateSequencerStepsGUI();
             }
         });
         loader.start();
+    }
+
+    public void setViewLFODepth(float depthvalue) {
+        synthaxView.setKnobLFODepth(depthvalue);
+    }
+
+    public void setLFOBuffer(Buffer waveformBuffer) {
+        synthaxLFO.setBuffer(waveformBuffer);
+    }
+
+    public void setViewLFORate(Float rateFreq) {
+        synthaxView.setKnobLFORate(rateFreq);
+    }
+
+    public void setViewLFOBuffer(Buffer waveformBuffer) {
+        synthaxView.setKnobLFOWaveForm(waveformBuffer);
+
     }
 }

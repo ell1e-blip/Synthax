@@ -37,6 +37,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import net.beadsproject.beads.data.Buffer;
 import org.controlsfx.control.PopOver;
 
 import java.io.File;
@@ -228,11 +229,20 @@ public class SynthaxView implements Initializable {
     private PopOver popOverHelp;
     private PopOver popOverSettings;
 
+
+
+
     private final SynthaxController synthaxController;
 
     private int easterCounter = 0;
 
     private SettingsView settingsView;
+
+    KnobBehavior bKnobLFODepth;
+
+    KnobBehavior bKnobLFORate;
+
+    KnobBehaviorWave bKnobLFOWaveform;
 
     public SynthaxView() {
         synthaxController = new SynthaxController(this);
@@ -980,21 +990,28 @@ public class SynthaxView implements Initializable {
         });
     }
 
+    public void setKnobLFODepth(Float depth) {
+        bKnobLFODepth.setRotation(depth);
+    }
+
+
     private void initLFO() {
-        KnobBehavior bKnobLFODepth = new KnobBehavior(knobLFODepth);
+        bKnobLFODepth = new KnobBehavior(knobLFODepth);
+
         knobLFODepth.setOnMouseDragged(bKnobLFODepth);
         bKnobLFODepth.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setLFODepth(newValue.floatValue());
         });
 
-        KnobBehavior bKnobLFORate = new KnobBehavior(knobLFORate);
+        bKnobLFORate = new KnobBehavior(knobLFORate);
         knobLFORate.setOnMouseDragged(bKnobLFORate);
         bKnobLFORate.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setLFORate(newValue.floatValue());
         });
 
-        KnobBehaviorWave bKnobLFOWaveform = new KnobBehaviorWave(knobLFOWaveForm);
+        bKnobLFOWaveform = new KnobBehaviorWave(knobLFOWaveForm);
         knobLFOWaveForm.setOnMouseDragged(bKnobLFOWaveform);
+
         bKnobLFOWaveform.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setLFOWaveform(Waveforms.values()[newValue.intValue()]);
         });
@@ -1133,6 +1150,18 @@ public class SynthaxView implements Initializable {
 
     public void onSelectProgramPreset(String value) {
         synthaxController.onSelectProgramPreset(value);
+    }
+
+    public void setKnobLFORate(Float rateFreq) {
+        bKnobLFORate.setRotation(rateFreq);
+    }
+
+    public void setKnobLFOWaveForm(Buffer waveformBuffer) {
+        // to do
+        Double value = 225.0;
+        bKnobLFOWaveform.setRotation(value);
+
+
     }
     //endregion initialize methods
 }

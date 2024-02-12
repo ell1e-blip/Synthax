@@ -1,6 +1,7 @@
 package com.synthax.controller;
 
 import com.synthax.model.effects.SynthaxLFO;
+import com.synthax.model.enums.Waveforms;
 import net.beadsproject.beads.data.Buffer;
 
 import java.io.*;
@@ -58,7 +59,7 @@ public class ProgramPresetManager {
 
     private void savePreset(File saveFile, SynthaxLFO synthaxLFO) {
         float depthvalue = synthaxLFO.getDepthValue();
-        Buffer waveformBuffer = synthaxLFO.getWaveformBuffer();
+        Buffer waveformBuffer = synthaxLFO.getWaveformBuffer();;
         float rateFreq = synthaxLFO.getRateFrequency();
         System.out.println("depthvalue: " + depthvalue);
         System.out.println("Buffer: " + waveformBuffer.toString());
@@ -89,7 +90,7 @@ public class ProgramPresetManager {
 
     }
 
-    public void loadPreset(String presetName, SynthaxLFO synthaxLFO) {
+    public void loadPreset(String presetName) {
         System.out.println(presetName + "IN LOAD PRESET METHOD");
         File presetToLoad = getFileFromPresetName(presetName);
         boolean loadOk = false;
@@ -98,7 +99,7 @@ public class ProgramPresetManager {
         if(children != null) {
             for(File child : children) {
                 if(child.equals(presetToLoad)) {
-                    loadPreset(presetToLoad, synthaxLFO);
+                    loadPreset(presetToLoad);
                     loadOk = true;
                     break;
                 }
@@ -110,7 +111,7 @@ public class ProgramPresetManager {
         }
     }
 
-    private void loadPreset(File loadFile, SynthaxLFO synthaxLFO) {
+    private void loadPreset(File loadFile) {
         System.out.println("LOADING: " + loadFile);
 
 
@@ -153,7 +154,16 @@ public class ProgramPresetManager {
             System.out.println(depthvalue);
             System.out.println(waveformBuffer.toString());
             System.out.println(rateFreq);
-            synthaxLFO.setDepth(depthvalue);
+
+            synthaxController.setLFODepth(depthvalue);
+            synthaxController.setLFOBuffer(waveformBuffer);
+            synthaxController.setLFORate(rateFreq);
+
+            synthaxController.setViewLFODepth(depthvalue);
+            synthaxController.setViewLFORate(rateFreq);
+            synthaxController.setViewLFOBuffer(waveformBuffer);
+
+
 
         } catch (IOException e) {
             e.printStackTrace();

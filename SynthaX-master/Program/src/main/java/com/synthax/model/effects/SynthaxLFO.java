@@ -66,7 +66,14 @@ public class SynthaxLFO {
     }
 
     public void setWaveform(Waveforms waveform) {
+        System.out.println(waveform.getBuffer());
         lfo.setBuffer(waveform.getBuffer());
+    }
+
+
+    public void setBuffer(Buffer buff) {
+        System.out.println(buff);
+        lfo.setBuffer(buff);
     }
 
     public void setRate(float rate) {
@@ -99,6 +106,7 @@ public class SynthaxLFO {
     }
 
     public float getDepthValue() {
+        System.out.println("DEPTH FROM LFO" + depth.getValue());
         return depth.getValue();
     }
 

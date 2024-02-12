@@ -45,6 +45,7 @@ public class SettingsView implements Initializable {
     private void initProgramPresetButtons() {
         synthaxView.updateProgramPresetList();
         cmbLoadPresets.setOnAction(actionEvent -> {
+            System.out.println(cmbLoadPresets.getValue());
             synthaxView.onSelectProgramPreset(cmbLoadPresets.getValue());
         });
 
