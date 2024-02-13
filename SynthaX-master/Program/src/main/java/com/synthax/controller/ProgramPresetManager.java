@@ -58,36 +58,43 @@ public class ProgramPresetManager {
     }
 
     private void savePreset(File saveFile, SynthaxLFO synthaxLFO) {
-        float depthvalue = synthaxLFO.getDepthValue();
-        Buffer waveformBuffer = synthaxLFO.getWaveformBuffer();;
-        float rateFreq = synthaxLFO.getRateFrequency();
-        System.out.println("depthvalue: " + depthvalue);
-        System.out.println("Buffer: " + waveformBuffer.toString());
-        System.out.println("rateFreq: " + rateFreq);
+        Boolean active = synthaxLFO.getActive();
+        if(active) {
+            float depthvalue = synthaxLFO.getDepthValue();
+            Buffer waveformBuffer = synthaxLFO.getWaveformBuffer();;
+            float rateFreq = synthaxLFO.getRateFrequency();
+            float knobRate = synthaxController.getViewLFORate();
+            System.out.println("depthvalue: " + depthvalue);
+            System.out.println("Buffer: " + waveformBuffer.toString());
+            System.out.println("rateFreq: " + rateFreq);
+            System.out.println("knobRate" + knobRate);
 
 
-        try (DataOutputStream dos = new DataOutputStream(new FileOutputStream(saveFile))) {
-            dos.writeInt(PRESET_UID);
-            dos.writeInt(PRESET_VERSION_ID);
-            dos.writeFloat(depthvalue);
-            int bufferSize = waveformBuffer.buf.length;
-            dos.writeInt(bufferSize);
+            try (DataOutputStream dos = new DataOutputStream(new FileOutputStream(saveFile))) {
+                dos.writeInt(PRESET_UID);
+                dos.writeInt(PRESET_VERSION_ID);
+                dos.writeFloat(depthvalue);
+                int bufferSize = waveformBuffer.buf.length;
+                dos.writeInt(bufferSize);
 
-            // Save each float value
-            for (float value : waveformBuffer.buf) {
-                dos.writeFloat(value);
+                // Save each float value
+                for (float value : waveformBuffer.buf) {
+                    dos.writeFloat(value);
+                }
+                dos.writeFloat(rateFreq);
+                dos.writeFloat(knobRate);
+                dos.flush();
+
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
-            dos.writeFloat(rateFreq);
-            dos.flush();
 
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+
+
+
         }
-
-
-
     }
 
     public void loadPreset(String presetName) {
@@ -151,17 +158,24 @@ public class ProgramPresetManager {
                 // Handle the exception appropriately
             }
             Float rateFreq = dis.readFloat();
+            Float knobRate = dis.readFloat();
+
+            dis.close();
+
             System.out.println(depthvalue);
             System.out.println(waveformBuffer.toString());
             System.out.println(rateFreq);
+            System.out.println(knobRate);
 
             synthaxController.setLFODepth(depthvalue);
             synthaxController.setLFOBuffer(waveformBuffer);
             synthaxController.setLFORate(rateFreq);
 
+
             synthaxController.setViewLFODepth(depthvalue);
-            synthaxController.setViewLFORate(rateFreq);
+            synthaxController.setViewLFORate(knobRate);
             synthaxController.setViewLFOBuffer(waveformBuffer);
+
 
 
 

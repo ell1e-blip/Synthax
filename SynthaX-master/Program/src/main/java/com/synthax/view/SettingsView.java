@@ -95,10 +95,15 @@ public class SettingsView implements Initializable {
     }
 
     public void savePresetDialog() {
-        String presetName = Dialogs.getTextInput("Preset Name", "Preset Name:", "currentPresetName");
-        if(presetName != null && !presetName.equals("")) {
-            synthaxView.onActionSavePresetTest(presetName);
+        int answer = Dialogs.getConfirmationYesNoCancel("Information", "Only components that are set to active can ba saved");
+        if(answer == 1) {
+            String presetName = Dialogs.getTextInput("Preset Name", "Preset Name:", "currentPresetName");
+            if(presetName != null && !presetName.equals("")) {
+                synthaxView.onActionSavePresetTest(presetName);
+            }
+
         }
+
     }
 
     public void setProgramPresetList(String[] presetNames, String chosenPreset) {

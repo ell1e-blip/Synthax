@@ -229,9 +229,6 @@ public class SynthaxView implements Initializable {
     private PopOver popOverHelp;
     private PopOver popOverSettings;
 
-
-
-
     private final SynthaxController synthaxController;
 
     private int easterCounter = 0;
@@ -243,6 +240,8 @@ public class SynthaxView implements Initializable {
     KnobBehavior bKnobLFORate;
 
     KnobBehaviorWave bKnobLFOWaveform;
+
+
 
     public SynthaxView() {
         synthaxController = new SynthaxController(this);
@@ -990,9 +989,7 @@ public class SynthaxView implements Initializable {
         });
     }
 
-    public void setKnobLFODepth(Float depth) {
-        bKnobLFODepth.setRotation(depth);
-    }
+
 
 
     private void initLFO() {
@@ -1152,16 +1149,60 @@ public class SynthaxView implements Initializable {
         synthaxController.onSelectProgramPreset(value);
     }
 
+    public float getKnobLFORate() {
+        return bKnobLFORate.getRotation();
+    }
+
     public void setKnobLFORate(Float rateFreq) {
+
+        bKnobLFORate = new KnobBehavior(knobLFORate);
+
+
         bKnobLFORate.setRotation(rateFreq);
+        knobLFORate.setOnMouseDragged(bKnobLFORate);
+
+
+        bKnobLFORate.knobValueProperty().addListener((v, oldValue, newValue) -> {
+            synthaxController.setLFORate(newValue.floatValue());
+        });
+    }
+    public void setKnobLFODepth(Float depth) {
+
+        bKnobLFODepth = new KnobBehavior(knobLFODepth);
+
+        bKnobLFODepth.setRotation(depth);
+
+        knobLFODepth.setOnMouseDragged(bKnobLFODepth);
+        bKnobLFODepth.knobValueProperty().addListener((v, oldValue, newValue) -> {
+            synthaxController.setLFODepth(newValue.floatValue());
+        });
     }
 
     public void setKnobLFOWaveForm(Buffer waveformBuffer) {
-        // to do
+
+        bKnobLFOWaveform = new KnobBehaviorWave(knobLFOWaveForm);
+
         Double value = 225.0;
+        if(waveformBuffer.toString().contains("0.0 0.0015339801 0.0030679568")) {
+            value = 225.0;
+        } else if (waveformBuffer.toString().contains("1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0")) {
+            value = 315.0;
+        } else if (waveformBuffer.toString().contains("-1.0 -0.9995117 -0.99902344 -0.99853516 -0.9980469")) {
+            value = 45.0;
+        } else if (waveformBuffer.toString().contains("-1.0 -0.99902344 -0.9980469 -0.9970703 -0.99609375")) {
+            value = 135.0;
+        }
         bKnobLFOWaveform.setRotation(value);
+
+        knobLFOWaveForm.setOnMouseDragged(bKnobLFOWaveform);
+
+        bKnobLFOWaveform.knobValueProperty().addListener((v, oldValue, newValue) -> {
+            synthaxController.setLFOWaveform(Waveforms.values()[newValue.intValue()]);
+        });
 
 
     }
+
+
     //endregion initialize methods
 }

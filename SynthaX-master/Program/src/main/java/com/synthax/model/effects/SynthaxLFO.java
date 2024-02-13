@@ -118,4 +118,5 @@ public class SynthaxLFO {
         return lfo.getFrequency();
     }
 
+
 }

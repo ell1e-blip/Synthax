@@ -152,13 +152,6 @@ public class SynthaxController {
     //endregion Filters
 
     //region LFO (click to open/collapse)
-    public void setLFODepth(float depth) {
-        synthaxLFO.setDepth(depth);
-    }
-
-    public void setLFORate(float rate) {
-        synthaxLFO.setRate(rate);
-    }
 
     public void setLFOWaveform(Waveforms waveform) {
         synthaxLFO.setWaveform(waveform);
@@ -523,20 +516,36 @@ public class SynthaxController {
         loader.start();
     }
 
+
+
+    public void setLFODepth(float depth) {
+        synthaxLFO.setDepth(depth);
+    }
+
     public void setViewLFODepth(float depthvalue) {
         synthaxView.setKnobLFODepth(depthvalue);
     }
 
-    public void setLFOBuffer(Buffer waveformBuffer) {
-        synthaxLFO.setBuffer(waveformBuffer);
+    public void setLFORate(float rate) {
+        synthaxLFO.setRate(rate);
+    }
+
+    public float getViewLFORate() {
+        return synthaxView.getKnobLFORate();
     }
 
     public void setViewLFORate(Float rateFreq) {
         synthaxView.setKnobLFORate(rateFreq);
     }
 
+
+    public void setLFOBuffer(Buffer waveformBuffer) {
+        synthaxLFO.setBuffer(waveformBuffer);
+    }
+
     public void setViewLFOBuffer(Buffer waveformBuffer) {
         synthaxView.setKnobLFOWaveForm(waveformBuffer);
 
     }
+
 }
