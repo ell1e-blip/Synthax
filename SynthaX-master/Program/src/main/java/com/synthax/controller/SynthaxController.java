@@ -533,6 +533,7 @@ public class SynthaxController {
 
             if(stopSuccessful) {
                 programPresetManager.loadPreset(presetName);
+
             }
         });
         loader.start();
