@@ -53,11 +53,24 @@ public class KnobBehavior implements EventHandler<MouseEvent> {
 
     public void setRotation(float value) {
         knob.setRotate(HelperMath.map(value, 0, 1, 210, 510));
-        knobValue.setValue(value);
+
+
+
     }
 
     public float getRotation() {
         return (float) knob.getRotate();
+    }
+
+    /*
+    @author Ellie Rosander
+    för att få in-värde mellan 0-1, så setRotation
+    ovan kan användas korrekt vid loadPreset
+     */
+    public float getInvalue(float value) {
+        float origValue = HelperMath.map(value, 210, 510, 0, 1);
+        System.out.println(origValue);
+        return origValue;
     }
 
 }

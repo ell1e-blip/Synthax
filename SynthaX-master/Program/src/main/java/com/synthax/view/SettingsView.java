@@ -42,6 +42,14 @@ public class SettingsView implements Initializable {
         }
     }
 
+    /**
+     * @author Ellie Rosander
+     * Används för att uppdatera och sätta actionEvent på cmbLoadPresets,
+     * för att ladda in program presets
+     * cmbLoadPresets är knapp tillagd av mig i
+     * Settings-view.fxml
+     */
+
     private void initProgramPresetButtons() {
         synthaxView.updateProgramPresetList();
         cmbLoadPresets.setOnAction(actionEvent -> {
@@ -87,6 +95,9 @@ public class SettingsView implements Initializable {
         });
     }
 
+    /**
+     * @author Ellie Rosander
+     */
     @FXML
     public void onActionSavePresetTest() {
 
@@ -94,6 +105,11 @@ public class SettingsView implements Initializable {
         initProgramPresetButtons();
     }
 
+    /**
+     * @author Ellie Rosander
+     * dialog som säger att komponenter måste ha  boolean isActive för att kunna sparas
+     * Samt tar namn på preset som ska sparas
+     */
     public void savePresetDialog() {
         int answer = Dialogs.getConfirmationYesNoCancel("Information", "Only components that are set to active can ba saved");
         if(answer == 1) {
@@ -106,6 +122,12 @@ public class SettingsView implements Initializable {
 
     }
 
+    /**
+     * @author Ellie Rosander
+     * metod för att uppdatera cmbLoadPresets med presets från resources>program_presets
+     * @param presetNames
+     * @param chosenPreset
+     */
     public void setProgramPresetList(String[] presetNames, String chosenPreset) {
         Platform.runLater(() -> {
             cmbLoadPresets.setItems(FXCollections.observableList(Arrays.stream(presetNames).toList()));

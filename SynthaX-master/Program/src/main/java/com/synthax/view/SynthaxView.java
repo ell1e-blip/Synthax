@@ -1132,10 +1132,19 @@ public class SynthaxView implements Initializable {
         });
     }
 
+    /**
+     * author Ellie Rosander
+     * @param presetName
+     */
     public void onActionSavePresetTest(String presetName) {
         synthaxController.onSavePresetTest(presetName);
     }
 
+    /**
+     * author Ellie Rosander
+     * @param presetNames
+     * @param chosenPreset
+     */
     public void setProgramPresetList(String[] presetNames, String chosenPreset) {
         settingsView.setProgramPresetList(presetNames, chosenPreset);
 
@@ -1145,6 +1154,10 @@ public class SynthaxView implements Initializable {
         synthaxController.updateProgramPresetList();
     }
 
+    /**
+     * author Ellie Rosander
+     * @param value
+     */
     public void onSelectProgramPreset(String value) {
         synthaxController.onSelectProgramPreset(value);
     }
@@ -1153,34 +1166,39 @@ public class SynthaxView implements Initializable {
         return bKnobLFORate.getRotation();
     }
 
+    /**
+     * author Ellie Rosander
+     * för att uppdatera knob LFO > Rate
+     * bug: Går ej att dra "ned" efter loadPreset, verkar som laddad position blir
+     * ny min position.
+     */
     public void setKnobLFORate(Float rateFreq) {
 
-        bKnobLFORate = new KnobBehavior(knobLFORate);
 
+        float orig = bKnobLFORate.getInvalue(rateFreq);
+        bKnobLFORate.setRotation(orig);
 
-        bKnobLFORate.setRotation(rateFreq);
-        knobLFORate.setOnMouseDragged(bKnobLFORate);
-
-
-        bKnobLFORate.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            synthaxController.setLFORate(newValue.floatValue());
-        });
+        /**
+         * author Ellie Rosander
+         * för att uppdatera knob LFO > Depth
+         * bug: Går ej att dra "ned" efter loadPreset, verkar som laddad position blir
+         * ny min position.
+         */
     }
     public void setKnobLFODepth(Float depth) {
 
-        bKnobLFODepth = new KnobBehavior(knobLFODepth);
-
         bKnobLFODepth.setRotation(depth);
-
-        knobLFODepth.setOnMouseDragged(bKnobLFODepth);
-        bKnobLFODepth.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            synthaxController.setLFODepth(newValue.floatValue());
-        });
     }
 
+    /**
+     * @author Ellie Rosander
+     * metod för att spara waveformBuffer,
+     * vilken kan vara satt på 4 lägen.
+     * Detta är kanske en lite ful lösning, men jag har tagit en sekvens siffror från buffern,
+     * för att se vilken position knobben ska sättas till.
+     * @param waveformBuffer
+     */
     public void setKnobLFOWaveForm(Buffer waveformBuffer) {
-
-        bKnobLFOWaveform = new KnobBehaviorWave(knobLFOWaveForm);
 
         Double value = 225.0;
         if(waveformBuffer.toString().contains("0.0 0.0015339801 0.0030679568")) {
@@ -1193,12 +1211,6 @@ public class SynthaxView implements Initializable {
             value = 135.0;
         }
         bKnobLFOWaveform.setRotation(value);
-
-        knobLFOWaveForm.setOnMouseDragged(bKnobLFOWaveform);
-
-        bKnobLFOWaveform.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            synthaxController.setLFOWaveform(Waveforms.values()[newValue.intValue()]);
-        });
 
 
     }

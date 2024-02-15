@@ -352,6 +352,10 @@ public class SynthaxController {
         synthaxView.setSequencerNSteps(sequencer.getNSteps());
     }
 
+    private void updateLFOGUI() {
+        synthaxView.setKnobLFODepth(synthaxLFO.getDepthValue());
+    }
+
     public void updateSequencerPresetList(String chosenPreset) {
         String[] presetNames = seqPresetLoader.getPresetNames();
         synthaxView.setSequencerPresetList(presetNames, chosenPreset);
@@ -473,6 +477,10 @@ public class SynthaxController {
         voiceChanger.start();
     }
 
+    /**
+     * author Ellie Rosander
+     * @param presetname
+     */
     public void onSavePresetTest(String presetname) {
         /**boolean presetNameConflict = seqPresetLoader.presetExists(presetName);
         if(presetNameConflict) {
@@ -480,24 +488,40 @@ public class SynthaxController {
         } else {
             savePreset(presetName);
         }**/
-        programPresetManager.savePresetGetFile(presetname, synthaxLFO);
+        programPresetManager.savePresetGetFile(presetname);
         updateProgramPresetList(presetname);
     }
 
+    /**
+     * author Ellie Rosander
+     * @param chosenPreset
+     */
     public void updateProgramPresetList(String chosenPreset) {
         String[] presetNames = programPresetManager.getPresetNames();
         System.out.println(presetNames);
         synthaxView.setProgramPresetList(presetNames, chosenPreset);
     }
 
+    /**
+     * author Ellie Rosander
+     */
     public void updateProgramPresetList() {
         updateProgramPresetList("");
     }
 
+    /**
+     * author Ellie Rosander
+     * vet inte om behövs, kan ev tas bort
+     * @return
+     */
     public String[] getProgramPresetList() {
         return programPresetManager.getPresetNames();
     }
 
+    /**
+     * author Ellie Rosander
+     * @param presetName
+     */
     public void onSelectProgramPreset(String presetName) {
         if(presetName == null || presetName.equals("")) {
             return;
@@ -509,43 +533,116 @@ public class SynthaxController {
 
             if(stopSuccessful) {
                 programPresetManager.loadPreset(presetName);
-                updateSequencerGUI();
-                updateSequencerStepsGUI();
             }
         });
         loader.start();
     }
 
-
+    /**
+     * author Ellie Rosander
+     * @param depth
+     */
 
     public void setLFODepth(float depth) {
         synthaxLFO.setDepth(depth);
     }
 
+    /**
+     * author Ellie Rosander
+     * @param depthvalue
+     */
     public void setViewLFODepth(float depthvalue) {
         synthaxView.setKnobLFODepth(depthvalue);
     }
 
+    /**
+     * author Ellie Rosander
+     * @param rate
+     */
     public void setLFORate(float rate) {
         synthaxLFO.setRate(rate);
     }
 
+    /**
+     * author Ellie Rosander
+     * @return
+     */
     public float getViewLFORate() {
         return synthaxView.getKnobLFORate();
     }
 
+    /**
+     * author Ellie Rosander
+     * @param rateFreq
+     */
     public void setViewLFORate(Float rateFreq) {
         synthaxView.setKnobLFORate(rateFreq);
     }
 
+    /**
+     * author Ellie Rosander
+     * @param waveformBuffer
+     */
 
     public void setLFOBuffer(Buffer waveformBuffer) {
         synthaxLFO.setBuffer(waveformBuffer);
     }
 
+    /**
+     * author Ellie Rosander
+     * @param waveformBuffer
+     */
     public void setViewLFOBuffer(Buffer waveformBuffer) {
         synthaxView.setKnobLFOWaveForm(waveformBuffer);
 
+    }
+
+    /**
+     * Author Ellie Rosander
+     * @return
+     */
+    public Boolean getLFOActive() {
+        return synthaxLFO.getActive();
+    }
+
+    /**
+     * author ellie Rosander
+     * @return
+     */
+    public float getLFODepth() {
+        return synthaxLFO.getDepthValue();
+    }
+
+    /**
+     * Author Ellie Rosander
+     * @return
+     */
+    public Buffer getLFOWaveForm() {
+        return synthaxLFO.getWaveformBuffer();
+    }
+
+    /**
+     * Author Ellie Rosander
+     * @return
+     */
+    public float getLFOrate() {
+        return synthaxLFO.getRateFrequency();
+    }
+
+    /**
+     * Author Ellie Rosander
+     * @return
+     */
+    public float getLFOPhase() {
+        return synthaxLFO.getPhase();
+    }
+
+    /**
+     * Author Ellie Rosander
+     * @param phase
+     */
+    public void setLFOPhase(Float phase) {
+        synthaxLFO.setPhase(phase);
     }
 
 }

@@ -105,18 +105,45 @@ public class SynthaxLFO {
         return isActive;
     }
 
+    /**
+     * author Ellie Rosander
+     * @return
+     */
     public float getDepthValue() {
         System.out.println("DEPTH FROM LFO" + depth.getValue());
         return depth.getValue();
     }
 
+    /**
+     * author Ellie Rosander
+     * @return
+     */
     public Buffer getWaveformBuffer() {
         return lfo.getBuffer();
     }
 
+    /**
+     * author Ellie Rosander
+     * @return
+     */
     public float getRateFrequency() {
         return lfo.getFrequency();
     }
 
+    /**
+     * author Ellie Rosander
+     * @return
+     */
+    public float getPhase() {
+        return lfo.getPhase();
+    }
 
+    /**
+     * author ellie Rosander
+     * @param phase
+     */
+
+    public void setPhase(Float phase) {
+        lfo.setPhase(phase);
+    }
 }

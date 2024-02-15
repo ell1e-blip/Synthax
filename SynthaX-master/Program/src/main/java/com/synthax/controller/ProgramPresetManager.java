@@ -8,6 +8,11 @@ import java.io.*;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 
+/**
+ * @author Ellie Rosander
+ * Class for saving and loading preset of the program settings
+ *
+ */
 public class ProgramPresetManager {
 
     private final SynthaxController synthaxController;
@@ -27,10 +32,10 @@ public class ProgramPresetManager {
         this.synthaxController = synthaxController;
     }
 
-    public void savePresetGetFile(String presetName, SynthaxLFO synthaxLFO) {
+    public void savePresetGetFile(String presetName) {
         if(presetName != null) {
             File saveFile = getFileFromPresetName(presetName);
-            savePreset(saveFile, synthaxLFO);
+            savePreset(saveFile);
         }
     }
 
@@ -57,12 +62,13 @@ public class ProgramPresetManager {
         return presetNames.toArray(new String[0]);
     }
 
-    private void savePreset(File saveFile, SynthaxLFO synthaxLFO) {
-        Boolean active = synthaxLFO.getActive();
+    private void savePreset(File saveFile) {
+        Boolean active = synthaxController.getLFOActive();
         if(active) {
-            float depthvalue = synthaxLFO.getDepthValue();
-            Buffer waveformBuffer = synthaxLFO.getWaveformBuffer();;
-            float rateFreq = synthaxLFO.getRateFrequency();
+            float depthvalue = synthaxController.getLFODepth();
+            Buffer waveformBuffer = synthaxController.getLFOWaveForm();
+            float rateFreq = synthaxController.getLFOrate();
+            float phase = synthaxController.getLFOPhase();
             float knobRate = synthaxController.getViewLFORate();
             System.out.println("depthvalue: " + depthvalue);
             System.out.println("Buffer: " + waveformBuffer.toString());
@@ -82,6 +88,7 @@ public class ProgramPresetManager {
                     dos.writeFloat(value);
                 }
                 dos.writeFloat(rateFreq);
+                dos.writeFloat(phase);
                 dos.writeFloat(knobRate);
                 dos.flush();
 
@@ -97,6 +104,10 @@ public class ProgramPresetManager {
         }
     }
 
+    /**
+     * author Ellie Rosander
+     * @param presetName
+     */
     public void loadPreset(String presetName) {
         System.out.println(presetName + "IN LOAD PRESET METHOD");
         File presetToLoad = getFileFromPresetName(presetName);
@@ -158,6 +169,7 @@ public class ProgramPresetManager {
                 // Handle the exception appropriately
             }
             Float rateFreq = dis.readFloat();
+            Float phase = dis.readFloat();
             Float knobRate = dis.readFloat();
 
             dis.close();
@@ -170,6 +182,7 @@ public class ProgramPresetManager {
             synthaxController.setLFODepth(depthvalue);
             synthaxController.setLFOBuffer(waveformBuffer);
             synthaxController.setLFORate(rateFreq);
+            synthaxController.setLFOPhase(phase);
 
 
             synthaxController.setViewLFODepth(depthvalue);
