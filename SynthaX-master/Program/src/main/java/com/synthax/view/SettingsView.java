@@ -2,6 +2,8 @@ package com.synthax.view;
 
 import com.synthax.controller.VoiceController;
 import com.synthax.view.utils.Dialogs;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -9,12 +11,14 @@ import javafx.scene.layout.VBox;
 import org.controlsfx.control.ToggleSwitch;
 
 import java.net.URL;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 public class SettingsView implements Initializable {
     @FXML private ToggleSwitch toggleMonophonic;
     @FXML private VBox presetsList;
     @FXML private Spinner<Integer> voiceCountSpinner;
+    @FXML private ComboBox<String> cmbLoadPresets;
     private SynthaxView synthaxView;
 
 
@@ -38,8 +42,23 @@ public class SettingsView implements Initializable {
         }
     }
 
-    @FXML
-    public void onActionChooseFile() {
+    /**
+     * @author Ellie Rosander
+     * Används för att uppdatera och sätta actionEvent på cmbLoadPresets,
+     * för att ladda in program presets
+     * cmbLoadPresets är knapp tillagd av mig i
+     * Settings-view.fxml
+     */
+
+    private void initProgramPresetButtons() {
+        synthaxView.updateProgramPresetList();
+        cmbLoadPresets.setOnAction(actionEvent -> {
+            System.out.println(cmbLoadPresets.getValue());
+            synthaxView.onSelectProgramPreset(cmbLoadPresets.getValue());
+        });
+
+
+
 
     }
 
@@ -53,6 +72,7 @@ public class SettingsView implements Initializable {
 
     public void populatePresetsBox(String[] presetName, SynthaxView synthaxView) {
         this.synthaxView = synthaxView;
+        initProgramPresetButtons();
         for (String s : presetName) {
             presetsList.getChildren().add(new CheckBox(s));
         }
@@ -75,8 +95,47 @@ public class SettingsView implements Initializable {
         });
     }
 
+    /**
+     * @author Ellie Rosander
+     */
     @FXML
     public void onActionSavePresetTest() {
-        //showSavePresetDialog();
+
+        savePresetDialog();
+        initProgramPresetButtons();
+    }
+
+    /**
+     * @author Ellie Rosander
+     * dialog som säger att komponenter måste ha  boolean isActive för att kunna sparas
+     * Samt tar namn på preset som ska sparas
+     */
+    public void savePresetDialog() {
+        int answer = Dialogs.getConfirmationYesNoCancel("Information", "Only components that are set to active can ba saved");
+        if(answer == 1) {
+            String presetName = Dialogs.getTextInput("Preset Name", "Preset Name:", "currentPresetName");
+            if(presetName != null && !presetName.equals("")) {
+                synthaxView.onActionSavePresetTest(presetName);
+            }
+
+        }
+
+    }
+
+    /**
+     * @author Ellie Rosander
+     * metod för att uppdatera cmbLoadPresets med presets från resources>program_presets
+     * @param presetNames
+     * @param chosenPreset
+     */
+    public void setProgramPresetList(String[] presetNames, String chosenPreset) {
+        Platform.runLater(() -> {
+            cmbLoadPresets.setItems(FXCollections.observableList(Arrays.stream(presetNames).toList()));
+            if (chosenPreset.equals("")) {
+                //cmbLoadPresets.getSelectionModel().selectFirst();
+            } else {
+                //cmbLoadPresets.getSelectionModel().select(chosenPreset);
+            }
+        });
     }
 }

@@ -37,6 +37,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import net.beadsproject.beads.data.Buffer;
 import org.controlsfx.control.PopOver;
 
 import java.io.File;
@@ -232,6 +233,16 @@ public class SynthaxView implements Initializable {
 
     private int easterCounter = 0;
 
+    private SettingsView settingsView;
+
+    KnobBehavior bKnobLFODepth;
+
+    KnobBehavior bKnobLFORate;
+
+    KnobBehaviorWave bKnobLFOWaveform;
+
+
+
     public SynthaxView() {
         synthaxController = new SynthaxController(this);
     }
@@ -402,8 +413,9 @@ public class SynthaxView implements Initializable {
                 URL fxmlLocation = MainApplication.class.getResource("view/Settings-view.fxml");
                 FXMLLoader fxmlLoader = new FXMLLoader(fxmlLocation);
                 Node settingsRoot = fxmlLoader.load();
-                SettingsView settingsView = fxmlLoader.getController();
+                settingsView = fxmlLoader.getController();
                 settingsView.populatePresetsBox(synthaxController.getSequencerPresetList(), this);
+                synthaxController.updateProgramPresetList();
                 popOverSettings = new PopOver(settingsRoot);
                 popOverSettings.setTitle("Settings");
                 popOverSettings.setDetachable(false);
@@ -977,21 +989,26 @@ public class SynthaxView implements Initializable {
         });
     }
 
+
+
+
     private void initLFO() {
-        KnobBehavior bKnobLFODepth = new KnobBehavior(knobLFODepth);
+        bKnobLFODepth = new KnobBehavior(knobLFODepth);
+
         knobLFODepth.setOnMouseDragged(bKnobLFODepth);
         bKnobLFODepth.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setLFODepth(newValue.floatValue());
         });
 
-        KnobBehavior bKnobLFORate = new KnobBehavior(knobLFORate);
+        bKnobLFORate = new KnobBehavior(knobLFORate);
         knobLFORate.setOnMouseDragged(bKnobLFORate);
         bKnobLFORate.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setLFORate(newValue.floatValue());
         });
 
-        KnobBehaviorWave bKnobLFOWaveform = new KnobBehaviorWave(knobLFOWaveForm);
+        bKnobLFOWaveform = new KnobBehaviorWave(knobLFOWaveForm);
         knobLFOWaveForm.setOnMouseDragged(bKnobLFOWaveform);
+
         bKnobLFOWaveform.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setLFOWaveform(Waveforms.values()[newValue.intValue()]);
         });
@@ -1114,5 +1131,90 @@ public class SynthaxView implements Initializable {
             }
         });
     }
+
+    /**
+     * author Ellie Rosander
+     * @param presetName
+     */
+    public void onActionSavePresetTest(String presetName) {
+        synthaxController.onSavePresetTest(presetName);
+    }
+
+    /**
+     * author Ellie Rosander
+     * @param presetNames
+     * @param chosenPreset
+     */
+    public void setProgramPresetList(String[] presetNames, String chosenPreset) {
+        settingsView.setProgramPresetList(presetNames, chosenPreset);
+
+    }
+
+    public void updateProgramPresetList() {
+        synthaxController.updateProgramPresetList();
+    }
+
+    /**
+     * author Ellie Rosander
+     * @param value
+     */
+    public void onSelectProgramPreset(String value) {
+        synthaxController.onSelectProgramPreset(value);
+    }
+
+    public float getKnobLFORate() {
+        return bKnobLFORate.getRotation();
+    }
+
+    /**
+     * author Ellie Rosander
+     * för att uppdatera knob LFO > Rate
+     * bug: Går ej att dra "ned" efter loadPreset, verkar som laddad position blir
+     * ny min position.
+     */
+    public void setKnobLFORate(Float rateFreq) {
+
+
+        float orig = bKnobLFORate.getInvalue(rateFreq);
+        bKnobLFORate.setRotation(orig);
+
+        /**
+         * author Ellie Rosander
+         * för att uppdatera knob LFO > Depth
+         * bug: Går ej att dra "ned" efter loadPreset, verkar som laddad position blir
+         * ny min position.
+         */
+    }
+    public void setKnobLFODepth(Float depth) {
+
+        bKnobLFODepth.setRotation(depth);
+    }
+
+    /**
+     * @author Ellie Rosander
+     * metod för att spara waveformBuffer,
+     * vilken kan vara satt på 4 lägen.
+     * Detta är kanske en lite ful lösning, men jag har tagit en sekvens siffror från buffern,
+     * för att se vilken position knobben ska sättas till.
+     * @param waveformBuffer
+     */
+    public void setKnobLFOWaveForm(Buffer waveformBuffer) {
+
+        Double value = 225.0;
+        if(waveformBuffer.toString().contains("0.0 0.0015339801 0.0030679568")) {
+            value = 225.0;
+        } else if (waveformBuffer.toString().contains("1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0")) {
+            value = 315.0;
+        } else if (waveformBuffer.toString().contains("-1.0 -0.9995117 -0.99902344 -0.99853516 -0.9980469")) {
+            value = 45.0;
+        } else if (waveformBuffer.toString().contains("-1.0 -0.99902344 -0.9980469 -0.9970703 -0.99609375")) {
+            value = 135.0;
+        }
+        bKnobLFOWaveform.setRotation(value);
+
+
+    }
+
+
     //endregion initialize methods
 }
