@@ -84,6 +84,10 @@ public class SynthaxController {
         oscillatorManager.moveOscillatorDown(oscillatorController);
     }
 
+    public Gain getLFOoutput() {
+        return synthaxLFO.getOutput();
+    }
+
 
     public void moveOscillatorUp(OscillatorController oscillatorController) {
         oscillatorManager.moveOscillatorUp(oscillatorController);

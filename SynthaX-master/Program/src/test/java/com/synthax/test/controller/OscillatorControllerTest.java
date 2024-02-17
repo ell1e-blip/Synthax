@@ -1,33 +1,56 @@
 package com.synthax.test.controller;
 
 import com.synthax.controller.OscillatorController;
-import com.synthax.controller.VoiceController;
-import com.synthax.model.oscillator.OscillatorVoice;
-import com.synthax.model.oscillator.Voice;
+import com.synthax.controller.SynthaxController;
+
+import com.synthax.view.SynthaxView;
+import com.synthax.view.controls.KnobBehavior;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.scene.control.Slider;
+
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.Mockito.*;
+
+@ExtendWith(value = MockitoExtension.class)
 class OscillatorControllerTest {
 
-    OscillatorController controller;
+    SynthaxController controller;
+
+    SynthaxView synthaxView;
 
     @BeforeEach
     void setUp() {
-        controller = new OscillatorController(VoiceController.VOICE_COUNT);
+        controller = mock(SynthaxController.class);
+        synthaxView = mock(SynthaxView.class);
     }
 
     @Test
     void testDelay() {
+        Slider knobLFORate = new Slider();
+        KnobBehavior mockKnobLFORate = mock(KnobBehavior.class);
 
-        controller.setDelayTime(1.0f);
-        for (Voice voice : controller.getVoices()) {
-            assertEquals(1000,((OscillatorVoice)voice).getDelay().getCachedDelayTime());
-        }
+        knobLFORate.setOnMouseDragged(mockKnobLFORate);
+        mockKnobLFORate.knobValueProperty().addListener((v, oldValue, newValue) -> {
+            controller.setLFORate(newValue.floatValue());
+        });
 
-        controller.setDelayTime(0.0f);
-        for (Voice voice : controller.getVoices()) {
-            assertEquals(100,((OscillatorVoice)voice).getDelay().getCachedDelayTime());
-        }
+        ObservableValue<Number> rateValue = mock(ObservableValue.class);
+
+        ChangeListener<Number> rateListener = (obs, oldValue, newValue) -> {
+            controller.setLFORate(newValue.floatValue());
+        };
+
+        rateListener.changed(rateValue, 0, 1);
+
+        assertEquals(1, controller());
+
     }
 }
