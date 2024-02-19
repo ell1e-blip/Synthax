@@ -110,8 +110,11 @@ public class SynthaxLFO {
      * @return
      */
     public float getDepthValue() {
-        System.out.println("DEPTH FROM LFO" + depth.getValue());
-        return depth.getValue();
+        if(isActive) {
+            return this.depth.getValue();
+        } else {
+            return this.savedDepth;
+        }
     }
 
     /**
@@ -127,6 +130,7 @@ public class SynthaxLFO {
      * @return
      */
     public float getRateFrequency() {
+        System.out.println(lfo.getFrequency());
         return lfo.getFrequency();
     }
 

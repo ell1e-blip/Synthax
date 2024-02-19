@@ -1215,6 +1215,10 @@ public class SynthaxView implements Initializable {
 
     }
 
+    public Button getLFORateKnobForTest() {
+        return knobLFORate;
+    }
+
 
     //endregion initialize methods
 }
