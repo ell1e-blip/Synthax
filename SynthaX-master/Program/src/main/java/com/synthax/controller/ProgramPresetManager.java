@@ -70,11 +70,13 @@ public class ProgramPresetManager {
             float rateFreq = synthaxController.getLFOrate();
             float phase = synthaxController.getLFOPhase();
             float knobRate = synthaxController.getViewLFORate();
+
+            /*
             System.out.println("depthvalue: " + depthvalue);
             System.out.println("Buffer: " + waveformBuffer.toString());
             System.out.println("rateFreq: " + rateFreq);
             System.out.println("knobRate" + knobRate);
-
+            */
 
             try (DataOutputStream dos = new DataOutputStream(new FileOutputStream(saveFile))) {
                 dos.writeInt(PRESET_UID);
@@ -174,10 +176,12 @@ public class ProgramPresetManager {
 
             dis.close();
 
+            /*
             System.out.println(depthvalue);
             System.out.println(waveformBuffer.toString());
             System.out.println(rateFreq);
             System.out.println(knobRate);
+             */
 
             synthaxController.setLFODepth(depthvalue);
            // synthaxController.setLFOBuffer(waveformBuffer);
