@@ -1218,6 +1218,7 @@ public class SynthaxView implements Initializable {
             waveformva = 3;
         }
         bKnobLFOWaveform.knobValueProperty().setValue(waveformva);
+        synthaxController.setLFOWaveform(Waveforms.values()[waveformva]);
         bKnobLFOWaveform.setRotation(value);
 
 
