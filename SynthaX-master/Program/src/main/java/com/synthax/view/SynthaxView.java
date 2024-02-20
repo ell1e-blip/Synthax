@@ -1176,6 +1176,8 @@ public class SynthaxView implements Initializable {
 
 
         float orig = bKnobLFORate.getInvalue(rateFreq);
+        //bKnobLFORate.knobValueProperty().set(orig);
+        bKnobLFORate.knobValueProperty().setValue(orig);
         bKnobLFORate.setRotation(orig);
 
         /**
@@ -1186,7 +1188,7 @@ public class SynthaxView implements Initializable {
          */
     }
     public void setKnobLFODepth(Float depth) {
-
+        bKnobLFODepth.knobValueProperty().setValue(depth);
         bKnobLFODepth.setRotation(depth);
     }
 
@@ -1199,17 +1201,23 @@ public class SynthaxView implements Initializable {
      * @param waveformBuffer
      */
     public void setKnobLFOWaveForm(Buffer waveformBuffer) {
+        int waveformva = 0;
 
         Double value = 225.0;
         if(waveformBuffer.toString().contains("0.0 0.0015339801 0.0030679568")) {
             value = 225.0;
+            waveformva = 10;
         } else if (waveformBuffer.toString().contains("1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0")) {
             value = 315.0;
+            waveformva = 1;
         } else if (waveformBuffer.toString().contains("-1.0 -0.9995117 -0.99902344 -0.99853516 -0.9980469")) {
             value = 45.0;
+            waveformva = 2;
         } else if (waveformBuffer.toString().contains("-1.0 -0.99902344 -0.9980469 -0.9970703 -0.99609375")) {
             value = 135.0;
+            waveformva = 3;
         }
+        bKnobLFOWaveform.knobValueProperty().setValue(waveformva);
         bKnobLFOWaveform.setRotation(value);
 
 
