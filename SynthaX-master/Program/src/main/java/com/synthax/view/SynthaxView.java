@@ -1206,7 +1206,7 @@ public class SynthaxView implements Initializable {
         Double value = 225.0;
         if(waveformBuffer.toString().contains("0.0 0.0015339801 0.0030679568")) {
             value = 225.0;
-            waveformva = 10;
+            waveformva = 0;
         } else if (waveformBuffer.toString().contains("1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0")) {
             value = 315.0;
             waveformva = 1;
