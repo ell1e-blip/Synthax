@@ -1010,6 +1010,7 @@ public class SynthaxView implements Initializable {
         knobLFOWaveForm.setOnMouseDragged(bKnobLFOWaveform);
 
         bKnobLFOWaveform.knobValueProperty().addListener((v, oldValue, newValue) -> {
+            System.out.println("in knoblfowaveform listener");
             synthaxController.setLFOWaveform(Waveforms.values()[newValue.intValue()]);
         });
     }
@@ -1218,7 +1219,7 @@ public class SynthaxView implements Initializable {
             waveformva = 3;
         }
         bKnobLFOWaveform.knobValueProperty().setValue(waveformva);
-        synthaxController.setLFOWaveform(Waveforms.values()[waveformva]);
+       // synthaxController.setLFOWaveform(Waveforms.values()[waveformva]);
         bKnobLFOWaveform.setRotation(value);
 
 
