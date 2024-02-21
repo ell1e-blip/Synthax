@@ -183,10 +183,10 @@ public class ProgramPresetManager {
             System.out.println(knobRate);
              */
 
-            synthaxController.setLFODepth(depthvalue);
-            synthaxController.setLFOBuffer(waveformBuffer);
-            synthaxController.setLFORate(rateFreq);
-            synthaxController.setLFOPhase(phase);
+           // synthaxController.setLFODepth(depthvalue);
+           // synthaxController.setLFOBuffer(waveformBuffer);
+            //synthaxController.setLFORate(rateFreq);
+            //synthaxController.setLFOPhase(phase);
 
 
             synthaxController.setViewLFODepth(depthvalue);
