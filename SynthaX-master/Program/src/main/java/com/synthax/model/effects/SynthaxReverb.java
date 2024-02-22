@@ -49,7 +49,7 @@ public class SynthaxReverb {
     public void setReverbSize(float size) {
         reverb.setSize(size);
     }
-
+    // använd för unittest
     public float getReverbSize() {
         return reverb.getSize();
     }
@@ -57,7 +57,7 @@ public class SynthaxReverb {
     public void setReverbTone(float tone) {
         reverb.setDamping(tone);
     }
-
+    // använd för unittest
     public float getReverbTone() {
         return reverb.getDamping();
     }
@@ -69,7 +69,7 @@ public class SynthaxReverb {
             cachedAmountValue = amount;
         }
     }
-
+    // använd för unittest
     public float getReverbAmount() {
         if (isActive) {
             return amountGlide.getCurrentValue();
