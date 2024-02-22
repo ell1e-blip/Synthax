@@ -164,4 +164,16 @@ class LFOValuesTest {
 
     }
 
+    @Test
+    void TestReverbIsActive() {
+        synthaxLFO.setActive();
+
+        assertTrue(synthaxLFO.getActive());
+    }
+
+    @Test
+    void TestReverbIsActiveFalse() {
+        assertFalse(synthaxLFO.getActive());
+    }
+
 }
