@@ -241,6 +241,12 @@ public class SynthaxView implements Initializable {
 
     KnobBehaviorWave bKnobLFOWaveform;
 
+    KnobBehavior bKnobReverbSize;
+
+    KnobBehavior bKnobReverbDecay;
+
+    KnobBehavior bKnobReverbAmount;
+
 
 
     public SynthaxView() {
@@ -970,19 +976,19 @@ public class SynthaxView implements Initializable {
     }
 
     private void initReverb() {
-        KnobBehavior bKnobReverbSize = new KnobBehavior(knobReverbSize);
+        bKnobReverbSize = new KnobBehavior(knobReverbSize);
         knobReverbSize.setOnMouseDragged(bKnobReverbSize);
         bKnobReverbSize.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setReverbSize(newValue.floatValue());
         });
 
-        KnobBehavior bKnobReverbDecay = new KnobBehavior(knobReverbTone);
+        bKnobReverbDecay = new KnobBehavior(knobReverbTone);
         knobReverbTone.setOnMouseDragged(bKnobReverbDecay);
         bKnobReverbDecay.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setReverbTone(newValue.floatValue());
         });
 
-        KnobBehavior bKnobReverbAmount = new KnobBehavior(knobReverbAmount);
+        bKnobReverbAmount = new KnobBehavior(knobReverbAmount);
         knobReverbAmount.setOnMouseDragged(bKnobReverbAmount);
         bKnobReverbAmount.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setReverbAmount(newValue.floatValue());
@@ -1168,6 +1174,34 @@ public class SynthaxView implements Initializable {
     }
 
     /**
+     * @author Marcus Larsson
+     * @param size
+     */
+    public void setKnobReverbSize(float size) {
+        bKnobReverbSize.knobValueProperty().setValue(size);
+        bKnobReverbSize.setRotation(size);
+    }
+
+    /**
+     * @author Marcus Larsson
+     * @param tone
+     */
+    public void setKnobReverbTone(float tone) {
+        bKnobReverbDecay.knobValueProperty().setValue(tone);
+        bKnobReverbDecay.setRotation(tone);
+
+    }
+
+    /**
+     * @author Marcus Larsson
+     * @param amount
+     */
+    public void setKnobReverbAmount(float amount) {
+        bKnobReverbAmount.knobValueProperty().setValue(amount);
+        bKnobReverbAmount.setRotation(amount);
+    }
+
+    /**
      * author Ellie Rosander
      * för att uppdatera knob LFO > Rate
      * bug: Går ej att dra "ned" efter loadPreset, verkar som laddad position blir
@@ -1175,9 +1209,7 @@ public class SynthaxView implements Initializable {
      */
     public void setKnobLFORate(Float rateFreq) {
 
-
         float orig = bKnobLFORate.getInvalue(rateFreq);
-        //bKnobLFORate.knobValueProperty().set(orig);
         bKnobLFORate.knobValueProperty().setValue(orig);
         bKnobLFORate.setRotation(orig);
 
@@ -1219,7 +1251,6 @@ public class SynthaxView implements Initializable {
             waveformva = 3;
         }
         bKnobLFOWaveform.knobValueProperty().setValue(waveformva);
-       // synthaxController.setLFOWaveform(Waveforms.values()[waveformva]);
         bKnobLFOWaveform.setRotation(value);
 
 
