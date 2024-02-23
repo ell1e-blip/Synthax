@@ -53,9 +53,6 @@ public class KnobBehavior implements EventHandler<MouseEvent> {
 
     public void setRotation(float value) {
         knob.setRotate(HelperMath.map(value, 0, 1, 210, 510));
-
-
-
     }
 
     public float getRotation() {

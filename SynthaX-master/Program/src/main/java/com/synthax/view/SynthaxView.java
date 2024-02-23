@@ -241,6 +241,11 @@ public class SynthaxView implements Initializable {
 
     KnobBehaviorWave bKnobLFOWaveform;
 
+    KnobBehavior bknobDelayFeedback;
+    KnobBehavior bknobDelayTime;
+    KnobBehavior bknobDelayDecay;
+    KnobBehavior bknobDelayLevel;
+
 
 
     public SynthaxView() {
@@ -1231,4 +1236,40 @@ public class SynthaxView implements Initializable {
 
 
     //endregion initialize methods
+
+    //  @FXML private Button knobDelayFeedback;
+    //    @FXML private Button knobDelayTime;
+    //    @FXML private Button knobDelayDecay;
+    //    @FXML private Button knobDelayLevel;
+    public float getKnobDelayFeedback() {
+        return bknobDelayFeedback.getRotation();
+    }
+    public float getKnobDelayTime() {
+        return bknobDelayTime.getRotation();
+    }
+    public float getKnobDelayDecay() {
+        return bknobDelayDecay.getRotation();
+    }
+    public float getKnobDelayLevel() {
+        return bknobDelayLevel.getRotation();
+    }
+
+    public void setKnobDelayFeedback(Float feedback) {
+        bknobDelayFeedback.knobValueProperty().setValue(feedback);
+        bknobDelayFeedback.setRotation(feedback);
+    }
+
+    public void setKnobDelayTime(Float feedback) {
+        bknobDelayTime.knobValueProperty().setValue(feedback);
+        bknobDelayTime.setRotation(feedback);
+    }
+    public void setKnobDelayDecay(Float feedback) {
+        bknobDelayDecay.knobValueProperty().setValue(feedback);
+        bknobDelayDecay.setRotation(feedback);
+    }
+    public void setKnobDelayLevel(Float feedback) {
+        bknobDelayLevel.knobValueProperty().setValue(feedback);
+        bknobDelayLevel.setRotation(feedback);
+    }
+
 }

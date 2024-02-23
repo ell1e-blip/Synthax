@@ -109,7 +109,7 @@ public class SynthaxDelay {
         }
     }
 
-    public void setFeedbackDuration(float feedbackDuration) {
+    public void setFeedbackDuration(float feedbackDuration) { //TODO dubbelkolla denna
         if (!isActive) {
             cachedFeedbackDuration = HelperMath.map(feedbackDuration, 0, 1, 100, 2500);
         } else {
@@ -121,11 +121,18 @@ public class SynthaxDelay {
         return delayFeedbackEnvelope;
     }
 
-    public float getFeedbackDuration() {
+    public float getFeedbackDuration() { //check if correct
         return feedbackDuration;
     }
 
     public float getCachedDelayTime() {
         return cachedDelayTime;
+    }
+
+    public float getDecay() {
+        return cachedDecayValue;
+    }
+    public float getLevel() {
+        return cachedLevelValue;
     }
 }

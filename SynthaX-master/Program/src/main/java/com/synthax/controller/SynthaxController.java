@@ -1,5 +1,6 @@
 package com.synthax.controller;
 
+import com.synthax.model.effects.SynthaxDelay;
 import com.synthax.model.effects.SynthaxEQFilters;
 import com.synthax.model.midi.Midi;
 import com.synthax.model.effects.SynthaxLFO;
@@ -37,6 +38,7 @@ public class SynthaxController {
 
     private final Glide masterGainGlide;
     private final SynthaxLFO synthaxLFO;
+    private final SynthaxDelay synthaxDelay;
     private final OscillatorManager oscillatorManager;
     private final SynthaxEQFilters filters;
     private final Sequencer sequencer;
@@ -71,11 +73,16 @@ public class SynthaxController {
         synthaxLFO = new SynthaxLFO();
         synthaxLFO.setInput(oscCombined);
 
+
         filters = new SynthaxEQFilters();
         filters.addInput(synthaxLFO.getOutput());
 
         reverb = new SynthaxReverb(filters.getOutput());
         masterGain.addInput(reverb.getOutput());
+
+        synthaxDelay = new SynthaxDelay(filters.getOutput());
+        masterGain.addInput(synthaxDelay.getOutput());
+
 
         // Send to audio-device
         ac.out.addInput(masterGain);
@@ -650,4 +657,67 @@ public class SynthaxController {
         synthaxLFO.setPhase(phase);
     }
 
+
+    /**
+     * Author Oliver Berggren
+     */
+    //public void setDelayFeedback(float feedback) {
+    //    synthaxDelay.setFeedbackDuration(feedback);
+   // }
+
+    //SynthaxDelay
+    public float getDelayFeedback() {
+        // Retrieve the feedback value from the model or UI component
+        return synthaxDelay.getFeedbackDuration();
+    }
+    /**
+     * Author Oliver Berggren
+     */
+    public float getDelayTime() {
+        // Retrieve the time value from the model or UI component
+        return synthaxDelay.getCachedDelayTime();
+    }
+    /**
+     * Author Oliver Berggren
+     */
+    public float getDelayDecay() {
+        // Retrieve the decay value from the model or UI component
+        return synthaxDelay.getDecay();
+    }
+    /**
+     * Author Oliver Berggren
+     */
+    public float getDelayLevel() {
+        // Retrieve the level value from the model or UI component
+        return synthaxDelay.getLevel();
+    }
+
+    //VIEW
+    public float getViewDelayFeedback() {
+        return synthaxView.getKnobDelayFeedback();
+    }
+    public float getViewDelayTime() {
+        return synthaxView.getKnobDelayTime();
+    }
+
+    public float getViewDelayDecay() {
+        return synthaxView.getKnobDelayDecay();
+    }
+
+    public float getViewDelayLevel() {
+        return synthaxView.getKnobDelayLevel();
+    }
+
+    public void setViewDelayFeedback(float feedback) {
+        synthaxView.setKnobDelayFeedback(feedback);
+    }
+    public void setViewDelayTime(float feedback) {
+        synthaxView.setKnobDelayTime(feedback);
+    }
+    public void setViewDelayDecay(float feedback) {
+        synthaxView.setKnobDelayDecay(feedback);
+    }
+    public void setViewDelayLevel(float feedback) {
+        synthaxView.setKnobDelayLevel(feedback);
+    }
 }

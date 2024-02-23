@@ -63,14 +63,23 @@ public class ProgramPresetManager {
     }
 
     private void savePreset(File saveFile) {
-        Boolean active = synthaxController.getLFOActive();
-        if(active) {
+       // Boolean active = synthaxController.getLFOActive();
+      //  if(active) {
+            //LFO
             float depthvalue = synthaxController.getLFODepth();
             Buffer waveformBuffer = synthaxController.getLFOWaveForm();
             float rateFreq = synthaxController.getLFOrate();
             float phase = synthaxController.getLFOPhase();
             float knobRate = synthaxController.getViewLFORate();
 
+            //DELAY
+            float delayFeedback = synthaxController.getDelayFeedback();
+            float delayTime = synthaxController.getDelayTime();
+            float delayDecay = synthaxController.getDelayDecay();
+            float delayLevel = synthaxController.getDelayLevel();
+            float knobTime = synthaxController.getViewDelayTime();
+           // float knob
+            //TODO kolla knobsen
             /*
             System.out.println("depthvalue: " + depthvalue);
             System.out.println("Buffer: " + waveformBuffer.toString());
@@ -81,10 +90,11 @@ public class ProgramPresetManager {
             try (DataOutputStream dos = new DataOutputStream(new FileOutputStream(saveFile))) {
                 dos.writeInt(PRESET_UID);
                 dos.writeInt(PRESET_VERSION_ID);
+
+                //LFO SETTINGS
                 dos.writeFloat(depthvalue);
                 int bufferSize = waveformBuffer.buf.length;
                 dos.writeInt(bufferSize);
-
                 // Save each float value
                 for (float value : waveformBuffer.buf) {
                     dos.writeFloat(value);
@@ -92,6 +102,20 @@ public class ProgramPresetManager {
                 dos.writeFloat(rateFreq);
                 dos.writeFloat(phase);
                 dos.writeFloat(knobRate);
+
+                //DELAY SETTINGS
+                dos.writeFloat(delayFeedback);
+                dos.writeFloat(delayTime);
+                dos.writeFloat(delayDecay);
+                dos.writeFloat(delayLevel);
+                dos.writeFloat(knobTime);
+
+                System.out.println("Feedback  " +delayFeedback);
+                System.out.println("Time  " +delayTime);
+                System.out.println("Decay  " +delayDecay);
+                System.out.println("Level  " +delayLevel);
+                System.out.println("KnobTime "+ knobTime);
+
                 dos.flush();
 
             } catch (FileNotFoundException e) {
@@ -100,10 +124,6 @@ public class ProgramPresetManager {
                 throw new RuntimeException(e);
             }
 
-
-
-
-        }
     }
 
     /**
@@ -148,6 +168,7 @@ public class ProgramPresetManager {
                 return;
             }
 
+            //LFO SETTINGS
             float depthvalue = dis.readFloat();
 
             int bufferSize = dis.readInt();
@@ -162,6 +183,7 @@ public class ProgramPresetManager {
 
             // Reconstruct the Buffer from the loaded data
             Buffer waveformBuffer = new Buffer(bufferData.length);
+
             try {
                 Field bufField = Buffer.class.getDeclaredField("buf");
                 bufField.setAccessible(true);
@@ -170,10 +192,16 @@ public class ProgramPresetManager {
                 e.printStackTrace();
                 // Handle the exception appropriately
             }
+            //TODO check if Float is correct or float?
             Float rateFreq = dis.readFloat();
             Float phase = dis.readFloat();
             Float knobRate = dis.readFloat();
 
+            //DELAY SETTINGS
+            float delayFeedback = dis.readFloat();
+            float delayTime = dis.readFloat();
+            float delayDecay = dis.readFloat();
+            float delayLevel = dis.readFloat();
             dis.close();
 
             /*
@@ -182,6 +210,12 @@ public class ProgramPresetManager {
             System.out.println(rateFreq);
             System.out.println(knobRate);
              */
+
+            System.out.println("Feedback  " +delayFeedback);
+            System.out.println("Time  " +delayTime);
+            System.out.println("Decay  " +delayDecay);
+            System.out.println("Level  " +delayLevel);
+
 
            // synthaxController.setLFODepth(depthvalue);
            // synthaxController.setLFOBuffer(waveformBuffer);
@@ -193,8 +227,11 @@ public class ProgramPresetManager {
             synthaxController.setViewLFORate(knobRate);
             synthaxController.setViewLFOBuffer(waveformBuffer);
 
-
-
+            //SET DELAY VIEW
+            synthaxController.setViewDelayFeedback(delayFeedback);
+            synthaxController.setViewDelayTime(delayTime);
+            synthaxController.setViewDelayDecay(delayDecay);
+            synthaxController.setViewDelayLevel(delayLevel);
 
         } catch (IOException e) {
             e.printStackTrace();
