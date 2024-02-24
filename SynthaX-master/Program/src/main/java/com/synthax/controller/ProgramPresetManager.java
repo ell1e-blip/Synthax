@@ -65,6 +65,7 @@ public class ProgramPresetManager {
     private void savePreset(File saveFile) {
        // Boolean active = synthaxController.getLFOActive();
       //  if(active) {
+
             //LFO
             float depthvalue = synthaxController.getLFODepth();
             Buffer waveformBuffer = synthaxController.getLFOWaveForm();
@@ -77,7 +78,7 @@ public class ProgramPresetManager {
             float delayTime = synthaxController.getDelayTime();
             float delayDecay = synthaxController.getDelayDecay();
             float delayLevel = synthaxController.getDelayLevel();
-            float knobTime = synthaxController.getViewDelayTime();
+
            // float knob
             //TODO kolla knobsen
             /*
@@ -108,13 +109,12 @@ public class ProgramPresetManager {
                 dos.writeFloat(delayTime);
                 dos.writeFloat(delayDecay);
                 dos.writeFloat(delayLevel);
-                dos.writeFloat(knobTime);
+
 
                 System.out.println("ProgramPresetManager/savePreset: Feedback  " +delayFeedback);
                 System.out.println("ProgramPresetManager/savePreset: Time  " +delayTime);
                 System.out.println("ProgramPresetManager/savePreset: Decay  " +delayDecay);
                 System.out.println("ProgramPresetManager/savePreset: Level  " +delayLevel);
-                System.out.println("ProgramPresetManager/savePreset: KnobTime "+ knobTime);
 
                 dos.flush();
 

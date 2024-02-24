@@ -125,12 +125,12 @@ public class SynthaxDelay {
         // Check if the delay effect is active
         if (isActive) {
             // Return the actual feedback duration if the effect is active
-            System.out.println("SyntaxDelay: getFeedbackDuration() == "+ feedbackDuration);
-            return feedbackDuration;
+            System.out.println("SyntaxDelay: getFeedbackDuration() == "+ feedbackDuration + " (active)");
+            return HelperMath.map(feedbackDuration, 0, 1, 100, 2500);
         } else {
             // Return a default or zero value if the effect is not active
             System.out.println("SyntaxDelay: getFeedbackDuration() == 0.0 (not active)");
-            return 0.0f;
+            return cachedFeedbackDuration;
         }
     }
 
@@ -139,7 +139,7 @@ public class SynthaxDelay {
         if (isActive) {
             //considering whether the effect is active
             System.out.println("SyntaxDelay: getDelayTime() == " + "delayOut.getDelay(): " + delayOut.getDelay()+ " (active)");
-            return delayOut.getDelay();
+            return HelperMath.map(delayOut.getDelay(), 100, 1000, 0, 1);
         } else {
             System.out.println("SyntaxDelay: cachedDelayTime: " + cachedDelayTime + " (not active)");
             return cachedDelayTime;
