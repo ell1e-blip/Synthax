@@ -675,7 +675,7 @@ public class SynthaxController {
      */
     public float getDelayTime() {
         // Retrieve the time value from the model or UI component
-        return synthaxDelay.getCachedDelayTime();
+        return synthaxDelay.getDelayTime();
     }
     /**
      * Author Oliver Berggren
@@ -691,6 +691,8 @@ public class SynthaxController {
         // Retrieve the level value from the model or UI component
         return synthaxDelay.getLevel();
     }
+
+
 
     //VIEW
     public float getViewDelayFeedback() {

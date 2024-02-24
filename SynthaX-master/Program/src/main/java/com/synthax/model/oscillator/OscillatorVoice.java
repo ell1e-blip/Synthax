@@ -46,7 +46,7 @@ public class OscillatorVoice extends Voice {
 
         delay.getEnvelope().clear();
         delay.getEnvelope().addSegment(1f, SynthaxController.MINIMUM_GLIDE_DURATION);
-        delay.getEnvelope().addSegment(1f, delay.getFeedbackDuration());
+        delay.getEnvelope().addSegment(1f, delay.getFeedbackDuration()); //WATCH
         delay.getEnvelope().addSegment(0f, SynthaxController.MINIMUM_GLIDE_DURATION);
     }
 
@@ -58,7 +58,7 @@ public class OscillatorVoice extends Voice {
 
         delay.getEnvelope().clear();
         delay.getEnvelope().addSegment(1f, SynthaxController.MINIMUM_GLIDE_DURATION);
-        delay.getEnvelope().addSegment(1f, delay.getFeedbackDuration());
+        delay.getEnvelope().addSegment(1f, delay.getFeedbackDuration()); //WATCH
         delay.getEnvelope().addSegment(0f, SynthaxController.MINIMUM_GLIDE_DURATION);
     }
 

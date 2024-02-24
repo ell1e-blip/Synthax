@@ -40,6 +40,10 @@ public class OscillatorView implements Initializable {
     @FXML private Button knobDetune = new Button();
     @FXML private Button knobLFODepth = new Button();
     @FXML private Button knobLFORate = new Button();
+    @FXML private Button knobDelayFeedback = new Button();
+    @FXML private Button knobDelayTime = new Button();
+    @FXML private Button knobDelayDecay = new Button();
+    @FXML private Button knobDelayLevel = new Button();
     @FXML private Spinner<OctaveOperands> octaveSpinner = new Spinner<>();
 
     private final OscillatorController oscillatorController;
@@ -160,4 +164,38 @@ public class OscillatorView implements Initializable {
         });
     }
     //endregion Init methods
+/*
+    private void initDelayKnobs() {
+        // Initialize the Delay Feedback knob
+        KnobBehavior knobBehaviorFeedback = new KnobBehavior(knobDelayFeedback);
+        knobDelayFeedback.setOnMouseDragged(knobBehaviorFeedback);
+        knobBehaviorFeedback.knobValueProperty().addListener((observable, oldValue, newValue) -> {
+            // Update delay feedback via controller
+            oscillatorController.updateDelayFeedback(newValue.floatValue());
+        });
+
+        // Initialize the Delay Time knob
+        KnobBehavior knobBehaviorTime = new KnobBehavior(knobDelayTime);
+        knobDelayTime.setOnMouseDragged(knobBehaviorTime);
+        knobBehaviorTime.knobValueProperty().addListener((observable, oldValue, newValue) -> {
+            // Update delay time via controller
+            oscillatorController.updateDelayTime(newValue.floatValue());
+        });
+
+        // Initialize the Delay Decay knob
+        KnobBehavior knobBehaviorDecay = new KnobBehavior(knobDelayDecay);
+        knobDelayDecay.setOnMouseDragged(knobBehaviorDecay);
+        knobBehaviorDecay.knobValueProperty().addListener((observable, oldValue, newValue) -> {
+            // Update delay decay via controller
+            oscillatorController.updateDelayDecay(newValue.floatValue());
+        });
+
+        // Initialize the Delay Level knob
+        KnobBehavior knobBehaviorLevel = new KnobBehavior(knobDelayLevel);
+        knobDelayLevel.setOnMouseDragged(knobBehaviorLevel);
+        knobBehaviorLevel.knobValueProperty().addListener((observable, oldValue, newValue) -> {
+            // Update delay level via controller
+            oscillatorController.updateDelayLevel(newValue.floatValue());
+        });
+    }*/
 }
