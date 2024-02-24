@@ -71,6 +71,12 @@ public class ProgramPresetManager {
             float phase = synthaxController.getLFOPhase();
             float knobRate = synthaxController.getViewLFORate();
 
+            //Fortsätter med reverb
+            float reverbSize = synthaxController.getReverbSize();
+            float reverbTone = synthaxController.getReverbTone();
+            float reverbAmount = synthaxController.getReverbAmount();
+
+
             /*
             System.out.println("depthvalue: " + depthvalue);
             System.out.println("Buffer: " + waveformBuffer.toString());
@@ -92,6 +98,13 @@ public class ProgramPresetManager {
                 dos.writeFloat(rateFreq);
                 dos.writeFloat(phase);
                 dos.writeFloat(knobRate);
+                //Reverb
+                dos.writeFloat(reverbSize);
+                dos.writeFloat(reverbTone);
+                dos.writeFloat(reverbAmount);
+                System.out.println("ReverbSize: " + reverbSize);
+                System.out.println("RereverbTone: " + reverbTone);
+                System.out.println("ReverbAmount: " + reverbAmount);
                 dos.flush();
 
             } catch (FileNotFoundException e) {
@@ -174,6 +187,11 @@ public class ProgramPresetManager {
             Float phase = dis.readFloat();
             Float knobRate = dis.readFloat();
 
+            //Continue with reverb
+            Float reverbSize = dis.readFloat();
+            Float reverbTone = dis.readFloat();
+            Float reverbAmount = dis.readFloat();
+
             dis.close();
 
             /*
@@ -183,8 +201,8 @@ public class ProgramPresetManager {
             System.out.println(knobRate);
              */
 
-           // synthaxController.setLFODepth(depthvalue);
-           // synthaxController.setLFOBuffer(waveformBuffer);
+            //synthaxController.setLFODepth(depthvalue);
+            //synthaxController.setLFOBuffer(waveformBuffer);
             //synthaxController.setLFORate(rateFreq);
             //synthaxController.setLFOPhase(phase);
 
@@ -192,6 +210,10 @@ public class ProgramPresetManager {
             synthaxController.setViewLFODepth(depthvalue);
             synthaxController.setViewLFORate(knobRate);
             synthaxController.setViewLFOBuffer(waveformBuffer);
+            //Continue with reverb
+            synthaxController.setViewReverbSize(reverbSize);
+            synthaxController.setViewReverbTone(reverbTone);
+            synthaxController.setViewReverbAmount(reverbAmount);
 
 
 

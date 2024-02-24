@@ -422,14 +422,26 @@ public class SynthaxController {
         reverb.setReverbAmount(amount);
     }
 
+    public float getReverbAmount() {
+        return reverb.getReverbAmount();
+    }
+
     public void setReverbSize(float size) {
         reverb.setReverbSize(size);
+    }
+
+    public float getReverbSize() {
+        return reverb.getReverbSize();
     }
 
     public void setReverbTone(float tone) {
         reverb.setReverbTone(tone);
     }
-    // endregion Reverb
+
+    public float getReverbTone() {
+        return reverb.getReverbTone();
+    }
+
     public void setMasterGain(float gain) {
         masterGainGlide.setValue(gain);
     }
@@ -648,6 +660,30 @@ public class SynthaxController {
      */
     public void setLFOPhase(Float phase) {
         synthaxLFO.setPhase(phase);
+    }
+
+    /**
+     * @author Marcus Larsson
+     * @param reverbSize
+     */
+    public void setViewReverbSize(Float reverbSize) {
+        synthaxView.setKnobReverbSize(reverbSize);
+    }
+
+    /**
+     * @author Marcus Larsson
+     * @param reverbTone
+     */
+    public void setViewReverbTone(Float reverbTone) {
+        synthaxView.setKnobReverbTone(reverbTone);
+    }
+
+    /**
+     * @author Marcus Larsson
+     * @param reverbAmount
+     */
+    public void setViewReverbAmount(Float reverbAmount) {
+        synthaxView.setKnobReverbAmount(reverbAmount);
     }
 
 }
