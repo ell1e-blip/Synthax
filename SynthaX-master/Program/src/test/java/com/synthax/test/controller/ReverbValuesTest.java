@@ -18,7 +18,13 @@ import javafx.beans.value.ObservableValue;
 
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
-
+        /** @author Ellie Rosander
+        * Testing the SynthaxReverb values that are of interest
+        * when saving and loading presets for the program.
+         * As some values in SynthaxReverb has internal logic
+         * for valid values, Boundary Value Analysis has been
+         * made for all the values.
+        */
 @ExtendWith(value = MockitoExtension.class)
 public class ReverbValuesTest {
 
@@ -49,6 +55,11 @@ public class ReverbValuesTest {
         synthaxReverb = new SynthaxReverb(filters.getOutput());
     }
 
+            /**
+             * Testing the value size in SynthaxReverb
+             * with float 0.5F which is roughly in the
+             * middle of the valid values (0.01-1F)
+             */
     @Test
     void testReverbSizeMiddle()  {
 
@@ -69,6 +80,11 @@ public class ReverbValuesTest {
 
         assertEquals(0.5, synthaxReverb.getReverbSize());
     }
+            /**
+             * Testing the value size in SynthaxReverb
+             * with float 0.01F which is the bottom of
+             * valid values for size.
+             */
 
     @Test
     void testReverbSizeMin()  {
@@ -90,6 +106,11 @@ public class ReverbValuesTest {
 
         assertEquals(0.01F, synthaxReverb.getReverbSize());
     }
+            /**
+             * Testing the value size in SynthaxReverb
+             * with float 0.0F which is below
+             * the bottom valid values for size.
+             */
 
     @Test
     void testReverbSizeBelowMin()  {
@@ -111,7 +132,11 @@ public class ReverbValuesTest {
 
         assertEquals(0.01F, synthaxReverb.getReverbSize());
     }
-
+            /**
+             * Testing the value size in SynthaxReverb
+             * with float 0.02F which is just above
+             * the bottom valid values for size.
+             */
     @Test
     void testReverbSizeAboveMin()  {
 
@@ -132,7 +157,10 @@ public class ReverbValuesTest {
 
         assertEquals(0.02F, synthaxReverb.getReverbSize());
     }
-
+            /**
+             * Testing the value size in SynthaxReverb
+             * with float 1F which is the max valid value.
+             */
     @Test
     void testReverbSizeMax()  {
 
@@ -153,7 +181,11 @@ public class ReverbValuesTest {
 
         assertEquals(1, synthaxReverb.getReverbSize());
     }
-
+            /**
+             * Testing the value size in SynthaxReverb
+             * with float 0.99F which is just below
+             * the max valid value.
+             */
     @Test
     void testReverbSizeBelowMax()  {
 
@@ -174,7 +206,11 @@ public class ReverbValuesTest {
 
         assertEquals(0.99F, synthaxReverb.getReverbSize());
     }
-
+            /**
+             * Testing the value size in SynthaxReverb
+             * with float 1.01F which is just above
+             * the max valid value.
+             */
     @Test
     void testReverbSizeABoveMax()  {
 
@@ -196,6 +232,11 @@ public class ReverbValuesTest {
         assertEquals(1, synthaxReverb.getReverbSize());
     }
 
+            /**
+             * Tests the value tone in SynthaxReverb
+             * with float 0.5F which is in the middle
+             * of valid values for tone.
+             */
     // reverb tone tests below
     @Test
     void TestReverbToneMiddle() {
@@ -214,7 +255,11 @@ public class ReverbValuesTest {
         t1 = t1;
         assertEquals(0.5F, synthaxReverb.getReverbTone());
     }
-
+            /**
+             * Tests the value tone in SynthaxReverb
+             * with float 0F which is the minimum
+             * of valid values for tone.
+             */
     @Test
     void TestReverbToneMin() {
         ObservableValue<Number> toneValue = mock(ObservableValue.class);
@@ -232,7 +277,12 @@ public class ReverbValuesTest {
         t1 = t1;
         assertEquals(0F, synthaxReverb.getReverbTone());
     }
-
+            /**
+             * Tests the value tone in SynthaxReverb
+             * with float -0.01F which is just
+             * below the minimum
+             * of valid values for tone.
+             */
     @Test
     void TestReverbToneBelowMin() {
         ObservableValue<Number> toneValue = mock(ObservableValue.class);
@@ -250,7 +300,11 @@ public class ReverbValuesTest {
         t1 = t1;
         assertEquals(0F, synthaxReverb.getReverbTone());
     }
-
+            /**
+             * Tests the value tone in SynthaxReverb
+             * with float 0.01F which is just above
+             * the minimum of valid values for tone.
+             */
     @Test
     void TestReverbToneAboveMin() {
         ObservableValue<Number> toneValue = mock(ObservableValue.class);
@@ -268,7 +322,11 @@ public class ReverbValuesTest {
         t1 = t1;
         assertEquals(0.01F, synthaxReverb.getReverbTone());
     }
-
+            /**
+             * Tests the value tone in SynthaxReverb
+             * with float 1F which is the maximum of
+             * valid values for tone.
+             */
     @Test
     void TestReverbToneMax() {
         ObservableValue<Number> toneValue = mock(ObservableValue.class);
@@ -286,7 +344,12 @@ public class ReverbValuesTest {
         t1 = t1;
         assertEquals(1F, synthaxReverb.getReverbTone());
     }
-
+            /**
+             * Tests the value tone in SynthaxReverb
+             * with float 0.99F which is just below
+             * athe maximum of
+             * valid values for tone.
+             */
     @Test
     void TestReverbToneBelowMax() {
         ObservableValue<Number> toneValue = mock(ObservableValue.class);
@@ -304,7 +367,12 @@ public class ReverbValuesTest {
         t1 = t1;
         assertEquals(0.99F, synthaxReverb.getReverbTone());
     }
-
+            /**
+             * Tests the value tone in SynthaxReverb
+             * with float 0.99F which is just above
+             * the maximum of
+             * valid values for tone.
+             */
     @Test
     void TestReverbToneAboveMax() {
         ObservableValue<Number> toneValue = mock(ObservableValue.class);
@@ -322,7 +390,10 @@ public class ReverbValuesTest {
         t1 = t1;
         assertEquals(1F, synthaxReverb.getReverbTone());
     }
-    //test reverb amount below
+            /**
+             * Tests the value amount in SynthaxReverb
+             * with float 0.5F.
+             */
     @Test
     void TestReverbAmountMiddle() {
         ObservableValue<Number> amountValue = mock(ObservableValue.class);
@@ -337,6 +408,7 @@ public class ReverbValuesTest {
     }
 
     /**
+     * Tests the value amount in SynthaxReverb with float -0.01F.
      * @Author Ellie Rosander
      * TestReverbAmountBelowMin has an intresting result,
      * as oppossed to the tone and size, there is no algorithm
@@ -363,6 +435,11 @@ public class ReverbValuesTest {
         assertEquals(-0.01F, synthaxReverb.getReverbAmount());
     }
 
+            /**
+             * Tests the value amount in SynthaxReverb
+             * with float 2F. Same interesting result as the test above,
+             * due to no internal logic for valid values.
+             */
     @Test
     void TestReverbAmountAboveMax() {
         ObservableValue<Number> amountValue = mock(ObservableValue.class);
@@ -378,13 +455,22 @@ public class ReverbValuesTest {
 
     //tests for boolean isActive below
 
+            /**
+             * Tests that the isActive boolean in SynthaxReverb
+             * works as expected.
+             * Output from test as expected.
+             */
     @Test
     void TestReverbIsActive() {
         synthaxReverb.setActive();
 
         assertTrue(synthaxReverb.getReverbIsActive());
     }
-
+            /**
+             * Tests that the isActive boolean in SynthaxReverb
+             * works as expected.
+             * Output from test as expected.
+             */
     @Test
     void TestReverbIsActiveFalse() {
         assertFalse(synthaxReverb.getReverbIsActive());

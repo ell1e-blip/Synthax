@@ -22,6 +22,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 /**
+ * @author Ellie Rosander
  * Testing the ProgramPresetManager class's methods for saving and loading presets.
  * This class does not include boundary value analysis tests as those are tested
  * in the classes for testing a model class's values,

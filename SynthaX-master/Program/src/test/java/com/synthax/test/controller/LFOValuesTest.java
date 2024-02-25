@@ -15,6 +15,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 /**
+ * @author Ellie Rosander
  * Testing the SynthaxLFO values that are of interest
  * when saving and loading presets for the program.
  */
@@ -58,7 +59,8 @@ class LFOValuesTest {
     }
 
     /**
-     * result:
+     * Tests minimum value for rate from SynthaxLFO.
+     * See comment above for information about mapped/HelperMath.map.
      * 0.1 rate frequency for 0.0 float knob position.
      * This was not expected.
      * Expected 0.0 rate frequency.
@@ -80,6 +82,10 @@ class LFOValuesTest {
 
     }
 
+    /**
+     * Tests the maximum value from knob (1.0F) for setting
+     * value depth in SynthaxLFO
+     */
     @Test
     void testLFODepthMax() {
         ObservableValue<Number> depthValue = mock(ObservableValue.class);
@@ -95,6 +101,8 @@ class LFOValuesTest {
     }
 
     /**
+     * Tests the maximum value from knob (1.0F) for setting
+     * value depth in SynthaxLFO.
      * expected value 0.0 for input 0.0 float knob position.
      */
     @Test
@@ -110,6 +118,12 @@ class LFOValuesTest {
 
         assertEquals(0.0, synthaxLFO.getDepthValue());
     }
+
+    /**
+     * Tests the value that the waveform buffer in SynthaxLFO
+     * is set to when the knob is at default position (0).
+     * Output from test was as expected.
+     */
     @Test
     void testLFOWaveForm0() {
         ObservableValue<Number> waveformValue = mock(ObservableValue.class);
@@ -125,7 +139,11 @@ class LFOValuesTest {
                 synthaxLFO.getWaveformBuffer().toString());
 
     }
-
+    /**
+     * Tests the value that the waveform buffer in SynthaxLFO
+     * is set to when the knob is at position 1.
+     * Output from test was as expected.
+     */
     @Test
     void testLFOWaveForm1() {
         ObservableValue<Number> waveformValue = mock(ObservableValue.class);
@@ -141,7 +159,11 @@ class LFOValuesTest {
 , synthaxLFO.getWaveformBuffer().toString());
 
     }
-
+    /**
+     * Tests the value that the waveform buffer in SynthaxLFO
+     * is set to when the knob is at position 2.
+     * Output from test was as expected.
+     */
     @Test
     void testLFOWaveForm2() {
         ObservableValue<Number> waveformValue = mock(ObservableValue.class);
@@ -157,7 +179,11 @@ class LFOValuesTest {
                 synthaxLFO.getWaveformBuffer().toString());
 
     }
-
+    /**
+     * Tests the value that the waveform buffer in SynthaxLFO
+     * is set to when the knob is at position 3.
+     * Output from test was as expected.
+     */
     @Test
     void testLFOWaveForm3() {
         ObservableValue<Number> waveformValue = mock(ObservableValue.class);
@@ -174,13 +200,22 @@ class LFOValuesTest {
 
     }
 
+    /**
+     * Tests that the isActive boolean in SynthaxLFO
+     * works as expected.
+     * Output from test as expected.
+     */
     @Test
     void TestReverbIsActive() {
         synthaxLFO.setActive();
 
         assertTrue(synthaxLFO.getActive());
     }
-
+    /**
+     * Tests that the isActive boolean in SynthaxLFO
+     * works as expected.
+     * Output from test as expected.
+     */
     @Test
     void TestReverbIsActiveFalse() {
         assertFalse(synthaxLFO.getActive());
