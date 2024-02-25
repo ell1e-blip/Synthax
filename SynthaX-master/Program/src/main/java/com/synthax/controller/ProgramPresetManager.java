@@ -33,6 +33,7 @@ public class ProgramPresetManager {
     }
 
     public void savePresetGetFile(String presetName) {
+        System.out.println("test");
         if(presetName != null) {
             File saveFile = getFileFromPresetName(presetName);
             savePreset(saveFile);
@@ -63,6 +64,7 @@ public class ProgramPresetManager {
     }
 
     private void savePreset(File saveFile) {
+        System.out.println("test2");
         Boolean active = synthaxController.getLFOActive();
         if(active) {
             float depthvalue = synthaxController.getLFODepth();
@@ -220,6 +222,27 @@ public class ProgramPresetManager {
 
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void deleteFile(String presetName) {
+        if(presetName != null) {
+            File[] children = presetRoot.listFiles();
+            if(children != null) {
+                File deleteFile = getFileFromPresetName(presetName);
+
+                for (File child : children) {
+                    if(child.equals(deleteFile)) {
+                        if(deleteFile.delete()) {
+                            System.out.println(presetName + " deleted.");
+                        } else {
+                            System.err.println(presetName + " could not be deleted.");
+                        }
+                    }
+                }
+            } else {
+                System.err.println("SeqPresetLoader.deletePreset(): Root has no children.");
+            }
         }
     }
 }

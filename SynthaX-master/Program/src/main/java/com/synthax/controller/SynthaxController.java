@@ -45,12 +45,21 @@ public class SynthaxController {
     private boolean randomGain = true;
     private boolean randomOnOff = true;
     private final Midi midi;
+    private static SynthaxController instance;
+    public static SynthaxController getInstance() {
+        return instance;
+    }
+
+    public ProgramPresetManager getPPMInstance() {
+        return this.programPresetManager;
+    }
 
     /**
      * Setup AudioContext, OscillatorManager and defines the chain of effects and sounds
      * before sending it to the output/system speakers
      * */
     public SynthaxController(SynthaxView synthaxView) {
+        this.instance = this;
         this.synthaxView = synthaxView;
         JavaSoundAudioIO jsaio = new JavaSoundAudioIO(512);
         AudioContext ac = new AudioContext(jsaio);

@@ -14,6 +14,10 @@ import javafx.beans.value.ObservableValue;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+/**
+ * Testing the SynthaxLFO values that are of interest
+ * when saving and loading presets for the program.
+ */
 @ExtendWith(value = MockitoExtension.class)
 class LFOValuesTest {
 
@@ -31,6 +35,12 @@ class LFOValuesTest {
         synthaxLFO = new SynthaxLFO();
     }
 
+    /**
+     * Tests rate value set by the rate knob in GUI.
+     * The rate value set to SynthaxLFO is mapped with the
+     * HelperMath.map method, meaning that the float from the knob
+     * in the range of 0-1 is not the number saved to rate in SynthaxLFO.
+     */
     @Test
     void testLFORateFrequencyMax() {
 
