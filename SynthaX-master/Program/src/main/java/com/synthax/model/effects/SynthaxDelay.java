@@ -63,9 +63,13 @@ public class SynthaxDelay {
         return output;
     }
 
+    public boolean getActive() {
+        return isActive;
+    }
     public void setActive() {
+        System.out.println("Before: " + getActive());
         isActive = !isActive;
-
+        System.out.println("After: " + getActive());
         if(isActive) {
             feedbackDuration = cachedFeedbackDuration;
             delayOut.setDelay(cachedDelayTime);
@@ -109,17 +113,18 @@ public class SynthaxDelay {
 
     public float getFeedbackDuration() { //check if correct
         // Check if the delay effect is active
+        if (isActive) {
             // Return the actual feedback duration if the effect is active
-            System.out.println("SyntaxDelay: getFeedbackDuration() == "+ cachedFeedbackDuration + " (active)");
-            return cachedFeedbackDuration;
-       /** } else {
+            System.out.println("SyntaxDelay: getFeedbackDuration() == "+ this.delayOut.getValue() + " (active)");
+            return this.delayOut.getValue();
+        } else{
             // Return a default or zero value if the effect is not active
             System.out.println("1 SyntaxDelay: getFeedbackDuration() == 0.0 (not active)");
-            System.out.println("2 SyntaxDelay: getFeedbackDuration() cachedFeedbackDuration:" + cachedFeedbackDuration +" (not active");
-            System.out.println("2 SyntaxDelay: getFeedbackDuration() feedbackDuration:" + feedbackDuration + " (not active");
+            System.out.println("2 SyntaxDelay: getFeedbackDuration() cachedFeedbackDuration:" + this.cachedFeedbackDuration + " (not active");
+            System.out.println("2 SyntaxDelay: getFeedbackDuration() feedbackDuration:" + this.feedbackDuration + " (not active");
             System.out.println();
-            return feedbackDuration;
-        }*/
+            return this.cachedFeedbackDuration;
+        }
     }
 
     public float getDelayTime() {
@@ -127,8 +132,8 @@ public class SynthaxDelay {
         if (isActive) {
             //considering whether the effect is active
             //return delayOut.getValue();
-            System.out.println("SyntaxDelay: getDelayTime() == " + "delayOut.getDelay(): " + delayOut.getDelay()+ " (active)");
-            return HelperMath.map(delayOut.getDelay(), 100, 1000, 0, 1);
+            System.out.println("SyntaxDelay: getDelayTime() == " + "delayOut.getValue(): " + delayOut.getValue() + " (active)");
+            return delayOut.getValue();
         } else {
             System.out.println("SyntaxDelay: cachedDelayTime: " + cachedDelayTime + " (not active)");
             return cachedDelayTime;

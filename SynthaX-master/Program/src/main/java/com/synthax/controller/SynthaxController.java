@@ -410,7 +410,7 @@ public class SynthaxController {
 
     public void setDelayActive() {
         oscillatorManager.setDelayActive();
-        synthaxDelay.setActive();
+        synthaxDelay.setActive(); //TODO IDK om denna behövs
     }
     //endregion Delay
     //region Reverb (click to open/collapse)
