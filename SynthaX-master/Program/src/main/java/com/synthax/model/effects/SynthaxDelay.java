@@ -65,55 +65,41 @@ public class SynthaxDelay {
 
     public void setActive() {
         isActive = !isActive;
-        if(!isActive) {
-            cachedLevelValue = levelGlide.getValue();
-            levelGlide.setValue(0.0f);
 
-            cachedDelayTime = delayOut.getDelay();
-            delayOut.setDelay(0.0f);
-
-            cachedDecayValue = decayGlide.getValue();
-            decayGlide.setValue(0.0f);
-
-            cachedFeedbackDuration = feedbackDuration;
-            feedbackDuration = 0.0f;
-        } else {
-            levelGlide.setValue(cachedLevelValue);
+        if(isActive) {
+            feedbackDuration = cachedFeedbackDuration;
             delayOut.setDelay(cachedDelayTime);
             decayGlide.setValue(cachedDecayValue);
-            feedbackDuration = cachedFeedbackDuration;
+            levelGlide.setValue(cachedLevelValue);
+
+        } else {
+            cachedFeedbackDuration = feedbackDuration;
+            cachedDelayTime = delayOut.getDelay();
+            cachedDecayValue = decayGlide.getValue();
+            cachedLevelValue = levelGlide.getValue();
+
+            delayOut.setDelay(0.0f);
+            decayGlide.setValue(0.0f);
+            levelGlide.setValue(0.0f);
+            feedbackDuration = 0.0f;
         }
     }
 
     public void setFeedbackDuration(float feedbackDuration) { //TODO dubbelkolla denna
-        if (!isActive) {
-            cachedFeedbackDuration = HelperMath.map(feedbackDuration, 0, 1, 100, 2500);
-        } else {
-            this.feedbackDuration = HelperMath.map(feedbackDuration, 0, 1, 100, 2500);
-        }
+        System.out.println("setFeedbackDuration(float feedbackDuration) feedbackDuration " + feedbackDuration + "& cachedFeedbackDuration " + cachedFeedbackDuration);
+        cachedFeedbackDuration = feedbackDuration;
     }
     public void setDelayTime(float delayTime) {
-        if (!isActive) {
-            cachedDelayTime = HelperMath.map(delayTime, 0, 1, 100, 1000);
-        } else {
-            delayOut.setDelay(HelperMath.map(delayTime, 0, 1, 100, 1000)); //TODO varför funkar inte denna?
-        }
+        cachedDelayTime = delayTime;
     }
 
     public void setDecay(float decayValue) {
-        if (!isActive) {
-            cachedDecayValue = decayValue;
-        } else {
-            decayGlide.setValue(decayValue);
-        }
+        cachedDecayValue = decayValue;
+
     }
 
     public void setLevel(float levelValue) {
-        if (!isActive) {
-            cachedLevelValue = levelValue;
-        } else {
-            levelGlide.setValue(levelValue);
-        }
+        cachedLevelValue = levelValue;
     }
 
 
@@ -123,21 +109,24 @@ public class SynthaxDelay {
 
     public float getFeedbackDuration() { //check if correct
         // Check if the delay effect is active
-        if (isActive) {
             // Return the actual feedback duration if the effect is active
-            System.out.println("SyntaxDelay: getFeedbackDuration() == "+ feedbackDuration + " (active)");
-            return HelperMath.map(feedbackDuration, 0, 1, 100, 2500);
-        } else {
-            // Return a default or zero value if the effect is not active
-            System.out.println("SyntaxDelay: getFeedbackDuration() == 0.0 (not active)");
+            System.out.println("SyntaxDelay: getFeedbackDuration() == "+ cachedFeedbackDuration + " (active)");
             return cachedFeedbackDuration;
-        }
+       /** } else {
+            // Return a default or zero value if the effect is not active
+            System.out.println("1 SyntaxDelay: getFeedbackDuration() == 0.0 (not active)");
+            System.out.println("2 SyntaxDelay: getFeedbackDuration() cachedFeedbackDuration:" + cachedFeedbackDuration +" (not active");
+            System.out.println("2 SyntaxDelay: getFeedbackDuration() feedbackDuration:" + feedbackDuration + " (not active");
+            System.out.println();
+            return feedbackDuration;
+        }*/
     }
 
     public float getDelayTime() {
         // Check if the delay effect is active
         if (isActive) {
             //considering whether the effect is active
+            //return delayOut.getValue();
             System.out.println("SyntaxDelay: getDelayTime() == " + "delayOut.getDelay(): " + delayOut.getDelay()+ " (active)");
             return HelperMath.map(delayOut.getDelay(), 100, 1000, 0, 1);
         } else {

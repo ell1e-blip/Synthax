@@ -949,27 +949,27 @@ public class SynthaxView implements Initializable {
     }
 
     private void initDelay() {
-        KnobBehavior bKnobDelayFeedback = new KnobBehavior(knobDelayFeedback);
-        knobDelayFeedback.setOnMouseDragged(bKnobDelayFeedback);
-        bKnobDelayFeedback.knobValueProperty().addListener((v, oldValue, newValue) -> {
+        bknobDelayFeedback = new KnobBehavior(knobDelayFeedback);
+        knobDelayFeedback.setOnMouseDragged(bknobDelayFeedback);
+        bknobDelayFeedback.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setDelayFeedback(newValue.floatValue());
         });
 
-        KnobBehavior bKnobDelayTime = new KnobBehavior(knobDelayTime);
-        knobDelayTime.setOnMouseDragged(bKnobDelayTime);
-        bKnobDelayTime.knobValueProperty().addListener((v, oldValue, newValue) -> {
+        bknobDelayTime = new KnobBehavior(knobDelayTime);
+        knobDelayTime.setOnMouseDragged(bknobDelayTime);
+        bknobDelayTime.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setDelayTime(newValue.floatValue());
         });
 
-        KnobBehavior bKnobDelayDecay = new KnobBehavior(knobDelayDecay);
-        knobDelayDecay.setOnMouseDragged(bKnobDelayDecay);
-        bKnobDelayDecay.knobValueProperty().addListener((v, oldValue, newValue) -> {
+        bknobDelayDecay = new KnobBehavior(knobDelayDecay);
+        knobDelayDecay.setOnMouseDragged(bknobDelayDecay);
+        bknobDelayDecay.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setDelayDecay(newValue.floatValue());
         });
 
-        KnobBehavior bKnobDelayLevel = new KnobBehavior(knobDelayLevel);
-        knobDelayLevel.setOnMouseDragged(bKnobDelayLevel);
-        bKnobDelayLevel.knobValueProperty().addListener((v, oldValue, newValue) -> {
+        bknobDelayLevel = new KnobBehavior(knobDelayLevel);
+        knobDelayLevel.setOnMouseDragged(bknobDelayLevel);
+        bknobDelayLevel.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setDelayLevel(newValue.floatValue());
         });
     }
