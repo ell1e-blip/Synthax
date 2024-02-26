@@ -410,7 +410,7 @@ public class SynthaxController {
 
     public void setDelayActive() {
         oscillatorManager.setDelayActive();
-        synthaxDelay.setActive(); //TODO IDK om denna behövs
+        //synthaxDelay.setActive(); //TODO IDK om denna behövs
     }
     //endregion Delay
     //region Reverb (click to open/collapse)
@@ -669,6 +669,7 @@ public class SynthaxController {
     //SynthaxDelay
     public float getDelayFeedback() {
         // Retrieve the feedback value from the model or UI component
+        System.out.println("Test get i controller " + synthaxDelay.getFeedbackDuration());
         return synthaxDelay.getFeedbackDuration();
     }
     /**
@@ -693,7 +694,9 @@ public class SynthaxController {
         return synthaxDelay.getLevel();
     }
 
-
+    public void updateDelayParameters(float feedback, float time, float decay, float level) {
+        synthaxDelay.updateDelayParameters(feedback, time, decay, level);
+    }
 
     //VIEW
     public float getViewDelayFeedback() {

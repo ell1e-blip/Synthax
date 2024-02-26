@@ -172,28 +172,28 @@ public class OscillatorController extends VoiceController {
     public void setDelayFeedback(float feedBackDuration) {
         for(Voice voice : voices) {
             ((OscillatorVoice)voice).getDelay().setFeedbackDuration(feedBackDuration);
-            System.out.println("Oscillator.setDelayFeedback: " + feedBackDuration);
+            System.out.println("Oscillator.setDelayFeedback: " +  ((OscillatorVoice)voice).getDelay().getFeedbackDuration());
         }
     }
 
     public void setDelayTime(float delayTime) {
         for (Voice voice : voices) {
             ((OscillatorVoice)voice).getDelay().setDelayTime(delayTime);
-            System.out.println("Oscillator.setDelayTime: " + delayTime);
+            System.out.println("Oscillator.setDelayTime: " + ((OscillatorVoice)voice).getDelay().getDelayTime());
         }
     }
 
     public void setDelayDecay(float decayValue) {
         for (Voice voice : voices) {
             ((OscillatorVoice)voice).getDelay().setDecay(decayValue);
-            System.out.println("Oscillator.setDelayDecay: " + decayValue);
+            System.out.println("Oscillator.setDelayDecay: " + ((OscillatorVoice)voice).getDelay().getDecay());
         }
     }
 
     public void setDelayLevel(float levelValue) {
         for (Voice voice : voices) {
             ((OscillatorVoice)voice).getDelay().setLevel(levelValue);
-            System.out.println("Oscillator.setDelayLevel: " + levelValue);
+            System.out.println("Oscillator.setDelayLevel: " + ((OscillatorVoice)voice).getDelay().getLevel());
         }
     }
 

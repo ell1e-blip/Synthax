@@ -73,11 +73,22 @@ public class ProgramPresetManager {
             float phase = synthaxController.getLFOPhase();
             float knobRate = synthaxController.getViewLFORate();
 
+            System.out.println("ProgramPresetManager/savePreset: depthvalue  " +depthvalue);
+            System.out.println("ProgramPresetManager/savePreset: waveformBuffer  " +waveformBuffer);
+            System.out.println("ProgramPresetManager/savePreset: rateFreq  " +rateFreq);
+            System.out.println("ProgramPresetManager/savePreset: phase  " +phase);
+            System.out.println("ProgramPresetManager/savePreset: knobRate  " +knobRate);
+
             //DELAY
             float delayFeedback = synthaxController.getDelayFeedback();
             float delayTime = synthaxController.getDelayTime();
             float delayDecay = synthaxController.getDelayDecay();
             float delayLevel = synthaxController.getDelayLevel();
+
+            System.out.println("ProgramPresetManager/savePreset: Feedback  " +delayFeedback);
+            System.out.println("ProgramPresetManager/savePreset: Time  " +delayTime);
+            System.out.println("ProgramPresetManager/savePreset: Decay  " +delayDecay);
+            System.out.println("ProgramPresetManager/savePreset: Level  " +delayLevel);
 
            // float knob
             //TODO kolla knobsen
@@ -202,6 +213,10 @@ public class ProgramPresetManager {
             float delayTime = dis.readFloat();
             float delayDecay = dis.readFloat();
             float delayLevel = dis.readFloat();
+
+            // Update SynthaxDelay with loaded parameters
+            synthaxController.updateDelayParameters(delayFeedback, delayTime, delayDecay, delayLevel);
+
             dis.close();
 
             /*
@@ -223,10 +238,10 @@ public class ProgramPresetManager {
             //synthaxController.setLFOPhase(phase);
 
             // Apply Delay settings to the model
-            synthaxController.setDelayFeedback(delayFeedback);
+         /**   synthaxController.setDelayFeedback(delayFeedback);
             synthaxController.setDelayTime(delayTime);
             synthaxController.setDelayDecay(delayDecay);
-            synthaxController.setDelayLevel(delayLevel);
+            synthaxController.setDelayLevel(delayLevel);*/
 
             synthaxController.setViewLFODepth(depthvalue);
             synthaxController.setViewLFORate(knobRate);
