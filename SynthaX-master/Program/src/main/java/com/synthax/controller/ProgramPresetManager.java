@@ -23,9 +23,10 @@ public class ProgramPresetManager {
     private File presetRoot = new File("src/main/resources/com/synthax/program_presets");
 
     private final static String PRESET_FILE_EXTENSION = ".dat";
-
-
-
+    private float delayFeedback;
+    private float delayTime;
+    private float delayDecay;
+    private float delayLevel;
 
 
     public ProgramPresetManager(SynthaxController synthaxController) {
@@ -65,8 +66,8 @@ public class ProgramPresetManager {
 
     private void savePreset(File saveFile) {
         System.out.println("test2");
-        Boolean active = synthaxController.getLFOActive();
-        if(active) {
+
+
             float depthvalue = synthaxController.getLFODepth();
             Buffer waveformBuffer = synthaxController.getLFOWaveForm();
             float rateFreq = synthaxController.getLFOrate();
@@ -77,7 +78,6 @@ public class ProgramPresetManager {
             float reverbSize = synthaxController.getReverbSize();
             float reverbTone = synthaxController.getReverbTone();
             float reverbAmount = synthaxController.getReverbAmount();
-
 
             /*
             System.out.println("depthvalue: " + depthvalue);
@@ -104,9 +104,11 @@ public class ProgramPresetManager {
                 dos.writeFloat(reverbSize);
                 dos.writeFloat(reverbTone);
                 dos.writeFloat(reverbAmount);
-                System.out.println("ReverbSize: " + reverbSize);
-                System.out.println("RereverbTone: " + reverbTone);
-                System.out.println("ReverbAmount: " + reverbAmount);
+                //Delay
+                dos.writeFloat(delayTime);
+                dos.writeFloat(delayDecay);
+                dos.writeFloat(delayLevel);
+                dos.writeFloat(delayFeedback);
                 dos.flush();
 
             } catch (FileNotFoundException e) {
@@ -118,7 +120,7 @@ public class ProgramPresetManager {
 
 
 
-        }
+
     }
 
     /**
@@ -193,6 +195,11 @@ public class ProgramPresetManager {
             Float reverbSize = dis.readFloat();
             Float reverbTone = dis.readFloat();
             Float reverbAmount = dis.readFloat();
+            //Delay
+            delayTime = dis.readFloat();
+            delayDecay = dis.readFloat();
+            delayLevel = dis.readFloat();
+            delayFeedback = dis.readFloat();
 
             dis.close();
 
@@ -216,6 +223,8 @@ public class ProgramPresetManager {
             synthaxController.setViewReverbSize(reverbSize);
             synthaxController.setViewReverbTone(reverbTone);
             synthaxController.setViewReverbAmount(reverbAmount);
+
+            synthaxController.updateDelayView(delayTime, delayDecay, delayLevel, delayFeedback);
 
 
 
@@ -244,5 +253,22 @@ public class ProgramPresetManager {
                 System.err.println("SeqPresetLoader.deletePreset(): Root has no children.");
             }
         }
+    }
+
+    public void setDelayFeedback(float mappedFeedback) {
+        System.out.println(mappedFeedback + " feedback in PPM");
+        this.delayFeedback = mappedFeedback;
+    }
+
+    public void setDelayTime(float mappedTime) {
+        this.delayTime = mappedTime;
+    }
+
+    public void setDelayDecay(float decayValue) {
+        this.delayDecay = decayValue;
+    }
+
+    public void setDelayLevel(float levelValue) {
+        this.delayLevel = levelValue;
     }
 }

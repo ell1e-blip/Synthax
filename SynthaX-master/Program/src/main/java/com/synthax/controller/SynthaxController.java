@@ -9,6 +9,7 @@ import com.synthax.model.enums.Waveforms;
 import com.synthax.model.sequencer.Sequencer;
 import com.synthax.model.enums.SequencerMode;
 import com.synthax.model.sequencer.SequencerStep;
+import com.synthax.util.HelperMath;
 import com.synthax.view.SynthaxView;
 import net.beadsproject.beads.core.AudioContext;
 import net.beadsproject.beads.core.io.JavaSoundAudioIO;
@@ -48,6 +49,12 @@ public class SynthaxController {
     private static SynthaxController instance;
     public static SynthaxController getInstance() {
         return instance;
+    }
+
+    public void updateDelayView(float delayTime, float delayDecay, float delayLevel, float delayFeedback) {
+        float origTime = HelperMath.map(delayTime, 100, 1000, 0, 1);
+        float originalFeedbackDuration = HelperMath.map(delayFeedback, 100, 2500, 0, 1);
+        synthaxView.setKnobDelayTime(origTime);
     }
 
     public ProgramPresetManager getPPMInstance() {
@@ -396,18 +403,24 @@ public class SynthaxController {
     //region Delay (click to open/collapse)
     public void setDelayFeedback(float feedBackDuration) {
         oscillatorManager.setDelayFeedback(feedBackDuration);
+        float mappedFeedback = HelperMath.map(feedBackDuration, 0, 1, 100, 2500);
+        programPresetManager.setDelayFeedback(mappedFeedback);
     }
 
     public void setDelayTime(float delayTime) {
         oscillatorManager.setDelayTime(delayTime);
+        float mappedTime = HelperMath.map(delayTime, 0, 1, 100, 1000);
+        programPresetManager.setDelayTime(mappedTime);
     }
 
     public void setDelayDecay(float decayValue) {
         oscillatorManager.setDelayDecay(decayValue);
+        programPresetManager.setDelayDecay(decayValue);
     }
 
     public void setDelayLevel(float levelValue) {
         oscillatorManager.setDelayLevel(levelValue);
+        programPresetManager.setDelayLevel(levelValue);
     }
 
     public void setDelayActive() {

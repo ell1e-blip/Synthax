@@ -247,6 +247,14 @@ public class SynthaxView implements Initializable {
 
     KnobBehavior bKnobReverbAmount;
 
+    KnobBehavior bKnobDelayFeedback;
+
+    KnobBehavior bKnobDelayTime;
+
+    KnobBehavior bKnobDelayDecay;
+
+    KnobBehavior bKnobDelayLevel;
+
 
 
     public SynthaxView() {
@@ -950,25 +958,25 @@ public class SynthaxView implements Initializable {
     }
 
     private void initDelay() {
-        KnobBehavior bKnobDelayFeedback = new KnobBehavior(knobDelayFeedback);
+        bKnobDelayFeedback = new KnobBehavior(knobDelayFeedback);
         knobDelayFeedback.setOnMouseDragged(bKnobDelayFeedback);
         bKnobDelayFeedback.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setDelayFeedback(newValue.floatValue());
         });
 
-        KnobBehavior bKnobDelayTime = new KnobBehavior(knobDelayTime);
+        bKnobDelayTime = new KnobBehavior(knobDelayTime);
         knobDelayTime.setOnMouseDragged(bKnobDelayTime);
         bKnobDelayTime.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setDelayTime(newValue.floatValue());
         });
 
-        KnobBehavior bKnobDelayDecay = new KnobBehavior(knobDelayDecay);
+        bKnobDelayDecay = new KnobBehavior(knobDelayDecay);
         knobDelayDecay.setOnMouseDragged(bKnobDelayDecay);
         bKnobDelayDecay.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setDelayDecay(newValue.floatValue());
         });
 
-        KnobBehavior bKnobDelayLevel = new KnobBehavior(knobDelayLevel);
+        bKnobDelayLevel = new KnobBehavior(knobDelayLevel);
         knobDelayLevel.setOnMouseDragged(bKnobDelayLevel);
         bKnobDelayLevel.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setDelayLevel(newValue.floatValue());
@@ -1258,6 +1266,11 @@ public class SynthaxView implements Initializable {
 
     public Button getLFORateKnobForTest() {
         return knobLFORate;
+    }
+
+    public void setKnobDelayTime(float origTime) {
+        bKnobDelayTime.knobValueProperty().setValue(origTime);
+        bKnobDelayTime.setRotation(origTime);
     }
 
 
