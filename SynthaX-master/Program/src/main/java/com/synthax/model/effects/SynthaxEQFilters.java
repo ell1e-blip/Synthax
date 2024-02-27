@@ -128,6 +128,7 @@ public class SynthaxEQFilters {
 
     public void setEQRange(int i, float newVal) {
         float qVal = HelperMath.map(newVal, 0f, 1f, EQ_RANGE_MIN, EQ_RANGE_MAX);
+        System.out.println(qVal + " set to " + i);
         eqFilters[i].setQ(qVal);
     }
 
@@ -162,6 +163,7 @@ public class SynthaxEQFilters {
     private void setHPfreq(float freq) {
         for (int i = 0; i < FILTER_STACK_COUNT; i++) {
             highPassFilters[i].setFrequency(freq);
+            System.out.println(highPassFilters[i].getFrequency() + " HPF" + i );
         }
     }
 
@@ -184,5 +186,17 @@ public class SynthaxEQFilters {
 
     public UGen getOutput() {
         return lowPassFilters[FILTER_STACK_COUNT - 1];
+    }
+
+    public float getHPCutOff0() {
+        return highPassFilters[0].getFrequency();
+    }
+
+    public float getHPCutOff1() {
+        return highPassFilters[1].getFrequency();
+    }
+
+    public float getHPCutOff2() {
+        return highPassFilters[2].getFrequency();
     }
 }
