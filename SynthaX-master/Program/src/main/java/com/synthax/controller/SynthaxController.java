@@ -55,6 +55,9 @@ public class SynthaxController {
         float origTime = HelperMath.map(delayTime, 100, 1000, 0, 1);
         float originalFeedbackDuration = HelperMath.map(delayFeedback, 100, 2500, 0, 1);
         synthaxView.setKnobDelayTime(origTime);
+        synthaxView.setKnobDelayFeedback(originalFeedbackDuration);
+        synthaxView.setKnobDelayDecay(delayDecay);
+        synthaxView.setKnobDelayLevel(delayLevel);
     }
 
     public ProgramPresetManager getPPMInstance() {

@@ -1273,6 +1273,21 @@ public class SynthaxView implements Initializable {
         bKnobDelayTime.setRotation(origTime);
     }
 
+    public void setKnobDelayFeedback(float originalFeedbackDuration) {
+        bKnobDelayFeedback.knobValueProperty().setValue(originalFeedbackDuration);
+        bKnobDelayFeedback.setRotation(originalFeedbackDuration);
+    }
+
+    public void setKnobDelayDecay(float delayDecay) {
+        bKnobDelayDecay.knobValueProperty().setValue(delayDecay);
+        bKnobDelayDecay.setRotation(delayDecay);
+    }
+
+    public void setKnobDelayLevel(float delayLevel) {
+        bKnobDelayLevel.knobValueProperty().setValue(delayLevel);
+        bKnobDelayLevel.setRotation(delayLevel);
+    }
+
 
     //endregion initialize methods
 }
