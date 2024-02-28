@@ -210,6 +210,10 @@ public class SynthaxView implements Initializable {
     private Button[] arrSeqDetuneKnobs;
     private Button[] arrSeqGainKnobs;
     private Button[] arrEQGainKnobs;
+
+    private KnobBehaviorDetune[] arrEQKnobBehaviourGain = new KnobBehaviorDetune[3];
+    private KnobBehavior[] arrEQKnobBehaviourFreq = new KnobBehavior[3];
+    private KnobBehavior[] arrEQKnobBehaviourRange = new KnobBehavior[3];
     private Button[] arrEQFreqKnobs;
     private Button[] arrEQRangeKnobs;
     private ToggleButton[] arrSeqStepsOnOff;
@@ -1030,6 +1034,7 @@ public class SynthaxView implements Initializable {
     }
 
     private void initFilter() {
+
         for (int i = 0; i < arrEQGainKnobs.length; i++) {
             int finalI = i;
             KnobBehaviorDetune b = new KnobBehaviorDetune(arrEQGainKnobs[i]);
@@ -1037,6 +1042,7 @@ public class SynthaxView implements Initializable {
             b.knobValueProperty().addListener((v, oldValue, newValue) -> {
                 synthaxController.setEQGain(finalI, newValue.floatValue());
             });
+            arrEQKnobBehaviourGain[i] = b;
         }
         for (int i = 0; i < arrEQRangeKnobs.length; i++) {
             int finalI = i;
@@ -1046,6 +1052,7 @@ public class SynthaxView implements Initializable {
 
                 synthaxController.setEQRange(finalI, newValue.floatValue());
             });
+            arrEQKnobBehaviourRange[i] = b;
         }
         for (int i = 0; i < arrEQFreqKnobs.length; i++) {
             int finalI = i;
@@ -1054,6 +1061,7 @@ public class SynthaxView implements Initializable {
             b.knobValueProperty().addListener((v, oldValue, newValue) -> {
                 synthaxController.setEQFreq(finalI, newValue.floatValue());
             });
+            arrEQKnobBehaviourFreq[i] = b;
         }
 
         KnobBehavior bKnobFilterHPCutoff = new KnobBehavior(knobFilterHPCutoff);
@@ -1179,6 +1187,37 @@ public class SynthaxView implements Initializable {
 
     public float getKnobLFORate() {
         return bKnobLFORate.getRotation();
+    }
+
+
+    /**
+     * @author Marcus Larsson
+     * @param i
+     * @param value
+     */
+    public void setKnobEQGain(int i, float value) {
+        arrEQKnobBehaviourGain[i].knobValueProperty().setValue(value);
+        arrEQKnobBehaviourGain[i].setRotation(value);
+    }
+
+    /**
+     * @author Marcus Larsson
+     * @param i
+     * @param value
+     */
+    public void setKnobEQFreq(int i, float value) {
+        arrEQKnobBehaviourFreq[i].knobValueProperty().setValue(value);
+        arrEQKnobBehaviourFreq[i].setRotation(value);
+    }
+
+    /**
+     * @author Marcus Larsson
+     * @param i
+     * @param value
+     */
+    public void setKnobEQRange(int i, float value) {
+        arrEQKnobBehaviourRange[i].knobValueProperty().setValue(value);
+        arrEQKnobBehaviourRange[i].setRotation(value);
     }
 
     /**
