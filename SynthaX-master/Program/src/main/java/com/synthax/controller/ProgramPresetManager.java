@@ -110,6 +110,8 @@ public class ProgramPresetManager {
                 dos.writeFloat(delayLevel);
                 dos.writeFloat(delayFeedback);
 
+                dos.writeFloat(synthaxController.getHPCutOff());
+                dos.writeFloat(synthaxController.getLPCutoff());
                 for (int i = 0; i < 3; i++) {
                     dos.writeFloat(synthaxController.getEQGain(i));
                     dos.writeFloat(synthaxController.getEQFreq(i));
@@ -207,6 +209,8 @@ public class ProgramPresetManager {
             delayLevel = dis.readFloat();
             delayFeedback = dis.readFloat();
 
+            float hpCutoff = dis.readFloat();
+            float lpCutoff = dis.readFloat();
             for (int i = 0; i < 3; i++) {
                 synthaxController.setViewEQGain(i, dis.readFloat());
                 synthaxController.setViewEQFreq(i, dis.readFloat());
@@ -225,6 +229,8 @@ public class ProgramPresetManager {
 
             synthaxController.updateDelayView(delayTime, delayDecay, delayLevel, delayFeedback);
 
+            synthaxController.setViewHPCutoff(hpCutoff);
+            synthaxController.setViewLPCutoff(lpCutoff);
         } catch (IOException e) {
             e.printStackTrace();
         }

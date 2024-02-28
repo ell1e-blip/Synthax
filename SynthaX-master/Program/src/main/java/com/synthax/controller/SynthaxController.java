@@ -145,6 +145,10 @@ public class SynthaxController {
         filters.setHPCutoff(cutoff);
     }
 
+    public float getHPCutOff() {
+        return filters.getHPCutOff0();
+    }
+
     public void setHPActive() {
         filters.setHPActive();
     }
@@ -186,6 +190,10 @@ public class SynthaxController {
 
     public void setLPCutoff(float cutoff) {
         filters.setLPCutoff(cutoff);
+    }
+
+    public float getLPCutoff() {
+        return filters.getLPCutOff0();
     }
 
     public void setLPActive() {
@@ -730,4 +738,11 @@ public class SynthaxController {
         synthaxView.setKnobReverbAmount(reverbAmount);
     }
 
+    public void setViewHPCutoff(float hpCutoff) {
+        synthaxView.setKnobHPCutoff(hpCutoff);
+    }
+
+    public void setViewLPCutoff(float lpCutoff) {
+        synthaxView.setKnobLPCutoff(lpCutoff);
+    }
 }

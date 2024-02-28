@@ -259,6 +259,10 @@ public class SynthaxView implements Initializable {
 
     KnobBehavior bKnobDelayLevel;
 
+    KnobBehavior bKnobFilterHPCutoff;
+
+    KnobBehavior bKnobFilterLPCutoff;
+
 
 
     public SynthaxView() {
@@ -1064,13 +1068,13 @@ public class SynthaxView implements Initializable {
             arrEQKnobBehaviourFreq[i] = b;
         }
 
-        KnobBehavior bKnobFilterHPCutoff = new KnobBehavior(knobFilterHPCutoff);
+        bKnobFilterHPCutoff = new KnobBehavior(knobFilterHPCutoff);
         knobFilterHPCutoff.setOnMouseDragged(bKnobFilterHPCutoff);
         bKnobFilterHPCutoff.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setHPCutoff(newValue.floatValue());
         });
 
-        KnobBehavior bKnobFilterLPCutoff = new KnobBehavior(knobFilterLPCutoff);
+        bKnobFilterLPCutoff = new KnobBehavior(knobFilterLPCutoff);
         knobFilterLPCutoff.setOnMouseDragged(bKnobFilterLPCutoff);
         bKnobFilterLPCutoff.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setLPCutoff(newValue.floatValue());
@@ -1196,8 +1200,9 @@ public class SynthaxView implements Initializable {
      * @param value
      */
     public void setKnobEQGain(int i, float value) {
-        arrEQKnobBehaviourGain[i].knobValueProperty().setValue(value);
-        arrEQKnobBehaviourGain[i].setRotation(value);
+        float mappedValue = HelperMath.map(value, -25, 25f, -50f, 50f);
+        arrEQKnobBehaviourGain[i].knobValueProperty().setValue(mappedValue);
+        arrEQKnobBehaviourGain[i].setRotation(mappedValue);
     }
 
     /**
@@ -1206,8 +1211,9 @@ public class SynthaxView implements Initializable {
      * @param value
      */
     public void setKnobEQFreq(int i, float value) {
-        arrEQKnobBehaviourFreq[i].knobValueProperty().setValue(value);
-        arrEQKnobBehaviourFreq[i].setRotation(value);
+        float mappedValue = HelperMath.map(value, 200f, 1800f, 0f, 1f);
+        arrEQKnobBehaviourFreq[i].knobValueProperty().setValue(mappedValue);
+        arrEQKnobBehaviourFreq[i].setRotation(mappedValue);
     }
 
     /**
@@ -1216,8 +1222,21 @@ public class SynthaxView implements Initializable {
      * @param value
      */
     public void setKnobEQRange(int i, float value) {
-        arrEQKnobBehaviourRange[i].knobValueProperty().setValue(value);
-        arrEQKnobBehaviourRange[i].setRotation(value);
+        float mappedValue = HelperMath.map(value, 10f, 1f, 0f, 1f);
+        arrEQKnobBehaviourRange[i].knobValueProperty().setValue(mappedValue);
+        arrEQKnobBehaviourRange[i].setRotation(mappedValue);
+    }
+
+    public void setKnobHPCutoff(float hpCutoff) {
+        float mapped = HelperMath.map(hpCutoff, 400f, 2000f,0f, 1f);
+        bKnobFilterHPCutoff.knobValueProperty().setValue(mapped);
+        bKnobFilterHPCutoff.setRotation(mapped);
+    }
+
+    public void setKnobLPCutoff(float lpCutoff) {
+        float mapped = HelperMath.map(lpCutoff, 100f, 1500f,0f, 1f);
+        bKnobFilterLPCutoff.knobValueProperty().setValue(mapped);
+        bKnobFilterLPCutoff.setRotation(mapped);
     }
 
     /**
@@ -1326,6 +1345,8 @@ public class SynthaxView implements Initializable {
         bKnobDelayLevel.knobValueProperty().setValue(delayLevel);
         bKnobDelayLevel.setRotation(delayLevel);
     }
+
+
 
 
     //endregion initialize methods

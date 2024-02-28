@@ -214,14 +214,34 @@ public class SynthaxEQFilters {
     }
 
     public float getHPCutOff0() {
-        return highPassFilters[0].getFrequency();
+        if(hpActive) {
+            return highPassFilters[0].getFrequency();
+        } else {
+            return savedHPCutoff;
+        }
     }
 
     public float getHPCutOff1() {
-        return highPassFilters[1].getFrequency();
+        if(hpActive) {
+            return highPassFilters[1].getFrequency();
+        } else {
+            return savedHPCutoff;
+        }
     }
 
     public float getHPCutOff2() {
-        return highPassFilters[2].getFrequency();
+        if(hpActive) {
+            return highPassFilters[2].getFrequency();
+        } else {
+            return savedHPCutoff;
+        }
+    }
+
+    public float getLPCutOff0() {
+        if(hpActive) {
+            return lowPassFilters[0].getFrequency();
+        } else {
+            return savedLPCutoff;
+        }
     }
 }
