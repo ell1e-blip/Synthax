@@ -1,5 +1,6 @@
 package com.synthax.controller;
 
+import com.synthax.model.effects.SynthaxADSR;
 import com.synthax.model.effects.SynthaxEQFilters;
 import com.synthax.model.midi.Midi;
 import com.synthax.model.effects.SynthaxLFO;
@@ -636,7 +637,6 @@ public class SynthaxController {
      */
     public void setViewLFOBuffer(Buffer waveformBuffer) {
         synthaxView.setKnobLFOWaveForm(waveformBuffer);
-
     }
 
     /**
@@ -711,4 +711,94 @@ public class SynthaxController {
         synthaxView.setKnobReverbAmount(reverbAmount);
     }
 
+    /**
+     * @author Oliver Berggren
+     */
+    public float getAttackValue() {
+        return SynthaxADSR.getAttackValue();
+    }
+
+    /**
+     * @author Oliver Berggren
+     */
+    public float getDecayValue() {
+        return SynthaxADSR.getDecayValue();
+    }
+
+    /**
+     * @author Oliver Berggren
+     */
+    public float getSustainValue() {
+        return SynthaxADSR.getSustainValue();
+    }
+
+    /**
+     * @author Oliver Berggren
+     */
+    public float getReleaseValue() {
+        return SynthaxADSR.getReleaseValue();
+    }
+
+    /**
+     * @author Oliver Berggren
+     * @param attackValue
+     */
+    public void setAttackValue(float attackValue) {
+        SynthaxADSR.setAttackValue(attackValue);
+    }
+
+    /**
+     * @author Oliver Berggren
+     * @param decayValue
+     */
+    public void setDecayValue(float decayValue) {
+        SynthaxADSR.setDecayValue(decayValue);
+    }
+
+    /**
+     * @author Oliver Berggren
+     * @param sustainValue
+     */
+    public void setSustainValue(float sustainValue) {
+        SynthaxADSR.setSustainValue(sustainValue);
+    }
+
+    /**
+     * @author Oliver Berggren
+     * @param releaseValue
+     */
+    public void setReleaseValue(float releaseValue) {
+        SynthaxADSR.setReleaseValue(releaseValue);
+    }
+    /**
+     * @author Oliver Berggren
+     * @param attack
+     */
+    public void setViewASDRSliderAttack(float attack) {
+        synthaxView.setSliderAttack(attack);
+    }
+
+    /**
+     * @author Oliver Berggren
+     * @param decay
+     */
+    public void setViewASDRSliderDecay(float decay) {
+        synthaxView.setSliderDecay(decay);
+    }
+
+    /**
+     * @author Oliver Berggren
+     * @param sustain
+     */
+    public void setViewASDRSliderSustain(float sustain) {
+        synthaxView.setSliderSustain(sustain);
+    }
+
+    /**
+     * @author Oliver Berggren
+     * @param release
+     */
+    public void setViewASDRSliderRelease(float release) {
+        synthaxView.setSliderRelease(release);
+    }
 }

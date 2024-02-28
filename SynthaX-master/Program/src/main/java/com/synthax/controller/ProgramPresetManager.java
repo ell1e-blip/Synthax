@@ -1,5 +1,6 @@
 package com.synthax.controller;
 
+import com.synthax.model.effects.SynthaxADSR;
 import com.synthax.model.effects.SynthaxLFO;
 import com.synthax.model.enums.Waveforms;
 import net.beadsproject.beads.data.Buffer;
@@ -68,59 +69,74 @@ public class ProgramPresetManager {
         System.out.println("test2");
 
 
-            float depthvalue = synthaxController.getLFODepth();
-            Buffer waveformBuffer = synthaxController.getLFOWaveForm();
-            float rateFreq = synthaxController.getLFOrate();
-            float phase = synthaxController.getLFOPhase();
-            float knobRate = synthaxController.getViewLFORate();
+        float depthvalue = synthaxController.getLFODepth();
+        Buffer waveformBuffer = synthaxController.getLFOWaveForm();
+        float rateFreq = synthaxController.getLFOrate();
+        float phase = synthaxController.getLFOPhase();
+        float knobRate = synthaxController.getViewLFORate();
 
-            //Fortsätter med reverb
-            float reverbSize = synthaxController.getReverbSize();
-            float reverbTone = synthaxController.getReverbTone();
-            float reverbAmount = synthaxController.getReverbAmount();
+        //Fortsätter med reverb
+        float reverbSize = synthaxController.getReverbSize();
+        float reverbTone = synthaxController.getReverbTone();
+        float reverbAmount = synthaxController.getReverbAmount();
 
-            /*
-            System.out.println("depthvalue: " + depthvalue);
-            System.out.println("Buffer: " + waveformBuffer.toString());
-            System.out.println("rateFreq: " + rateFreq);
-            System.out.println("knobRate" + knobRate);
-            */
+        //ADSR
+        float ADSRAttack = synthaxController.getAttackValue();
+        float ADSRDecay = synthaxController.getDecayValue();
+        float ADSRSustain = synthaxController.getSustainValue();
+        float ADSRRelease = synthaxController.getReleaseValue();
 
-            try (DataOutputStream dos = new DataOutputStream(new FileOutputStream(saveFile))) {
-                dos.writeInt(PRESET_UID);
-                dos.writeInt(PRESET_VERSION_ID);
-                dos.writeFloat(depthvalue);
-                int bufferSize = waveformBuffer.buf.length;
-                dos.writeInt(bufferSize);
+        System.out.println("SAVE BELOW");
+        System.out.println("attackValue:    " + ADSRAttack);
+        System.out.println("decayValue:     " + ADSRDecay);
+        System.out.println("sustainValue:   " + ADSRSustain);
+        System.out.println("releaseValue:   " + ADSRRelease);
 
-                // Save each float value
-                for (float value : waveformBuffer.buf) {
-                    dos.writeFloat(value);
-                }
-                dos.writeFloat(rateFreq);
-                dos.writeFloat(phase);
-                dos.writeFloat(knobRate);
-                //Reverb
-                dos.writeFloat(reverbSize);
-                dos.writeFloat(reverbTone);
-                dos.writeFloat(reverbAmount);
-                //Delay
-                dos.writeFloat(delayTime);
-                dos.writeFloat(delayDecay);
-                dos.writeFloat(delayLevel);
-                dos.writeFloat(delayFeedback);
-                dos.flush();
 
-            } catch (FileNotFoundException e) {
-                throw new RuntimeException(e);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+        /*
+        System.out.println("depthvalue: " + depthvalue);
+        System.out.println("Buffer: " + waveformBuffer.toString());
+        System.out.println("rateFreq: " + rateFreq);
+        System.out.println("knobRate" + knobRate);
+        */
+
+        try (DataOutputStream dos = new DataOutputStream(new FileOutputStream(saveFile))) {
+            dos.writeInt(PRESET_UID);
+            dos.writeInt(PRESET_VERSION_ID);
+            dos.writeFloat(depthvalue);
+            int bufferSize = waveformBuffer.buf.length;
+            dos.writeInt(bufferSize);
+
+            // Save each float value
+            for (float value : waveformBuffer.buf) {
+                dos.writeFloat(value);
             }
+            //LFO
+            dos.writeFloat(rateFreq);
+            dos.writeFloat(phase);
+            dos.writeFloat(knobRate);
+            //Reverb
+            dos.writeFloat(reverbSize);
+            dos.writeFloat(reverbTone);
+            dos.writeFloat(reverbAmount);
+            //Delay
+            dos.writeFloat(delayTime);
+            dos.writeFloat(delayDecay);
+            dos.writeFloat(delayLevel);
+            dos.writeFloat(delayFeedback);
+            //ADSR
+            dos.writeFloat(ADSRAttack);
+            dos.writeFloat(ADSRDecay);
+            dos.writeFloat(ADSRSustain);
+            dos.writeFloat(ADSRRelease);
 
+            dos.flush();
 
-
-
-
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -150,7 +166,6 @@ public class ProgramPresetManager {
 
     private void loadPreset(File loadFile) {
         System.out.println("LOADING: " + loadFile);
-
 
         try (DataInputStream dis = new DataInputStream(new FileInputStream(loadFile))){
             int presetUID = dis.readInt();
@@ -201,6 +216,11 @@ public class ProgramPresetManager {
             delayLevel = dis.readFloat();
             delayFeedback = dis.readFloat();
 
+            Float ADSRAttack = dis.readFloat();
+            Float ADSRDecay = dis.readFloat();
+            Float ADSRSustain = dis.readFloat();
+            Float ADSRRelease = dis.readFloat();
+
             dis.close();
 
             /*
@@ -226,8 +246,16 @@ public class ProgramPresetManager {
 
             synthaxController.updateDelayView(delayTime, delayDecay, delayLevel, delayFeedback);
 
+            synthaxController.setViewASDRSliderAttack(ADSRAttack);
+            synthaxController.setViewASDRSliderDecay(ADSRDecay);
+            synthaxController.setViewASDRSliderSustain(ADSRSustain);
+            synthaxController.setViewASDRSliderRelease(ADSRRelease);
 
-
+            System.out.println("LOAD BELOW");
+            System.out.println("attackValue:    " + ADSRAttack);
+            System.out.println("decayValue:     " + ADSRDecay);
+            System.out.println("sustainValue:   " + ADSRSustain);
+            System.out.println("releaseValue:   " + ADSRRelease);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -255,20 +283,42 @@ public class ProgramPresetManager {
         }
     }
 
+    /**
+     * @author Ellie Rosander
+     * @author Oliver Berggren
+     * @param mappedFeedback
+     */
     public void setDelayFeedback(float mappedFeedback) {
         System.out.println(mappedFeedback + " feedback in PPM");
         this.delayFeedback = mappedFeedback;
     }
 
+    /**
+     * @author Ellie Rosander
+     * @author Oliver Berggren
+     * @param mappedTime
+     */
     public void setDelayTime(float mappedTime) {
         this.delayTime = mappedTime;
     }
+    /**
+     * @author Ellie Rosander
+     * @author Oliver Berggren
+     * @param decayValue
+     */
 
     public void setDelayDecay(float decayValue) {
         this.delayDecay = decayValue;
     }
 
+    /**
+     * @author Ellie Rosander
+     * @author Oliver Berggren
+     * @param levelValue
+     */
     public void setDelayLevel(float levelValue) {
         this.delayLevel = levelValue;
     }
+
+
 }
