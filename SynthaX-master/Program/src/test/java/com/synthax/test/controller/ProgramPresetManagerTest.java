@@ -24,6 +24,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 /**
  * @author Ellie Rosander
  * Testing the ProgramPresetManager class's methods for saving and loading presets.
+ * The values that are saved and loaded are from the SynthaxLFO and SynthaxReverb classes,
+ * as those are the presets that were implemented at the time of writing these tests.
  * This class does not include boundary value analysis tests as those are tested
  * in the classes for testing a model class's values,
  * ex. LFOValuesTest and ReverbValuesTest.

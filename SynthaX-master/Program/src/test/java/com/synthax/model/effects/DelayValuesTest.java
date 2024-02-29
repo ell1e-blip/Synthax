@@ -36,7 +36,7 @@ class DelayValuesTest {
 
         synthaxReverb = new SynthaxReverb(filters.getOutput());
     }
-
+    
     /**
      * --------- Methods belows are for testing Feedback using Boundary Value Analysis ---------
      */
