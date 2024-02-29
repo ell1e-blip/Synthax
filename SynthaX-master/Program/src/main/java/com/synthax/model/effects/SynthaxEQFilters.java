@@ -199,4 +199,8 @@ public class SynthaxEQFilters {
     public float getHPCutOff2() {
         return highPassFilters[2].getFrequency();
     }
+
+    public float getLPCutOff0() {
+        return lowPassFilters[0].getFrequency();
+    }
 }

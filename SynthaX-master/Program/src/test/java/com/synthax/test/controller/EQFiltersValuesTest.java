@@ -44,6 +44,7 @@ public class EQFiltersValuesTest {
      * This test tests setting the value with the maximum input value (1F).
      * The setter for HPCutoff has internal logic to map the input float
      * to a float frequency between 400f- 2000f.
+     * results: float 2000.0 as expected.
      */
 
     @Test
@@ -59,7 +60,13 @@ public class EQFiltersValuesTest {
 
         assertEquals(mapped, synthaxEQFilters.getHPCutOff0());
     }
-
+    /**
+     * HPCutOff has a button to set it active or inactive.
+     * This test tests setting the value with the minimum input value (0F).
+     * The setter for HPCutoff has internal logic to map the input float
+     * to a float frequency between 400f- 2000f.
+     * results: float 400.0 as expected.
+     */
     @Test
     void testHPCutOffValueWhenActiveMin() {
         ObservableValue<Number> HPCutOffValue = mock(ObservableValue.class);
@@ -131,4 +138,19 @@ public class EQFiltersValuesTest {
 
     }
 
+    //section LPCutoff
+
+    @Test
+    void testLPCutOffValueWhenActiveMax() {
+        ObservableValue<Number> LPCutOffValue = mock(ObservableValue.class);
+        synthaxEQFilters.setLPActive();
+        ChangeListener<Number> rateListener = (v, oldValue, newValue) -> {
+            synthaxEQFilters.setLPCutoff(newValue.floatValue());
+        };
+        float cutoff = 1.0F;
+        float mapped = HelperMath.map(cutoff, 0f, 1f, LP_MIN_FREQ, LP_MAX_FREQ);
+        rateListener.changed(LPCutOffValue, 0, cutoff);
+
+        assertEquals(mapped, synthaxEQFilters.getLPCutOff0());
+    }
 }
