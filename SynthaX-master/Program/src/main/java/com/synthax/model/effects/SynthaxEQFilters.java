@@ -245,4 +245,19 @@ public class SynthaxEQFilters {
         }
     }
 
+    public float getLPCutOff1() {
+        if(lpActive) {
+            return lowPassFilters[1].getFrequency();
+        } else {
+            return savedLPCutoff;
+        }
+    }
+
+    public float getLPCutOff2() {
+        if(lpActive) {
+            return lowPassFilters[2].getFrequency();
+        } else {
+            return savedLPCutoff;
+        }
+    }
 }
