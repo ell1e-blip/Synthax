@@ -125,16 +125,41 @@ public class SynthaxEQFilters {
             eqSavedGain[i] = gain;
         }
     }
+    /**
+     * @author Marcus Larsson
+     * @param i
+     * @return
+     */
+    public float getEQGain(int i) {
+        return eqFilters[i].getGain();
+    }
 
+    public void setEQFrequency(int i, float newVal) {
+        float freq = HelperMath.map(newVal, 0f, 1f, EQ_FREQ_MIN, EQ_FREQ_MAX);
+        eqFilters[i].setFrequency(freq);
+    }
+
+    /**
+     * @author Marcus Larsson
+     * @param i
+     * @return
+     */
+    public float getEQFrequency(int i) {
+        return eqFilters[i].getFrequency();
+    }
     public void setEQRange(int i, float newVal) {
         float qVal = HelperMath.map(newVal, 0f, 1f, EQ_RANGE_MIN, EQ_RANGE_MAX);
         System.out.println(qVal + " set to " + i);
         eqFilters[i].setQ(qVal);
     }
 
-    public void setEQFrequency(int i, float newVal) {
-        float freq = HelperMath.map(newVal, 0f, 1f, EQ_FREQ_MIN, EQ_FREQ_MAX);
-        eqFilters[i].setFrequency(freq);
+    /**
+     * @author Marcus Larsson
+     * @param i
+     * @return
+     */
+    public float getEQRange(int i) {
+        return eqFilters[i].getQ();
     }
 
     public void setLPCutoff(float cutoff) {
@@ -189,15 +214,35 @@ public class SynthaxEQFilters {
     }
 
     public float getHPCutOff0() {
-        return highPassFilters[0].getFrequency();
+        if(hpActive) {
+            return highPassFilters[0].getFrequency();
+        } else {
+            return savedHPCutoff;
+        }
     }
 
     public float getHPCutOff1() {
-        return highPassFilters[1].getFrequency();
+        if(hpActive) {
+            return highPassFilters[1].getFrequency();
+        } else {
+            return savedHPCutoff;
+        }
     }
 
     public float getHPCutOff2() {
-        return highPassFilters[2].getFrequency();
+        if(hpActive) {
+            return highPassFilters[2].getFrequency();
+        } else {
+            return savedHPCutoff;
+        }
+    }
+
+    public float getLPCutOff0() {
+        if(hpActive) {
+            return lowPassFilters[0].getFrequency();
+        } else {
+            return savedLPCutoff;
+        }
     }
 
     public float getLPCutOff0() {

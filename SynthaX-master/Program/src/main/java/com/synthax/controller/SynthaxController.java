@@ -145,6 +145,10 @@ public class SynthaxController {
         filters.setHPCutoff(cutoff);
     }
 
+    public float getHPCutOff() {
+        return filters.getHPCutOff0();
+    }
+
     public void setHPActive() {
         filters.setHPActive();
     }
@@ -156,17 +160,40 @@ public class SynthaxController {
     public void setEQGain(int i, float newVal) {
         filters.setEQGain(i, newVal);
     }
+    public void setViewEQGain(int i, float newVal) {
+        synthaxView.setKnobEQGain(i, newVal);
+    }
+    public float getEQGain(int i) {
+        return filters.getEQGain(i);
+    }
 
     public void setEQFreq(int i, float newVal) {
         filters.setEQFrequency(i, newVal);
+    }
+    public void setViewEQFreq(int i, float newVal) {
+        synthaxView.setKnobEQFreq(i, newVal);
+    }
+
+    public float getEQFreq(int i) {
+        return filters.getEQFrequency(i);
     }
 
     public void setEQRange(int i, float newVal) {
         filters.setEQRange(i, newVal);
     }
+    public void setViewEQRange(int i, float newVal) {
+        synthaxView.setKnobEQRange(i, newVal);
+    }
+    public float getEQRange(int i) {
+        return filters.getEQRange(i);
+    }
 
     public void setLPCutoff(float cutoff) {
         filters.setLPCutoff(cutoff);
+    }
+
+    public float getLPCutoff() {
+        return filters.getLPCutOff0();
     }
 
     public void setLPActive() {
@@ -711,4 +738,11 @@ public class SynthaxController {
         synthaxView.setKnobReverbAmount(reverbAmount);
     }
 
+    public void setViewHPCutoff(float hpCutoff) {
+        synthaxView.setKnobHPCutoff(hpCutoff);
+    }
+
+    public void setViewLPCutoff(float lpCutoff) {
+        synthaxView.setKnobLPCutoff(lpCutoff);
+    }
 }

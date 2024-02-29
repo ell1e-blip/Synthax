@@ -109,6 +109,14 @@ public class ProgramPresetManager {
                 dos.writeFloat(delayDecay);
                 dos.writeFloat(delayLevel);
                 dos.writeFloat(delayFeedback);
+
+                dos.writeFloat(synthaxController.getHPCutOff());
+                dos.writeFloat(synthaxController.getLPCutoff());
+                for (int i = 0; i < 3; i++) {
+                    dos.writeFloat(synthaxController.getEQGain(i));
+                    dos.writeFloat(synthaxController.getEQFreq(i));
+                    dos.writeFloat(synthaxController.getEQRange(i));
+                }
                 dos.flush();
 
             } catch (FileNotFoundException e) {
@@ -201,34 +209,28 @@ public class ProgramPresetManager {
             delayLevel = dis.readFloat();
             delayFeedback = dis.readFloat();
 
+            float hpCutoff = dis.readFloat();
+            float lpCutoff = dis.readFloat();
+            for (int i = 0; i < 3; i++) {
+                synthaxController.setViewEQGain(i, dis.readFloat());
+                synthaxController.setViewEQFreq(i, dis.readFloat());
+                synthaxController.setViewEQRange(i, dis.readFloat());
+            }
+
             dis.close();
-
-            /*
-            System.out.println(depthvalue);
-            System.out.println(waveformBuffer.toString());
-            System.out.println(rateFreq);
-            System.out.println(knobRate);
-             */
-
-            //synthaxController.setLFODepth(depthvalue);
-            //synthaxController.setLFOBuffer(waveformBuffer);
-            //synthaxController.setLFORate(rateFreq);
-            //synthaxController.setLFOPhase(phase);
-
 
             synthaxController.setViewLFODepth(depthvalue);
             synthaxController.setViewLFORate(knobRate);
             synthaxController.setViewLFOBuffer(waveformBuffer);
-            //Continue with reverb
+
             synthaxController.setViewReverbSize(reverbSize);
             synthaxController.setViewReverbTone(reverbTone);
             synthaxController.setViewReverbAmount(reverbAmount);
 
             synthaxController.updateDelayView(delayTime, delayDecay, delayLevel, delayFeedback);
 
-
-
-
+            synthaxController.setViewHPCutoff(hpCutoff);
+            synthaxController.setViewLPCutoff(lpCutoff);
         } catch (IOException e) {
             e.printStackTrace();
         }
