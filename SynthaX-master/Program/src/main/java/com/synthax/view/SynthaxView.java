@@ -259,10 +259,10 @@ public class SynthaxView implements Initializable {
 
     KnobBehavior bKnobDelayLevel;
 
+
     KnobBehavior bKnobFilterHPCutoff;
 
     KnobBehavior bKnobFilterLPCutoff;
-
 
 
     public SynthaxView() {
@@ -965,6 +965,9 @@ public class SynthaxView implements Initializable {
         });
     }
 
+    /**
+     * @author Oliver Berggren
+     */
     private void initDelay() {
         bKnobDelayFeedback = new KnobBehavior(knobDelayFeedback);
         knobDelayFeedback.setOnMouseDragged(bKnobDelayFeedback);
@@ -1083,32 +1086,31 @@ public class SynthaxView implements Initializable {
 
     private void initADSR() {
         setupLineChart();
-
         sliderAttack.setMax(SynthaxADSR.ATTACK_MAX);
         sliderAttack.setMin(SynthaxADSR.ATTACK_MIN);
         sliderAttack.valueProperty().addListener((observableValue, number, newValue) -> {
-            SynthaxADSR.setAttackValue(newValue.floatValue());
+            synthaxController.setAttackValue(newValue.floatValue());
             onAttackDrag();
         });
 
         sliderDecay.setMax(SynthaxADSR.DECAY_MAX);
         sliderDecay.setMin(SynthaxADSR.DECAY_MIN);
         sliderDecay.valueProperty().addListener((observableValue, number, newValue) -> {
-            SynthaxADSR.setDecayValue(newValue.floatValue());
+            synthaxController.setDecayValue(newValue.floatValue());
             onDecayDrag();
         });
 
         sliderSustain.setMax(SynthaxADSR.SUSTAIN_MAX);
         sliderSustain.setValue(SynthaxADSR.getSustainValue());
         sliderSustain.valueProperty().addListener((observableValue, number, newValue) -> {
-            SynthaxADSR.setSustainValue(newValue.floatValue());
+            synthaxController.setSustainValue(newValue.floatValue());
             onSustainDrag();
         });
 
         sliderRelease.setMax(SynthaxADSR.RELEASE_MAX);
         sliderRelease.setMin(SynthaxADSR.RELEASE_MIN);
         sliderRelease.valueProperty().addListener((observableValue, number, newValue) -> {
-            SynthaxADSR.setReleaseValue(newValue.floatValue());
+            synthaxController.setReleaseValue(newValue.floatValue());
             onReleaseDrag();
         });
     }
@@ -1240,6 +1242,38 @@ public class SynthaxView implements Initializable {
     }
 
     /**
+     * @author Oliver Berggren
+     * @param attack
+     */
+    public void setSliderAttack(float attack) {
+        sliderAttack.valueProperty().setValue(attack);
+    }
+
+    /**
+     * @author Oliver Berggren
+     * @param decay
+     */
+    public void setSliderDecay(float decay) {
+        sliderDecay.valueProperty().setValue(decay);
+    }
+
+    /**
+     * @author Oliver Berggren
+     * @param sustain
+     */
+    public void setSliderSustain(float sustain) {
+        sliderSustain.valueProperty().setValue(sustain);
+    }
+
+    /**
+     * @author Oliver Berggren
+     * @param release
+     */
+    public void setSliderRelease(float release) {
+        sliderRelease.valueProperty().setValue(release);
+    }
+
+    /**
      * @author Marcus Larsson
      * @param size
      */
@@ -1326,28 +1360,39 @@ public class SynthaxView implements Initializable {
         return knobLFORate;
     }
 
+    /**
+     * @author Oliver Berggren
+     * @param origTime
+     */
     public void setKnobDelayTime(float origTime) {
         bKnobDelayTime.knobValueProperty().setValue(origTime);
         bKnobDelayTime.setRotation(origTime);
     }
 
+    /**
+     * @author Oliver Berggren
+     * @param originalFeedbackDuration
+     */
     public void setKnobDelayFeedback(float originalFeedbackDuration) {
         bKnobDelayFeedback.knobValueProperty().setValue(originalFeedbackDuration);
         bKnobDelayFeedback.setRotation(originalFeedbackDuration);
     }
 
+    /**
+     * @author Oliver Berggren
+     * @param delayDecay
+     */
     public void setKnobDelayDecay(float delayDecay) {
         bKnobDelayDecay.knobValueProperty().setValue(delayDecay);
         bKnobDelayDecay.setRotation(delayDecay);
     }
-
+    /**
+     * @author Oliver Berggren
+     * @param delayLevel
+     */
     public void setKnobDelayLevel(float delayLevel) {
         bKnobDelayLevel.knobValueProperty().setValue(delayLevel);
         bKnobDelayLevel.setRotation(delayLevel);
     }
-
-
-
-
     //endregion initialize methods
 }

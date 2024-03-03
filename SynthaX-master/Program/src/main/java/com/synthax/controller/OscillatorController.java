@@ -169,30 +169,41 @@ public class OscillatorController extends VoiceController {
     //endregion frequency-altering-helpers
 
     //region delay-setters (click to open/collapse)
+    /**
+     * @author Oliver Berggren
+     */
     public void setDelayFeedback(float feedBackDuration) {
         for(Voice voice : voices) {
             ((OscillatorVoice)voice).getDelay().setFeedbackDuration(feedBackDuration);
         }
     }
-
+    /**
+     * @author Oliver Berggren
+     */
     public void setDelayTime(float delayTime) {
         for (Voice voice : voices) {
             ((OscillatorVoice)voice).getDelay().setDelayTime(delayTime);
         }
     }
-
+    /**
+     * @author Oliver Berggren
+     */
     public void setDelayDecay(float decayValue) {
         for (Voice voice : voices) {
             ((OscillatorVoice)voice).getDelay().setDecay(decayValue);
         }
     }
-
+    /**
+     * @author Oliver Berggren
+     */
     public void setDelayLevel(float levelValue) {
         for (Voice voice : voices) {
             ((OscillatorVoice)voice).getDelay().setLevel(levelValue);
         }
     }
-
+    /**
+     * @author Oliver Berggren
+     */
     public void setDelayActive() {
         for (Voice voice : voices) {
             ((OscillatorVoice)voice).getDelay().setActive();
