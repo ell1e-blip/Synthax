@@ -238,7 +238,7 @@ public class SynthaxEQFilters {
     }
 
     public float getLPCutOff0() {
-        if(hpActive) {
+        if(lpActive) {
             return lowPassFilters[0].getFrequency();
         } else {
             return savedLPCutoff;
