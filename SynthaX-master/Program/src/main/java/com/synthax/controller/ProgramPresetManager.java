@@ -86,38 +86,6 @@ public class ProgramPresetManager {
         float ADSRSustain = synthaxController.getSustainValue();
         float ADSRRelease = synthaxController.getReleaseValue();
 
-
-                // Save each float value
-                for (float value : waveformBuffer.buf) {
-                    dos.writeFloat(value);
-                }
-                dos.writeFloat(rateFreq);
-                dos.writeFloat(phase);
-                dos.writeFloat(knobRate);
-                //Reverb
-                dos.writeFloat(reverbSize);
-                dos.writeFloat(reverbTone);
-                dos.writeFloat(reverbAmount);
-                //Delay
-                dos.writeFloat(delayTime);
-                dos.writeFloat(delayDecay);
-                dos.writeFloat(delayLevel);
-                dos.writeFloat(delayFeedback);
-
-                dos.writeFloat(synthaxController.getHPCutOff());
-                dos.writeFloat(synthaxController.getLPCutoff());
-                for (int i = 0; i < 3; i++) {
-                    dos.writeFloat(synthaxController.getEQGain(i));
-                    dos.writeFloat(synthaxController.getEQFreq(i));
-                    dos.writeFloat(synthaxController.getEQRange(i));
-                }
-                dos.writeFloat(ADSRAttack);
-                dos.writeFloat(ADSRDecay);
-                dos.writeFloat(ADSRSustain);
-                dos.writeFloat(ADSRRelease);
-
-                dos.flush();
-
         /*
         System.out.println("depthvalue: " + depthvalue);
         System.out.println("Buffer: " + waveformBuffer.toString());
@@ -149,6 +117,15 @@ public class ProgramPresetManager {
             dos.writeFloat(delayDecay);
             dos.writeFloat(delayLevel);
             dos.writeFloat(delayFeedback);
+
+            dos.writeFloat(synthaxController.getHPCutOff());
+            dos.writeFloat(synthaxController.getLPCutoff());
+            for (int i = 0; i < 3; i++) {
+                dos.writeFloat(synthaxController.getEQGain(i));
+                dos.writeFloat(synthaxController.getEQFreq(i));
+                dos.writeFloat(synthaxController.getEQRange(i));
+            }
+
             //ADSR
             dos.writeFloat(ADSRAttack);
             dos.writeFloat(ADSRDecay);

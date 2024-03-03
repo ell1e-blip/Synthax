@@ -744,6 +744,7 @@ public class SynthaxController {
 
     public void setViewLPCutoff(float lpCutoff) {
         synthaxView.setKnobLPCutoff(lpCutoff);
+    }
 
     /**
      * @author Oliver Berggren
