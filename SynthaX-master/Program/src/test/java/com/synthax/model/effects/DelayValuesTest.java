@@ -55,16 +55,16 @@ class DelayValuesTest {
             synthaxDelay.setFeedbackDuration(newValue.floatValue());
         };
 
-        float t1 = 1.01F;
+        float t1 = 2500.01F;
         sizeListener.changed(sizeValue, 0, t1);
 
-        if (t1 > 1) {
-            t1 = 1;
-        } else if (t1 < 0.01) {
-            t1 = .01f;
+        if (t1 > 2500) {
+            t1 = 2500;
+        } else if (t1 < 100) {
+            t1 = 100;
         }
 
-        assertEquals(1, synthaxDelay.getFeedbackDuration());
+        assertEquals(2500, synthaxDelay.getFeedbackDuration());
     }
 
     /**
@@ -77,16 +77,16 @@ class DelayValuesTest {
             synthaxDelay.setFeedbackDuration(newValue.floatValue());
         };
 
-        float t1 = 1;
+        float t1 = 2500;
         sizeListener.changed(sizeValue, 0, t1);
 
-        if (t1 > 1) {
-            t1 = 1;
-        } else if (t1 < 0.01) {
-            t1 = .01f;
+        if (t1 > 2500) {
+            t1 = 2500;
+        } else if (t1 < 100) {
+            t1 = 100;
         }
 
-        assertEquals(1, synthaxDelay.getFeedbackDuration());
+        assertEquals(2500, synthaxDelay.getFeedbackDuration());
     }
 
     /**
@@ -99,16 +99,16 @@ class DelayValuesTest {
             synthaxDelay.setFeedbackDuration(newValue.floatValue());
         };
 
-        float t1 = 0.99F;
+        float t1 = 2499.99F;
         sizeListener.changed(sizeValue, 0, t1);
 
-        if (t1 > 1) {
-            t1 = 1;
-        } else if (t1 < 0.01) {
-            t1 = .01f;
+        if (t1 > 2500) {
+            t1 = 2500;
+        } else if (t1 < 100) {
+            t1 = 100;
         }
 
-        assertEquals(0.99F, synthaxDelay.getFeedbackDuration());
+        assertEquals(2499.99F, synthaxDelay.getFeedbackDuration());
     }
 
     /**
@@ -121,16 +121,16 @@ class DelayValuesTest {
             synthaxDelay.setFeedbackDuration(newValue.floatValue());
         };
 
-        float t1 = 0.5F;
+        float t1 = 1250F;
         sizeListener.changed(sizeValue, 0, t1);
 
-        if (t1 > 1) {
-            t1 = 1;
-        } else if (t1 < 0.01) {
-            t1 = .01f;
+        if (t1 > 2500) {
+            t1 = 2500;
+        } else if (t1 < 100) {
+            t1 = 100;
         }
 
-        assertEquals(0.5F, synthaxDelay.getFeedbackDuration());
+        assertEquals(1250F, synthaxDelay.getFeedbackDuration());
     }
 
     /**
@@ -143,16 +143,16 @@ class DelayValuesTest {
             synthaxDelay.setFeedbackDuration(newValue.floatValue());
         };
 
-        float t1 = 0.01F;
+        float t1 = 100.01F;
         sizeListener.changed(sizeValue, 0, t1);
 
-        if (t1 > 1) {
-            t1 = 1;
-        } else if (t1 < 0.01) {
-            t1 = .01f;
+        if (t1 > 2500) {
+            t1 = 2500;
+        } else if (t1 < 100) {
+            t1 = 100;
         }
 
-        assertEquals(0.01F, synthaxDelay.getFeedbackDuration());
+        assertEquals(100.01F, synthaxDelay.getFeedbackDuration());
     }
 
     /**
@@ -165,16 +165,16 @@ class DelayValuesTest {
             synthaxDelay.setFeedbackDuration(newValue.floatValue());
         };
 
-        float t1 = 0F;
+        float t1 = 100F;
         sizeListener.changed(sizeValue, 0, t1);
 
-        if (t1 > 1) {
-            t1 = 1;
-        } else if (t1 < 0.01) {
-            t1 = .01f;
+        if (t1 > 2500) {
+            t1 = 2500;
+        } else if (t1 < 100) {
+            t1 = 100;
         }
 
-        assertEquals(0, synthaxDelay.getFeedbackDuration());
+        assertEquals(100, synthaxDelay.getFeedbackDuration());
     }
 
     /**
@@ -187,16 +187,16 @@ class DelayValuesTest {
             synthaxDelay.setFeedbackDuration(newValue.floatValue());
         };
 
-        float t1 = -0.01F;
+        float t1 = 99.9F;
         sizeListener.changed(sizeValue, 0, t1);
 
-        if (t1 > 1) {
-            t1 = 1;
-        } else if (t1 < 0.01) {
-            t1 = .01f;
+        if (t1 > 2500) {
+            t1 = 2500;
+        } else if (t1 < 100) {
+            t1 = 100;
         }
 
-        assertEquals(0, synthaxDelay.getFeedbackDuration());
+        assertEquals(100, synthaxDelay.getFeedbackDuration());
     }
 
     /**
@@ -213,16 +213,16 @@ class DelayValuesTest {
             synthaxDelay.setDelayTime(newValue.floatValue());
         };
 
-        float t1 = 1.01F;
+        float t1 = 1000.1F;
         sizeListener.changed(sizeValue, 0, t1);
 
-        if (t1 > 1) {
-            t1 = 1;
-        } else if (t1 < 0.01) {
-            t1 = .01f;
+        if (t1 > 1000) {
+            t1 = 1000;
+        } else if (t1 < 100) {
+            t1 = 100;
         }
 
-        assertEquals(1, synthaxDelay.getCachedDelayTime());
+        assertEquals(1000, synthaxDelay.getCachedDelayTime());
     }
 
     /**
@@ -235,16 +235,16 @@ class DelayValuesTest {
             synthaxDelay.setDelayTime(newValue.floatValue());
         };
 
-        float t1 = 1;
+        float t1 = 1000;
         sizeListener.changed(sizeValue, 0, t1);
 
-        if (t1 > 1) {
-            t1 = 1;
-        } else if (t1 < 0.01) {
-            t1 = .01f;
+        if (t1 > 1000) {
+            t1 = 1000;
+        } else if (t1 < 100) {
+            t1 = 100;
         }
 
-        assertEquals(1, synthaxDelay.getCachedDelayTime());
+        assertEquals(1000, synthaxDelay.getCachedDelayTime());
     }
 
 
@@ -258,16 +258,16 @@ class DelayValuesTest {
             synthaxDelay.setDelayTime(newValue.floatValue());
         };
 
-        float t1 = 0.99F;
+        float t1 = 999.9F;
         sizeListener.changed(sizeValue, 0, t1);
 
-        if (t1 > 1) {
-            t1 = 1;
-        } else if (t1 < 0.01) {
-            t1 = .01f;
+        if (t1 > 1000) {
+            t1 = 1000;
+        } else if (t1 < 100) {
+            t1 = 100;
         }
 
-        assertEquals(0.99F, synthaxDelay.getCachedDelayTime());
+        assertEquals(999.9, synthaxDelay.getCachedDelayTime());
     }
 
     /**
@@ -280,16 +280,16 @@ class DelayValuesTest {
             synthaxDelay.setDelayTime(newValue.floatValue());
         };
 
-        float t1 = 0.5F;
+        float t1 = 500F;
         sizeListener.changed(sizeValue, 0, t1);
 
-        if (t1 > 1) {
-            t1 = 1;
-        } else if (t1 < 0.01) {
-            t1 = .01f;
+        if (t1 > 1000) {
+            t1 = 1000;
+        } else if (t1 < 100) {
+            t1 = 100;
         }
 
-        assertEquals(0.5F, synthaxDelay.getCachedDelayTime());
+        assertEquals(500, synthaxDelay.getCachedDelayTime());
     }
 
     /**
@@ -302,16 +302,16 @@ class DelayValuesTest {
             synthaxDelay.setDelayTime(newValue.floatValue());
         };
 
-        float t1 = 0.01F;
+        float t1 = 100.01F;
         sizeListener.changed(sizeValue, 0, t1);
 
-        if (t1 > 1) {
-            t1 = 1;
-        } else if (t1 < 0.01) {
-            t1 = .01f;
+        if (t1 > 1000) {
+            t1 = 1000;
+        } else if (t1 < 100) {
+            t1 = 100;
         }
 
-        assertEquals(0.01F, synthaxDelay.getCachedDelayTime());
+        assertEquals(100.01F, synthaxDelay.getCachedDelayTime());
     }
 
     /**
@@ -324,16 +324,16 @@ class DelayValuesTest {
             synthaxDelay.setDelayTime(newValue.floatValue());
         };
 
-        float t1 = 0F;
+        float t1 = 100F;
         sizeListener.changed(sizeValue, 0, t1);
 
-        if (t1 > 1) {
-            t1 = 1;
-        } else if (t1 < 0.01) {
-            t1 = .01f;
+        if (t1 > 1000) {
+            t1 = 1000;
+        } else if (t1 < 100) {
+            t1 = 100;
         }
 
-        assertEquals(0, synthaxDelay.getCachedDelayTime());
+        assertEquals(100, synthaxDelay.getCachedDelayTime());
     }
 
     /**
@@ -346,16 +346,16 @@ class DelayValuesTest {
             synthaxDelay.setDelayTime(newValue.floatValue());
         };
 
-        float t1 = -0.01F;
+        float t1 = 99.9F;
         sizeListener.changed(sizeValue, 0, t1);
 
-        if (t1 > 1) {
-            t1 = 1;
-        } else if (t1 < 0.01) {
-            t1 = .01f;
+        if (t1 > 1000) {
+            t1 = 1000;
+        } else if (t1 < 100) {
+            t1 = 100;
         }
 
-        assertEquals(0, synthaxDelay.getCachedDelayTime());
+        assertEquals(99.9, synthaxDelay.getCachedDelayTime());
     }
 
     /**

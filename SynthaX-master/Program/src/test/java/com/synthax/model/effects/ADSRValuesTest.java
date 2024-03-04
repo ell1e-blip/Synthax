@@ -34,11 +34,11 @@ class ADSRValuesTest {
         synthaxADSR = new SynthaxADSR();
     }
 
-    /*** --------- Methods belows are for testing Feedback using Boundary Value Analysis --------- */
+    /*** --------- Methods belows are for testing Attack using Boundary Value Analysis --------- */
     /**
 
      /**
-     * To test one index above the max value of Feedback.
+     * To test one index above the max value of Attack.
      */
     @Test
     void testADSRAttackAboveMax() {
@@ -60,7 +60,7 @@ class ADSRValuesTest {
     }
 
     /**
-     * To test with the max value of Feedback.
+     * To test with the max value of Attack.
      */
     @Test
     void testADSRAttackAtMax() {
@@ -82,7 +82,7 @@ class ADSRValuesTest {
     }
 
     /**
-     * To test one index below the max value of Feedback.
+     * To test one index below the max value of Attack.
      */
     @Test
     void testADSRAttackBelowMax() {
@@ -104,7 +104,7 @@ class ADSRValuesTest {
     }
 
     /**
-     * To test one index at the middle value of Feedback.
+     * To test one index at the middle value of Attack.
      */
     @Test
     void testADSRAttackMiddle() {
@@ -126,7 +126,7 @@ class ADSRValuesTest {
     }
 
     /**
-     * To test one index above the min value of Feedback.
+     * To test one index above the min value of Attack.
      */
     @Test
     void testADSRAttackAboveMin() {
@@ -148,7 +148,7 @@ class ADSRValuesTest {
     }
 
     /**
-     * To test one index at the min value of Feedback.
+     * To test one index at the min value of Attack.
      */
     @Test
     void testADSRAttackAtMin() {
@@ -170,7 +170,7 @@ class ADSRValuesTest {
     }
 
     /**
-     * To test one index below the min value of Feedback.
+     * To test one index below the min value of Attack.
      */
     @Test
     void testADSRAttackBelowMin() {
@@ -192,11 +192,11 @@ class ADSRValuesTest {
     }
 
     /**
-     * --------- Methods belows are for testing Time using Boundary Value Analysis ---------
+     * --------- Methods belows are for testing Decay using Boundary Value Analysis ---------
      */
 
     /**
-     * To test one index above the max value of Time.
+     * To test one index above the max value of Decay.
      */
     @Test
     void testADSRDecayAboveMax() {
@@ -218,7 +218,7 @@ class ADSRValuesTest {
     }
 
     /**
-     * To test one index at the max value of Time.
+     * To test one index at the max value of Decay.
      */
     @Test
     void testADSRDecayAtMax() {
@@ -241,7 +241,7 @@ class ADSRValuesTest {
 
 
     /**
-     * To test one index below the max value of Time.
+     * To test one index below the max value of Decay.
      */
     @Test
     void testADSRDecayBelowMax() {
@@ -263,7 +263,7 @@ class ADSRValuesTest {
     }
 
     /**
-     * To test one index at the middle value of Time.
+     * To test one index at the middle value of Decay.
      */
     @Test
     void testADSRDecayMiddle() {
@@ -285,7 +285,7 @@ class ADSRValuesTest {
     }
 
     /**
-     * To test one index above the min value of Time.
+     * To test one index above the min value of Decay.
      */
     @Test
     void testADSRDecayAboveMin() {
@@ -307,7 +307,7 @@ class ADSRValuesTest {
     }
 
     /**
-     * To test one index at the min value of Time.
+     * To test one index at the min value of Decay.
      */
     @Test
     void testADSRDecayAtMin() {
@@ -329,7 +329,7 @@ class ADSRValuesTest {
     }
 
     /**
-     * To test one index below the min value of Time.
+     * To test one index below the min value of Decay.
      */
     @Test
     void testADSRDecayBelowMin() {
@@ -351,11 +351,11 @@ class ADSRValuesTest {
     }
 
     /**
-     * --------- Methods belows are for testing Decay using Boundary Value Analysis ---------
+     * --------- Methods belows are for testing Sustain using Boundary Value Analysis ---------
      */
 
     /**
-     * To test one index above the max value of Decay.
+     * To test one index above the max value of Sustain.
      */
     @Test
     void testADSRSustainAboveMax() {
@@ -377,7 +377,7 @@ class ADSRValuesTest {
     }
 
     /**
-     * To test one index at the max value of Decay.
+     * To test one index at the max value of Sustain.
      */
     @Test
     void testADSRSustainMax() {
@@ -399,7 +399,7 @@ class ADSRValuesTest {
     }
 
     /**
-     * To test one index below the max value of Decay.
+     * To test one index below the max value of Sustain.
      */
     @Test
     void testADSRSustainBelowMax() {
@@ -421,7 +421,7 @@ class ADSRValuesTest {
     }
 
     /**
-     * To test one index at the middle value of Decay.
+     * To test one index at the middle value of Sustain.
      */
     @Test
     void testADSRSustainMiddle() {
@@ -443,7 +443,7 @@ class ADSRValuesTest {
     }
 
     /**
-     * To test one index above the min value of Decay.
+     * To test one index above the min value of Sustain.
      */
     @Test
     void testADSRSustainAboveMin() {
@@ -465,7 +465,7 @@ class ADSRValuesTest {
     }
 
     /**
-     * To test one index at the min value of Decay.
+     * To test one index at the min value of Sustain.
      */
     @Test
     void testADSRSustainAtMin() {
@@ -487,7 +487,7 @@ class ADSRValuesTest {
     }
 
     /**
-     * To test one index below the min value of Decay.
+     * To test one index below the min value of Sustain.
      */
     @Test
     void testADSRSustainBelowMin() {
@@ -509,11 +509,11 @@ class ADSRValuesTest {
     }
 
     /**
-     * --------- Methods belows are for testing Level using Boundary Value Analysis ---------
+     * --------- Methods belows are for testing Release using Boundary Value Analysis ---------
      */
 
     /**
-     * To test one index above the max value of Level.
+     * To test one index above the max value of Release.
      */
     @Test
     void testADSRReleaseAboveMax() {
@@ -535,7 +535,7 @@ class ADSRValuesTest {
     }
 
     /**
-     * To test one index at the max value of Level.
+     * To test one index at the max value of Release.
      */
     @Test
     void testADSRReleaseMax() {
@@ -557,7 +557,7 @@ class ADSRValuesTest {
     }
 
     /**
-     * To test one index below the max value of Level.
+     * To test one index below the max value of Release.
      */
     @Test
     void testADSRReleaseBelowMax() {
@@ -579,7 +579,7 @@ class ADSRValuesTest {
     }
 
     /**
-     * To test one index at the middle value of Level.
+     * To test one index at the middle value of Release.
      */
     @Test
     void testADSRReleaseMiddle() {
@@ -602,7 +602,7 @@ class ADSRValuesTest {
 
 
     /**
-     * To test one index above the min value of Level.
+     * To test one index above the min value of Release.
      */
     @Test
     void testADSRReleaseAboveMin() {
@@ -625,7 +625,7 @@ class ADSRValuesTest {
 
 
     /**
-     * To test one index at the min value of Level.
+     * To test one index at the min value of Release.
      */
     @Test
     void testADSRReleaseAtMin() {
@@ -647,7 +647,7 @@ class ADSRValuesTest {
     }
 
     /**
-     * To test one index below the min value of Level.
+     * To test one index below the min value of Release.
      */
     @Test
     void testADSRReleaseBelowMin() {

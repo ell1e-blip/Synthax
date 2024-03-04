@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="42cfc92d-5b7d-4b56-ad9b-ba43eb4af22b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/SynthaX-master/Program/src/test/java/com/synthax/model/effects/SynthaxADSRTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SynthaX-master/Program/src/main/java/com/synthax/model/effects/SynthaxDelay.java" beforeDir="false" afterPath="$PROJECT_DIR$/SynthaX-master/Program/src/main/java/com/synthax/model/effects/SynthaxDelay.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SynthaX-master/Program/src/test/java/com/synthax/model/effects/DelayValuesTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/SynthaX-master/Program/src/test/java/com/synthax/model/effects/DelayValuesTest.java" afterDir="false" />
@@ -32,6 +31,8 @@
   "keyToString": {
     "Maven.Synthax_Beads [compile].executor": "Run",
     "Maven.Synthax_Beads [install].executor": "Run",
+    "Maven.Synthax_Beads [javafx:run].executor": "Run",
+    "Maven.Synthax_Beads [org.openjfx:javafx-maven-plugin:0.0.8:run].executor": "Run",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
     "git-widget-placeholder": "unittests-med-delayValues",
@@ -52,6 +53,38 @@
     <key name="CreateTestDialog.RecentsKey">
       <recent name="" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Synthax_Beads [javafx:run]" type="MavenRunConfiguration" factoryName="Maven">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="cmdOptions" />
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="javafx:run" />
+              </list>
+            </option>
+            <option name="multimoduleDir" />
+            <option name="pomFileName" value="pom.xml" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="projectsCmdOptionValues">
+              <list />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$/SynthaX-master/Program" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
   </component>
   <component name="TaskManager">
     <servers />
