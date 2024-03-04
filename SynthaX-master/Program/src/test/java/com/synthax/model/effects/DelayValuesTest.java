@@ -2,11 +2,16 @@ package com.synthax.model.effects;
 
 import com.synthax.MainApplication;
 import com.synthax.controller.OscillatorManager;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import net.beadsproject.beads.ugens.Gain;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 /** @author Menel Abdennour
  * Investigating and testing the DelayValues class that are relevant in conjuction
@@ -16,7 +21,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(value = MockitoExtension.class)
 class DelayValuesTest {
     SynthaxEQFilters filters;
-    SynthaxReverb synthaxReverb;
+    SynthaxDelay synthaxDelay;
     SynthaxLFO synthaxLFO;
     OscillatorManager oscillatorManager;
     MainApplication mainApplication;
@@ -34,21 +39,32 @@ class DelayValuesTest {
         filters = new SynthaxEQFilters();
         filters.addInput(synthaxLFO.getOutput());
 
-        synthaxReverb = new SynthaxReverb(filters.getOutput());
+        synthaxDelay = new SynthaxDelay(filters.getOutput());
     }
     
+    /*** --------- Methods belows are for testing Feedback using Boundary Value Analysis --------- */
     /**
-     * --------- Methods belows are for testing Feedback using Boundary Value Analysis ---------
-     */
 
     /**
-     * To test one index below the max value of Feedback.
+     * To test one index above the max value of Feedback.
      */
     @Test
-    void testDelayFeedbackBelowMax() {
-        DelayValues delayValues = new DelayValues();
-        delayValues.setFeedbackDuration(100.0f);
-        assertEquals(100.0f, delayValues.getFeedbackDuration());
+    void testDelayFeedbackAboveMax() {
+        ObservableValue<Number> sizeValue = mock(ObservableValue.class);
+        ChangeListener<Number> sizeListener = (v, oldValue, newValue) -> {
+            synthaxDelay.setFeedbackDuration(newValue.floatValue());
+        };
+
+        float t1 = 1.01F;
+        sizeListener.changed(sizeValue, 0, t1);
+
+        if (t1 > 1) {
+            t1 = 1;
+        } else if (t1 < 0.01) {
+            t1 = .01f;
+        }
+
+        assertEquals(1, synthaxDelay.getFeedbackDuration());
     }
 
     /**
@@ -56,19 +72,131 @@ class DelayValuesTest {
      */
     @Test
     void testDelayFeedbackAtMax() {
-        DelayValues delayValues = new DelayValues();
-        delayValues.setFeedbackDuration(100.0f);
-        assertEquals(100.0f, delayValues.getFeedbackDuration());
+        ObservableValue<Number> sizeValue = mock(ObservableValue.class);
+        ChangeListener<Number> sizeListener = (v, oldValue, newValue) -> {
+            synthaxDelay.setFeedbackDuration(newValue.floatValue());
+        };
+
+        float t1 = 1;
+        sizeListener.changed(sizeValue, 0, t1);
+
+        if (t1 > 1) {
+            t1 = 1;
+        } else if (t1 < 0.01) {
+            t1 = .01f;
+        }
+
+        assertEquals(1, synthaxDelay.getFeedbackDuration());
     }
 
     /**
-     * To test one index above the max value of Feedback.
+     * To test one index below the max value of Feedback.
      */
     @Test
-    void testDelayFeedbackAboveMax() {
-        DelayValues delayValues = new DelayValues();
-        delayValues.setFeedbackDuration(100.0f);
-        assertEquals(100.0f, delayValues.getFeedbackDuration());
+    void testDelayFeedbackBelowMax() {
+        ObservableValue<Number> sizeValue = mock(ObservableValue.class);
+        ChangeListener<Number> sizeListener = (v, oldValue, newValue) -> {
+            synthaxDelay.setFeedbackDuration(newValue.floatValue());
+        };
+
+        float t1 = 0.99F;
+        sizeListener.changed(sizeValue, 0, t1);
+
+        if (t1 > 1) {
+            t1 = 1;
+        } else if (t1 < 0.01) {
+            t1 = .01f;
+        }
+
+        assertEquals(0.99F, synthaxDelay.getFeedbackDuration());
+    }
+
+    /**
+     * To test one index at the middle value of Feedback.
+     */
+    @Test
+    void testDelayFeedbackMiddle() {
+        ObservableValue<Number> sizeValue = mock(ObservableValue.class);
+        ChangeListener<Number> sizeListener = (v, oldValue, newValue) -> {
+            synthaxDelay.setFeedbackDuration(newValue.floatValue());
+        };
+
+        float t1 = 0.5F;
+        sizeListener.changed(sizeValue, 0, t1);
+
+        if (t1 > 1) {
+            t1 = 1;
+        } else if (t1 < 0.01) {
+            t1 = .01f;
+        }
+
+        assertEquals(0.5F, synthaxDelay.getFeedbackDuration());
+    }
+
+    /**
+     * To test one index above the min value of Feedback.
+     */
+    @Test
+    void testDelayFeedbackAboveMin() {
+        ObservableValue<Number> sizeValue = mock(ObservableValue.class);
+        ChangeListener<Number> sizeListener = (v, oldValue, newValue) -> {
+            synthaxDelay.setFeedbackDuration(newValue.floatValue());
+        };
+
+        float t1 = 0.01F;
+        sizeListener.changed(sizeValue, 0, t1);
+
+        if (t1 > 1) {
+            t1 = 1;
+        } else if (t1 < 0.01) {
+            t1 = .01f;
+        }
+
+        assertEquals(0.01F, synthaxDelay.getFeedbackDuration());
+    }
+
+    /**
+     * To test one index at the min value of Feedback.
+     */
+    @Test
+    void testDelayFeedbackAtMin() {
+        ObservableValue<Number> sizeValue = mock(ObservableValue.class);
+        ChangeListener<Number> sizeListener = (v, oldValue, newValue) -> {
+            synthaxDelay.setFeedbackDuration(newValue.floatValue());
+        };
+
+        float t1 = 0F;
+        sizeListener.changed(sizeValue, 0, t1);
+
+        if (t1 > 1) {
+            t1 = 1;
+        } else if (t1 < 0.01) {
+            t1 = .01f;
+        }
+
+        assertEquals(0, synthaxDelay.getFeedbackDuration());
+    }
+
+    /**
+     * To test one index below the min value of Feedback.
+     */
+    @Test
+    void testDelayFeedbackBelowMin() {
+        ObservableValue<Number> sizeValue = mock(ObservableValue.class);
+        ChangeListener<Number> sizeListener = (v, oldValue, newValue) -> {
+            synthaxDelay.setFeedbackDuration(newValue.floatValue());
+        };
+
+        float t1 = -0.01F;
+        sizeListener.changed(sizeValue, 0, t1);
+
+        if (t1 > 1) {
+            t1 = 1;
+        } else if (t1 < 0.01) {
+            t1 = .01f;
+        }
+
+        assertEquals(0, synthaxDelay.getFeedbackDuration());
     }
 
     /**
@@ -76,67 +204,493 @@ class DelayValuesTest {
      */
 
     /**
-     * To test one index below the max value of Time.
-     */
-    @Test
-    void testDelayTimeBelowMax() {
-        DelayValues delayValues = new DelayValues();
-        delayValues.setFeedbackDuration(100.0f);
-        assertEquals(100.0f, delayValues.getFeedbackDuration());
-    }
-
-    /**
-     * To test with the max value of Time.
-     */
-    @Test
-    void testDelayTimeAtMax() {
-        DelayValues delayValues = new DelayValues();
-        delayValues.setFeedbackDuration(100.0f);
-        assertEquals(100.0f, delayValues.getFeedbackDuration());
-    }
-
-    /**
      * To test one index above the max value of Time.
      */
     @Test
     void testDelayTimeAboveMax() {
-        DelayValues delayValues = new DelayValues();
-        delayValues.setFeedbackDuration(100.0f);
-        assertEquals(100.0f, delayValues.getFeedbackDuration());
-    }
-    @Test
-    void getOutput() {
+        ObservableValue<Number> sizeValue = mock(ObservableValue.class);
+        ChangeListener<Number> sizeListener = (v, oldValue, newValue) -> {
+            synthaxDelay.setDelayTime(newValue.floatValue());
+        };
+
+        float t1 = 1.01F;
+        sizeListener.changed(sizeValue, 0, t1);
+
+        if (t1 > 1) {
+            t1 = 1;
+        } else if (t1 < 0.01) {
+            t1 = .01f;
+        }
+
+        assertEquals(1, synthaxDelay.getCachedDelayTime());
     }
 
+    /**
+     * To test one index at the max value of Time.
+     */
     @Test
-    void setActive() {
+    void testDelayTimeAtMax() {
+        ObservableValue<Number> sizeValue = mock(ObservableValue.class);
+        ChangeListener<Number> sizeListener = (v, oldValue, newValue) -> {
+            synthaxDelay.setDelayTime(newValue.floatValue());
+        };
+
+        float t1 = 1;
+        sizeListener.changed(sizeValue, 0, t1);
+
+        if (t1 > 1) {
+            t1 = 1;
+        } else if (t1 < 0.01) {
+            t1 = .01f;
+        }
+
+        assertEquals(1, synthaxDelay.getCachedDelayTime());
     }
 
+
+    /**
+     * To test one index below the max value of Time.
+     */
     @Test
-    void setDelayTime() {
+    void testDelayTimeBelowMax() {
+        ObservableValue<Number> sizeValue = mock(ObservableValue.class);
+        ChangeListener<Number> sizeListener = (v, oldValue, newValue) -> {
+            synthaxDelay.setDelayTime(newValue.floatValue());
+        };
+
+        float t1 = 0.99F;
+        sizeListener.changed(sizeValue, 0, t1);
+
+        if (t1 > 1) {
+            t1 = 1;
+        } else if (t1 < 0.01) {
+            t1 = .01f;
+        }
+
+        assertEquals(0.99F, synthaxDelay.getCachedDelayTime());
     }
 
+    /**
+     * To test one index at the middle value of Time.
+     */
     @Test
-    void setDecay() {
+    void testDelayTimeMiddle() {
+        ObservableValue<Number> sizeValue = mock(ObservableValue.class);
+        ChangeListener<Number> sizeListener = (v, oldValue, newValue) -> {
+            synthaxDelay.setDelayTime(newValue.floatValue());
+        };
+
+        float t1 = 0.5F;
+        sizeListener.changed(sizeValue, 0, t1);
+
+        if (t1 > 1) {
+            t1 = 1;
+        } else if (t1 < 0.01) {
+            t1 = .01f;
+        }
+
+        assertEquals(0.5F, synthaxDelay.getCachedDelayTime());
     }
 
+    /**
+     * To test one index above the min value of Time.
+     */
     @Test
-    void setLevel() {
+    void testDelayTimeAboveMin() {
+        ObservableValue<Number> sizeValue = mock(ObservableValue.class);
+        ChangeListener<Number> sizeListener = (v, oldValue, newValue) -> {
+            synthaxDelay.setDelayTime(newValue.floatValue());
+        };
+
+        float t1 = 0.01F;
+        sizeListener.changed(sizeValue, 0, t1);
+
+        if (t1 > 1) {
+            t1 = 1;
+        } else if (t1 < 0.01) {
+            t1 = .01f;
+        }
+
+        assertEquals(0.01F, synthaxDelay.getCachedDelayTime());
     }
 
+    /**
+     * To test one index at the min value of Time.
+     */
     @Test
-    void setFeedbackDuration() {
+    void testDelayTimeAtMin() {
+        ObservableValue<Number> sizeValue = mock(ObservableValue.class);
+        ChangeListener<Number> sizeListener = (v, oldValue, newValue) -> {
+            synthaxDelay.setDelayTime(newValue.floatValue());
+        };
+
+        float t1 = 0F;
+        sizeListener.changed(sizeValue, 0, t1);
+
+        if (t1 > 1) {
+            t1 = 1;
+        } else if (t1 < 0.01) {
+            t1 = .01f;
+        }
+
+        assertEquals(0, synthaxDelay.getCachedDelayTime());
     }
 
+    /**
+     * To test one index below the min value of Time.
+     */
     @Test
-    void getEnvelope() {
+    void testDelayTimeBelowMin() {
+        ObservableValue<Number> sizeValue = mock(ObservableValue.class);
+        ChangeListener<Number> sizeListener = (v, oldValue, newValue) -> {
+            synthaxDelay.setDelayTime(newValue.floatValue());
+        };
+
+        float t1 = -0.01F;
+        sizeListener.changed(sizeValue, 0, t1);
+
+        if (t1 > 1) {
+            t1 = 1;
+        } else if (t1 < 0.01) {
+            t1 = .01f;
+        }
+
+        assertEquals(0, synthaxDelay.getCachedDelayTime());
     }
 
+    /**
+     * --------- Methods belows are for testing Decay using Boundary Value Analysis ---------
+     */
+
+    /**
+     * To test one index above the max value of Decay.
+     */
     @Test
-    void getFeedbackDuration() {
+    void testDelayDecayAboveMax() {
+        ObservableValue<Number> sizeValue = mock(ObservableValue.class);
+        ChangeListener<Number> sizeListener = (v, oldValue, newValue) -> {
+            synthaxDelay.setDecay(newValue.floatValue());
+        };
+
+        float t1 = 1.01F;
+        sizeListener.changed(sizeValue, 0, t1);
+
+        if (t1 > 1) {
+            t1 = 1;
+        } else if (t1 < 0.01) {
+            t1 = .01f;
+        }
+
+        assertEquals(1, synthaxDelay.getCachedDecayValue());
     }
 
+    /**
+     * To test one index at the max value of Decay.
+     */
     @Test
-    void getCachedDelayTime() {
+    void testDelayDecayMax() {
+        ObservableValue<Number> sizeValue = mock(ObservableValue.class);
+        ChangeListener<Number> sizeListener = (v, oldValue, newValue) -> {
+            synthaxDelay.setDecay(newValue.floatValue());
+        };
+
+        float t1 = 1;
+        sizeListener.changed(sizeValue, 0, t1);
+
+        if (t1 > 1) {
+            t1 = 1;
+        } else if (t1 < 0.01) {
+            t1 = .01f;
+        }
+
+        assertEquals(1, synthaxDelay.getCachedDelayTime());
     }
+
+    /**
+     * To test one index below the max value of Decay.
+     */
+    @Test
+    void testDelayDecayBelowMax() {
+        ObservableValue<Number> sizeValue = mock(ObservableValue.class);
+        ChangeListener<Number> sizeListener = (v, oldValue, newValue) -> {
+            synthaxDelay.setDecay(newValue.floatValue());
+        };
+
+        float t1 = 0.99F;
+        sizeListener.changed(sizeValue, 0, t1);
+
+        if (t1 > 1) {
+            t1 = 1;
+        } else if (t1 < 0.01) {
+            t1 = .01f;
+        }
+
+        assertEquals(0.99F, synthaxDelay.getCachedDecayValue());
+    }
+
+    /**
+     * To test one index at the middle value of Decay.
+     */
+    @Test
+    void testDelayDecayMiddle() {
+        ObservableValue<Number> sizeValue = mock(ObservableValue.class);
+        ChangeListener<Number> sizeListener = (v, oldValue, newValue) -> {
+            synthaxDelay.setDecay(newValue.floatValue());
+        };
+
+        float t1 = 0.5F;
+        sizeListener.changed(sizeValue, 0, t1);
+
+        if (t1 > 1) {
+            t1 = 1;
+        } else if (t1 < 0.01) {
+            t1 = .01f;
+        }
+
+        assertEquals(0.5F, synthaxDelay.getCachedDecayValue());
+    }
+
+    /**
+     * To test one index above the min value of Decay.
+     */
+    @Test
+    void testDelayDecayAboveMin() {
+        ObservableValue<Number> sizeValue = mock(ObservableValue.class);
+        ChangeListener<Number> sizeListener = (v, oldValue, newValue) -> {
+            synthaxDelay.setDecay(newValue.floatValue());
+        };
+
+        float t1 = 0.01F;
+        sizeListener.changed(sizeValue, 0, t1);
+
+        if (t1 > 1) {
+            t1 = 1;
+        } else if (t1 < 0.01) {
+            t1 = .01f;
+        }
+
+        assertEquals(0.01F, synthaxDelay.getCachedDecayValue());
+    }
+
+    /**
+     * To test one index at the min value of Decay.
+     */
+    @Test
+    void testDelayDecayAtMin() {
+        ObservableValue<Number> sizeValue = mock(ObservableValue.class);
+        ChangeListener<Number> sizeListener = (v, oldValue, newValue) -> {
+            synthaxDelay.setDecay(newValue.floatValue());
+        };
+
+        float t1 = 0F;
+        sizeListener.changed(sizeValue, 0, t1);
+
+        if (t1 > 1) {
+            t1 = 1;
+        } else if (t1 < 0.01) {
+            t1 = .01f;
+        }
+
+        assertEquals(0, synthaxDelay.getCachedDecayValue());
+    }
+
+    /**
+     * To test one index below the min value of Decay.
+     */
+    @Test
+    void testDelayDecayBelowMin() {
+        ObservableValue<Number> sizeValue = mock(ObservableValue.class);
+        ChangeListener<Number> sizeListener = (v, oldValue, newValue) -> {
+            synthaxDelay.setDecay(newValue.floatValue());
+        };
+
+        float t1 = -0.01F;
+        sizeListener.changed(sizeValue, 0, t1);
+
+        if (t1 > 1) {
+            t1 = 1;
+        } else if (t1 < 0.01) {
+            t1 = .01f;
+        }
+
+        assertEquals(0, synthaxDelay.getCachedDecayValue());
+    }
+
+    /**
+     * --------- Methods belows are for testing Level using Boundary Value Analysis ---------
+     */
+
+    /**
+     * To test one index above the max value of Level.
+     */
+    @Test
+    void testDelayLevelAboveMax() {
+        ObservableValue<Number> sizeValue = mock(ObservableValue.class);
+        ChangeListener<Number> sizeListener = (v, oldValue, newValue) -> {
+            synthaxDelay.setLevel(newValue.floatValue());
+        };
+
+        float t1 = 1.01F;
+        sizeListener.changed(sizeValue, 0, t1);
+
+        if (t1 > 1) {
+            t1 = 1;
+        } else if (t1 < 0.01) {
+            t1 = .01f;
+        }
+
+        assertEquals(1, synthaxDelay.getCachedLevelValue());
+    }
+
+    /**
+     * To test one index at the max value of Level.
+     */
+    @Test
+    void testDelayLevelMax() {
+        ObservableValue<Number> sizeValue = mock(ObservableValue.class);
+        ChangeListener<Number> sizeListener = (v, oldValue, newValue) -> {
+            synthaxDelay.setLevel(newValue.floatValue());
+        };
+
+        float t1 = 1;
+        sizeListener.changed(sizeValue, 0, t1);
+
+        if (t1 > 1) {
+            t1 = 1;
+        } else if (t1 < 0.01) {
+            t1 = .01f;
+        }
+
+        assertEquals(1, synthaxDelay.getCachedLevelValue());
+    }
+
+    /**
+     * To test one index below the max value of Level.
+     */
+    @Test
+    void testDelayLevelBelowMax() {
+        ObservableValue<Number> sizeValue = mock(ObservableValue.class);
+        ChangeListener<Number> sizeListener = (v, oldValue, newValue) -> {
+            synthaxDelay.setLevel(newValue.floatValue());
+        };
+
+        float t1 = 0.99F;
+        sizeListener.changed(sizeValue, 0, t1);
+
+        if (t1 > 1) {
+            t1 = 1;
+        } else if (t1 < 0.01) {
+            t1 = .01f;
+        }
+
+        assertEquals(0.99F, synthaxDelay.getCachedLevelValue());
+    }
+
+    /**
+     * To test one index at the middle value of Level.
+     */
+    @Test
+    void testDelayLevelMiddle() {
+        ObservableValue<Number> sizeValue = mock(ObservableValue.class);
+        ChangeListener<Number> sizeListener = (v, oldValue, newValue) -> {
+            synthaxDelay.setLevel(newValue.floatValue());
+        };
+
+        float t1 = 0.5F;
+        sizeListener.changed(sizeValue, 0, t1);
+
+        if (t1 > 1) {
+            t1 = 1;
+        } else if (t1 < 0.01) {
+            t1 = .01f;
+        }
+
+        assertEquals(0.5F, synthaxDelay.getCachedLevelValue());
+    }
+
+
+    /**
+     * To test one index above the min value of Level.
+     */
+    @Test
+    void testDelayLevelAboveMin() {
+        ObservableValue<Number> sizeValue = mock(ObservableValue.class);
+        ChangeListener<Number> sizeListener = (v, oldValue, newValue) -> {
+            synthaxDelay.setLevel(newValue.floatValue());
+        };
+
+        float t1 = 0.01F;
+        sizeListener.changed(sizeValue, 0, t1);
+
+        if (t1 > 1) {
+            t1 = 1;
+        } else if (t1 < 0.01) {
+            t1 = .01f;
+        }
+
+        assertEquals(0.01F, synthaxDelay.getCachedLevelValue());
+    }
+
+
+    /**
+     * To test one index at the min value of Level.
+     */
+    @Test
+    void testDelayLevelAtMin() {
+        ObservableValue<Number> sizeValue = mock(ObservableValue.class);
+        ChangeListener<Number> sizeListener = (v, oldValue, newValue) -> {
+            synthaxDelay.setLevel(newValue.floatValue());
+        };
+
+        float t1 = 0F;
+        sizeListener.changed(sizeValue, 0, t1);
+
+        if (t1 > 1) {
+            t1 = 1;
+        } else if (t1 < 0.01) {
+            t1 = .01f;
+        }
+
+        assertEquals(0, synthaxDelay.getCachedLevelValue());
+    }
+
+    /**
+     * To test one index below the min value of Level.
+     */
+    @Test
+    void testDelayLevelBelowMin() {
+        ObservableValue<Number> sizeValue = mock(ObservableValue.class);
+        ChangeListener<Number> sizeListener = (v, oldValue, newValue) -> {
+            synthaxDelay.setLevel(newValue.floatValue());
+        };
+
+        float t1 = -0.01F;
+        sizeListener.changed(sizeValue, 0, t1);
+
+        if (t1 > 1) {
+            t1 = 1;
+        } else if (t1 < 0.01) {
+            t1 = .01f;
+        }
+
+        assertEquals(0, synthaxDelay.getCachedLevelValue());
+    }
+
+    /**
+     * To test if the delay is active.
+     */
+    @Test
+    void TestDelayIsActive() {
+        synthaxDelay.setActive();
+        assertTrue(synthaxDelay.getDelayIsActive());
+    }
+
+    /**
+     * To test if the delay is not active.
+     */
+    @Test
+    void TestDelayIsActiveFalse() {
+        assertFalse(synthaxDelay.getDelayIsActive());
+    }
+
 }
