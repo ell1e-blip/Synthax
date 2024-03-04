@@ -91,7 +91,6 @@ public class SynthaxDelay {
         } else {
             delayOut.setDelay(HelperMath.map(delayTime, 0, 1, 100, 1000));
         }
-        System.out.println("cachedDelayTime: " + cachedDelayTime);
     }
 
     public void setDecay(float decayValue) {
@@ -100,7 +99,6 @@ public class SynthaxDelay {
         } else {
             decayGlide.setValue(decayValue);
         }
-        System.out.println("cachedDecayValue: " + cachedDecayValue);
     }
 
     public void setLevel(float levelValue) {
@@ -109,7 +107,6 @@ public class SynthaxDelay {
         } else {
             levelGlide.setValue(levelValue);
         }
-        System.out.println("cachedLevelValue: " + cachedLevelValue);
     }
 
     public void setFeedbackDuration(float feedbackDuration) {
@@ -118,8 +115,6 @@ public class SynthaxDelay {
         } else {
             this.feedbackDuration = HelperMath.map(feedbackDuration, 0, 1, 100, 2500);
         }
-        System.out.println("feedbackDuration: " + feedbackDuration);
-
     }
 
     public Envelope getEnvelope() {
@@ -127,6 +122,7 @@ public class SynthaxDelay {
     }
 
     public float getFeedbackDuration() {
+
         return feedbackDuration;
     }
 
