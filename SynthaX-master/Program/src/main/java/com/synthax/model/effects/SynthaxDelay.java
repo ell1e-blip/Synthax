@@ -122,7 +122,6 @@ public class SynthaxDelay {
     }
 
     public float getFeedbackDuration() {
-
         return feedbackDuration;
     }
 

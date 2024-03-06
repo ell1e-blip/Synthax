@@ -1,4 +1,5 @@
 package com.synthax.test.controller;
+
 import com.synthax.MainApplication;
 import com.synthax.controller.OscillatorManager;
 import com.synthax.controller.ProgramPresetManager;
@@ -44,9 +45,7 @@ public class ProgramPresetManagerTest {
         synthaxView = mock(SynthaxView.class);
         synthaxController = new SynthaxController(synthaxView);
 
-        programPresetManager = synthaxController.getPPMInstance();
-
-
+        //programPresetManager = synthaxController.getPPMInstance();
     }
 
     /**

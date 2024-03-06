@@ -2,6 +2,9 @@ package com.synthax.model.effects;
 
 import com.synthax.MainApplication;
 import com.synthax.controller.OscillatorManager;
+import com.synthax.model.effects.SynthaxDelay;
+import com.synthax.model.effects.SynthaxEQFilters;
+import com.synthax.model.effects.SynthaxLFO;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import net.beadsproject.beads.ugens.Gain;
@@ -47,6 +50,8 @@ class DelayValuesTest {
 
     /**
      * To test one index above the max value of Feedback.
+     * Same issue stated below. It's returning 100.0 when it's supposed to be 2500. Claiming that 100 is its max value which is a mismatch to
+     * the values I retrieved when I ran SynthaX.
      */
     @Test
     void testDelayFeedbackAboveMax() {
@@ -69,6 +74,7 @@ class DelayValuesTest {
 
     /**
      * To test with the max value of Feedback.
+     * Returns 100.0 when it's supposed to return 2500. Seems to be that 100 is its max value.
      */
     @Test
     void testDelayFeedbackAtMax() {
@@ -91,6 +97,8 @@ class DelayValuesTest {
 
     /**
      * To test one index below the max value of Feedback.
+     * Something is not correct here. When I ran SynthaX, I had it to print out the value of the feedback duration and I used those values as
+     * limits for the test. For some reason it's returning 100.0.
      */
     @Test
     void testDelayFeedbackBelowMax() {
@@ -99,7 +107,7 @@ class DelayValuesTest {
             synthaxDelay.setFeedbackDuration(newValue.floatValue());
         };
 
-        float t1 = 2499.99F;
+        float t1 = 2499.9F;
         sizeListener.changed(sizeValue, 0, t1);
 
         if (t1 > 2500) {
@@ -108,11 +116,12 @@ class DelayValuesTest {
             t1 = 100;
         }
 
-        assertEquals(2499.99F, synthaxDelay.getFeedbackDuration());
+        assertEquals(2499.9F, synthaxDelay.getFeedbackDuration());
     }
 
     /**
      * To test one index at the middle value of Feedback.
+     * Returns 100 when it's supposed to return 1250. Unsure why as it's a mismatch to the values I retrieved earlier when I ran SynthaX.
      */
     @Test
     void testDelayFeedbackMiddle() {
@@ -135,6 +144,8 @@ class DelayValuesTest {
 
     /**
      * To test one index above the min value of Feedback.
+     * Here it is returning 100.0, which is not correct. I suspect that the feedbacks duration might be limited to 100 in fact. The only problem however
+     * was that when I ran SynthaX to retrieve the boundary valeus, it explicitly showed to me that its limit was 2500 and 100, not that 100 was the max limit.
      */
     @Test
     void testDelayFeedbackAboveMin() {
@@ -157,6 +168,7 @@ class DelayValuesTest {
 
     /**
      * To test one index at the min value of Feedback.
+     *  Test returned as OK.
      */
     @Test
     void testDelayFeedbackAtMin() {
@@ -179,6 +191,7 @@ class DelayValuesTest {
 
     /**
      * To test one index below the min value of Feedback.
+     *  Test returned as OK.
      */
     @Test
     void testDelayFeedbackBelowMin() {
@@ -205,6 +218,8 @@ class DelayValuesTest {
 
     /**
      * To test one index above the max value of Time.
+     * Returns 900190.0 when it's supposed to return 1000. This means that its max value is above or equal to 900190.0.
+     * Seems to be a parsing error.
      */
     @Test
     void testDelayTimeAboveMax() {
@@ -227,6 +242,7 @@ class DelayValuesTest {
 
     /**
      * To test one index at the max value of Time.
+     * Returns 900100.0 when it's supposed to return 1000. This means that its max value is above or equal to 900100.0.
      */
     @Test
     void testDelayTimeAtMax() {
@@ -250,6 +266,8 @@ class DelayValuesTest {
 
     /**
      * To test one index below the max value of Time.
+     * Same issue here. Its returning 900010.0 when it's supposed to return 999.9. This means that its max value is above or equal to 900010.0.
+     * I believe the issue may have to do with parsing.
      */
     @Test
     void testDelayTimeBelowMax() {
@@ -272,6 +290,7 @@ class DelayValuesTest {
 
     /**
      * To test one index at the middle value of Time.
+     * Returns 450100.0 which is incorrect!! Why the numbers are so high I am unsure of.
      */
     @Test
     void testDelayTimeMiddle() {
@@ -294,6 +313,7 @@ class DelayValuesTest {
 
     /**
      * To test one index above the min value of Time.
+     * Here its showing 90109.0 which is incorrect, it's supposed to return 100.01. This means that its max value is above or equal to 90109.0.
      */
     @Test
     void testDelayTimeAboveMin() {
@@ -316,6 +336,7 @@ class DelayValuesTest {
 
     /**
      * To test one index at the min value of Time.
+     * Returns 90100.0 which is incorrect.
      */
     @Test
     void testDelayTimeAtMin() {
@@ -338,6 +359,7 @@ class DelayValuesTest {
 
     /**
      * To test one index below the min value of Time.
+     * Here it's returning 90010.0 which is an anomaly. It's supposed to return 100. This means that its max value is above or equal to 90010.0.
      */
     @Test
     void testDelayTimeBelowMin() {
@@ -364,6 +386,7 @@ class DelayValuesTest {
 
     /**
      * To test one index above the max value of Decay.
+     * Returns 1.01 which means that 1 is not it's limit. It's supposed to return 1 according to the values I retrieved when I ran SynthaX.
      */
     @Test
     void testDelayDecayAboveMax() {
@@ -386,6 +409,7 @@ class DelayValuesTest {
 
     /**
      * To test one index at the max value of Decay.
+     * Returns 0.0 when it's supposed to return 1. Why it does that I am not sure.
      */
     @Test
     void testDelayDecayMax() {
@@ -408,6 +432,7 @@ class DelayValuesTest {
 
     /**
      * To test one index below the max value of Decay.
+     *  Test returned as OK.
      */
     @Test
     void testDelayDecayBelowMax() {
@@ -430,6 +455,7 @@ class DelayValuesTest {
 
     /**
      * To test one index at the middle value of Decay.
+     * Test returned as OK.
      */
     @Test
     void testDelayDecayMiddle() {
@@ -452,6 +478,7 @@ class DelayValuesTest {
 
     /**
      * To test one index above the min value of Decay.
+     *  Test returned as OK.
      */
     @Test
     void testDelayDecayAboveMin() {
@@ -474,6 +501,7 @@ class DelayValuesTest {
 
     /**
      * To test one index at the min value of Decay.
+     * Test returned as OK.
      */
     @Test
     void testDelayDecayAtMin() {
@@ -496,6 +524,7 @@ class DelayValuesTest {
 
     /**
      * To test one index below the min value of Decay.
+     * Returns -0.01 when it's supposed to return 0.0. Unsure why.
      */
     @Test
     void testDelayDecayBelowMin() {
@@ -522,6 +551,7 @@ class DelayValuesTest {
 
     /**
      * To test one index above the max value of Level.
+     * Returns 1.01 which means that 1 is not it's limit. It's supposed to return 1 according to the values I retrieved when I ran SynthaX.
      */
     @Test
     void testDelayLevelAboveMax() {
@@ -544,6 +574,7 @@ class DelayValuesTest {
 
     /**
      * To test one index at the max value of Level.
+     *  Test returned as OK.
      */
     @Test
     void testDelayLevelMax() {
@@ -566,6 +597,7 @@ class DelayValuesTest {
 
     /**
      * To test one index below the max value of Level.
+     *  Test returned as OK.
      */
     @Test
     void testDelayLevelBelowMax() {
@@ -588,6 +620,7 @@ class DelayValuesTest {
 
     /**
      * To test one index at the middle value of Level.
+     *  Test returned as OK.
      */
     @Test
     void testDelayLevelMiddle() {
@@ -611,6 +644,7 @@ class DelayValuesTest {
 
     /**
      * To test one index above the min value of Level.
+     *  Test returned as OK.
      */
     @Test
     void testDelayLevelAboveMin() {
@@ -634,6 +668,7 @@ class DelayValuesTest {
 
     /**
      * To test one index at the min value of Level.
+     * Test returned as OK.
      */
     @Test
     void testDelayLevelAtMin() {
@@ -656,6 +691,7 @@ class DelayValuesTest {
 
     /**
      * To test one index below the min value of Level.
+     * Returns -0.01 when it's supposed to return 0.0. Unsure why.
      */
     @Test
     void testDelayLevelBelowMin() {
@@ -678,6 +714,7 @@ class DelayValuesTest {
 
     /**
      * To test if the delay is active.
+     * Test returned as OK.
      */
     @Test
     void TestDelayIsActive() {
@@ -687,6 +724,7 @@ class DelayValuesTest {
 
     /**
      * To test if the delay is not active.
+     *  Test returned as OK.
      */
     @Test
     void TestDelayIsActiveFalse() {

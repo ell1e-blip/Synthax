@@ -2,6 +2,9 @@ package com.synthax.model.effects;
 
 import com.synthax.MainApplication;
 import com.synthax.controller.OscillatorManager;
+import com.synthax.model.effects.SynthaxADSR;
+import com.synthax.model.effects.SynthaxEQFilters;
+import com.synthax.model.effects.SynthaxLFO;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import net.beadsproject.beads.ugens.Gain;
@@ -39,6 +42,7 @@ class ADSRValuesTest {
 
      /**
      * To test one index above the max value of Attack.
+     * Returns 3000.01F although I've explicitly stated that if its above 3000, return 3000. Must be the decimal.
      */
     @Test
     void testADSRAttackAboveMax() {
@@ -61,6 +65,7 @@ class ADSRValuesTest {
 
     /**
      * To test with the max value of Attack.
+     * Test case OK.
      */
     @Test
     void testADSRAttackAtMax() {
@@ -83,6 +88,7 @@ class ADSRValuesTest {
 
     /**
      * To test one index below the max value of Attack.
+     *  Test case OK.
      */
     @Test
     void testADSRAttackBelowMax() {
@@ -105,6 +111,7 @@ class ADSRValuesTest {
 
     /**
      * To test one index at the middle value of Attack.
+     * Test case OK.
      */
     @Test
     void testADSRAttackMiddle() {
@@ -127,6 +134,7 @@ class ADSRValuesTest {
 
     /**
      * To test one index above the min value of Attack.
+     *  Test case OK.
      */
     @Test
     void testADSRAttackAboveMin() {
@@ -149,6 +157,7 @@ class ADSRValuesTest {
 
     /**
      * To test one index at the min value of Attack.
+     * Test case OK.
      */
     @Test
     void testADSRAttackAtMin() {
@@ -171,6 +180,7 @@ class ADSRValuesTest {
 
     /**
      * To test one index below the min value of Attack.
+     * Returns 9.99F although I've explicitly stated that if its below 10, return 10. Must be a decimal.
      */
     @Test
     void testADSRAttackBelowMin() {
@@ -197,6 +207,7 @@ class ADSRValuesTest {
 
     /**
      * To test one index above the max value of Decay.
+     * Same issue as above, it returns values above the max value as OK due to the decimal. This time it returned 1500.01F when it was supposed to return 1500.
      */
     @Test
     void testADSRDecayAboveMax() {
@@ -219,6 +230,7 @@ class ADSRValuesTest {
 
     /**
      * To test one index at the max value of Decay.
+     * Test case OK.
      */
     @Test
     void testADSRDecayAtMax() {
@@ -242,6 +254,7 @@ class ADSRValuesTest {
 
     /**
      * To test one index below the max value of Decay.
+     * Test case OK.
      */
     @Test
     void testADSRDecayBelowMax() {
@@ -264,6 +277,7 @@ class ADSRValuesTest {
 
     /**
      * To test one index at the middle value of Decay.
+     * Test case OK.
      */
     @Test
     void testADSRDecayMiddle() {
@@ -286,6 +300,7 @@ class ADSRValuesTest {
 
     /**
      * To test one index above the min value of Decay.
+     * Test case OK.
      */
     @Test
     void testADSRDecayAboveMin() {
@@ -308,6 +323,7 @@ class ADSRValuesTest {
 
     /**
      * To test one index at the min value of Decay.
+     * Test case OK.
      */
     @Test
     void testADSRDecayAtMin() {
@@ -330,6 +346,7 @@ class ADSRValuesTest {
 
     /**
      * To test one index below the min value of Decay.
+     * Returned the value 9.989999771118164F when it was supposed to return 10. Why it returned random decimals is odd.
      */
     @Test
     void testADSRDecayBelowMin() {
@@ -356,6 +373,7 @@ class ADSRValuesTest {
 
     /**
      * To test one index above the max value of Sustain.
+     * Same issue as above, it returns values above the max value as OK due to the decimal. This time it returned 1.01F when it was supposed to return 1.
      */
     @Test
     void testADSRSustainAboveMax() {
@@ -378,6 +396,7 @@ class ADSRValuesTest {
 
     /**
      * To test one index at the max value of Sustain.
+     * Returned 750 for some reason?? It's max value is 1 so where it got 750 I am very unsure. Can be interesting to note.
      */
     @Test
     void testADSRSustainMax() {
@@ -400,6 +419,7 @@ class ADSRValuesTest {
 
     /**
      * To test one index below the max value of Sustain.
+     * Test case OK.
      */
     @Test
     void testADSRSustainBelowMax() {
@@ -422,6 +442,7 @@ class ADSRValuesTest {
 
     /**
      * To test one index at the middle value of Sustain.
+     * Test case OK.
      */
     @Test
     void testADSRSustainMiddle() {
@@ -444,6 +465,7 @@ class ADSRValuesTest {
 
     /**
      * To test one index above the min value of Sustain.
+     * Test case OK.
      */
     @Test
     void testADSRSustainAboveMin() {
@@ -466,6 +488,7 @@ class ADSRValuesTest {
 
     /**
      * To test one index at the min value of Sustain.
+     * Test case OK.
      */
     @Test
     void testADSRSustainAtMin() {
@@ -488,6 +511,7 @@ class ADSRValuesTest {
 
     /**
      * To test one index below the min value of Sustain.
+     * Returned the value -0.01F when it was supposed to return 0.
      */
     @Test
     void testADSRSustainBelowMin() {
@@ -514,6 +538,7 @@ class ADSRValuesTest {
 
     /**
      * To test one index above the max value of Release.
+     * Same issue as above, it returns values above the max value as OK due to the decimal. This time it returned 2000.01F when it was supposed to return 2000.
      */
     @Test
     void testADSRReleaseAboveMax() {
@@ -536,6 +561,7 @@ class ADSRValuesTest {
 
     /**
      * To test one index at the max value of Release.
+     * Test case OK.
      */
     @Test
     void testADSRReleaseMax() {
@@ -558,6 +584,7 @@ class ADSRValuesTest {
 
     /**
      * To test one index below the max value of Release.
+     * Test case OK.
      */
     @Test
     void testADSRReleaseBelowMax() {
@@ -580,6 +607,7 @@ class ADSRValuesTest {
 
     /**
      * To test one index at the middle value of Release.
+     * Test case OK.
      */
     @Test
     void testADSRReleaseMiddle() {
@@ -603,6 +631,7 @@ class ADSRValuesTest {
 
     /**
      * To test one index above the min value of Release.
+     * Test case OK.
      */
     @Test
     void testADSRReleaseAboveMin() {
@@ -626,6 +655,7 @@ class ADSRValuesTest {
 
     /**
      * To test one index at the min value of Release.
+     * Test case OK.
      */
     @Test
     void testADSRReleaseAtMin() {
@@ -648,6 +678,7 @@ class ADSRValuesTest {
 
     /**
      * To test one index below the min value of Release.
+     * Returned the value 9.99F when it was supposed to return 10.
      */
     @Test
     void testADSRReleaseBelowMin() {
