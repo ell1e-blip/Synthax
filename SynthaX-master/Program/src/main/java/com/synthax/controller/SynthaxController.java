@@ -837,4 +837,19 @@ public class SynthaxController {
         synthaxView.setSliderRelease(release);
 
     }
+
+    /**
+     * @author Edin Jahic
+     */
+    public float getNoiseGainValue() {
+        return oscillatorManager.getNoiseController().getGain();
+    }
+
+    /**
+     * @author Edin Jahic
+     * @param gain
+     */
+    public void setNoise(float gain) {
+        synthaxView.setKnobNoise(gain);
+    }
 }

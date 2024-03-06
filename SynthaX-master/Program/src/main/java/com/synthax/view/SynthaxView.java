@@ -264,6 +264,8 @@ public class SynthaxView implements Initializable {
 
     KnobBehavior bKnobFilterLPCutoff;
 
+    KnobBehavior bKnobNoiseGain;
+
 
     public SynthaxView() {
         synthaxController = new SynthaxController(this);
@@ -957,9 +959,9 @@ public class SynthaxView implements Initializable {
     }
 
     private void initNoise() {
-        KnobBehavior bKnobNoiseGain = new KnobBehavior(knobNoiseGain);
+        bKnobNoiseGain = new KnobBehavior(knobNoiseGain);
         knobNoiseGain.setOnMouseDragged(bKnobNoiseGain);
-        bKnobNoiseGain.setRotation(0.5f);
+        bKnobNoiseGain.setRotation(0.0f);
         bKnobNoiseGain.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setNoiseGain(newValue.floatValue());
         });
@@ -1395,4 +1397,9 @@ public class SynthaxView implements Initializable {
         bKnobDelayLevel.setRotation(delayLevel);
     }
     //endregion initialize methods
+
+    public void setKnobNoise(float gain) {
+        bKnobNoiseGain.knobValueProperty().setValue(gain);
+        bKnobNoiseGain.setRotation(gain);
+    }
 }

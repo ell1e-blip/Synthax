@@ -52,6 +52,11 @@ public class NoiseController extends VoiceController {
         }
     }
 
+    public float getGain() {
+        System.out.println("VoiceOutputGlide: " + voiceOutputGlide.getCurrentValue());
+        return voiceOutputGlide.getCurrentValue();
+    }
+
     @Override
     public UGen getOutput() {
         return voiceOutput;
