@@ -961,6 +961,7 @@ public class SynthaxView implements Initializable {
     private void initNoise() {
         bKnobNoiseGain = new KnobBehavior(knobNoiseGain);
         knobNoiseGain.setOnMouseDragged(bKnobNoiseGain);
+        synthaxController.setNoiseGain(0f);
         //bKnobNoiseGain.setRotation(0.0f); //var 0,5 innan
         bKnobNoiseGain.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setNoiseGain(newValue.floatValue());
