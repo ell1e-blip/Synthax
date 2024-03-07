@@ -10,7 +10,7 @@ import net.beadsproject.beads.core.UGen;
  * @author Joel Eriksson Sinclair
  */
 public class NoiseController extends VoiceController {
-    private static final float MAX_GAIN = 0.3f;
+    private static final float MAX_GAIN = 1f;
 
     private float savedGain = MAX_GAIN / 2f;
     private boolean isActive = false;
