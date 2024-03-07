@@ -13,6 +13,8 @@ import net.beadsproject.beads.ugens.WavePlayer;
 public class OscillatorLFO {
     private WavePlayer lfo;
     private float depth = 0f;
+
+    private float rate = 0f;
     private float playedFrequency = 0f;
     private Function frequencyModulation;
 
@@ -42,6 +44,7 @@ public class OscillatorLFO {
 
     public void setRate(float rate) {
         rate = convertRate(rate);
+        this.rate = rate;
         lfo.setFrequency(rate);
     }
 
@@ -49,7 +52,15 @@ public class OscillatorLFO {
         this.depth = depth * 35;
     }
 
-    private float convertRate(float rate) {
+    public float getDepth() {
+        return depth;
+    }
+
+    public float getRate() {
+        return rate;
+    }
+
+    public float convertRate(float rate) {
         //Converts the passed float value to correspond to the range used by the LFO
         return (float) (rate * 19.9 + 0.1);
     }
