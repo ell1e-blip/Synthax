@@ -4,6 +4,7 @@ import com.synthax.controller.VoiceController;
 import com.synthax.view.utils.Dialogs;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -19,6 +20,7 @@ public class SettingsView implements Initializable {
     @FXML private VBox presetsList;
     @FXML private Spinner<Integer> voiceCountSpinner;
     @FXML private ComboBox<String> cmbLoadPresets;
+    @FXML
     private SynthaxView synthaxView;
 
 
@@ -137,5 +139,17 @@ public class SettingsView implements Initializable {
                 //cmbLoadPresets.getSelectionModel().select(chosenPreset);
             }
         });
+    }
+
+    public void populatePresets() {
+
+    }
+
+    public void onActionDeleteProgramPresets() {
+        int choice = Dialogs.getConfirmationYesCancel("Remove Program Preset", "This will remove the selected program presets, are you sure?");
+
+        if (choice == Dialogs.YES_OPTION) {
+            //implementera
+        }
     }
 }

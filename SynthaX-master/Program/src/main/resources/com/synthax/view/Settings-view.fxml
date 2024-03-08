@@ -11,7 +11,7 @@
 <?import org.controlsfx.control.ToggleSwitch?>
 
 <?import javafx.scene.control.ComboBox?>
-<AnchorPane prefHeight="211.0" prefWidth="660.0" stylesheets="@../skins.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.synthax.view.SettingsView">
+<AnchorPane prefHeight="211.0" prefWidth="900.0" stylesheets="@../skins.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.synthax.view.SettingsView">
    <children>
       <Label layoutX="18.0" layoutY="64.0" styleClass="smallLabel2" text="Monophonic" />
       <Label layoutX="18.0" layoutY="115.0" styleClass="smallLabel2" text="Number of voices" />
@@ -40,5 +40,12 @@
             <VBox fx:id="presetsList" prefHeight="124.0" prefWidth="131.0" spacing="2.0" />
          </content>
       </ScrollPane>
+      <Label layoutX="650.0" layoutY="47.0" styleClass="smallLabel2" text="Delete program presets" />
+      <ScrollPane hbarPolicy="NEVER" hmax="0.0" layoutX="650.0" layoutY="71.0" prefHeight="127.0" prefWidth="142.0">
+              <content>
+                 <VBox layoutX="650.0" layoutY="71.0" prefHeight="127.0" prefWidth="142.0"/>
+              </content>
+      </ScrollPane>
+      <Button layoutX="800.0" layoutY="130.0" mnemonicParsing="false" onAction="#onActionDeleteProgramPresets" prefHeight="25.0" prefWidth="25.0" styleClass="deleteButton" />
    </children>
 </AnchorPane>
