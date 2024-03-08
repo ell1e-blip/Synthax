@@ -511,6 +511,10 @@ public class SynthaxController {
         seqPresetLoader.deleteFile(text);
     }
 
+    public void deleteProgramPreset(String text) {
+        programPresetManager.deleteFile(text);
+    }
+
     public boolean midiConnected() {
         return midi.midiConnected();
     }

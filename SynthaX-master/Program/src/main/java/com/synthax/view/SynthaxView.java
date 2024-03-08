@@ -439,6 +439,7 @@ public class SynthaxView implements Initializable {
                 Node settingsRoot = fxmlLoader.load();
                 settingsView = fxmlLoader.getController();
                 settingsView.populatePresetsBox(synthaxController.getSequencerPresetList(), this);
+                settingsView.populateProgramPresets(synthaxController.getProgramPresetList());
                 synthaxController.updateProgramPresetList();
                 popOverSettings = new PopOver(settingsRoot);
                 popOverSettings.setTitle("Settings");
@@ -518,6 +519,10 @@ public class SynthaxView implements Initializable {
     //region forwarding from SettingsView (click to open/collapse)
     public void deletePreset(String text) {
         synthaxController.deletePreset(text);
+    }
+
+    public void deleteProgramPreset(String text) {
+        synthaxController.deleteProgramPreset(text);
     }
 
     public void updateSequencerPresetList() {

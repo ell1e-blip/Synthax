@@ -4,7 +4,6 @@ import com.synthax.controller.VoiceController;
 import com.synthax.view.utils.Dialogs;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -20,7 +19,7 @@ public class SettingsView implements Initializable {
     @FXML private VBox presetsList;
     @FXML private Spinner<Integer> voiceCountSpinner;
     @FXML private ComboBox<String> cmbLoadPresets;
-    @FXML
+    @FXML private VBox programPresetList;
     private SynthaxView synthaxView;
 
 
@@ -141,15 +140,26 @@ public class SettingsView implements Initializable {
         });
     }
 
-    public void populatePresets() {
-
+    public void populateProgramPresets(String[] programPresetList) {
+        initProgramPresetButtons();
+        for (String presetName : programPresetList) {
+            this.programPresetList.getChildren().add(new CheckBox(presetName));
+        }
     }
 
     public void onActionDeleteProgramPresets() {
         int choice = Dialogs.getConfirmationYesCancel("Remove Program Preset", "This will remove the selected program presets, are you sure?");
 
         if (choice == Dialogs.YES_OPTION) {
-            //implementera
+            for (int i = 0; i < programPresetList.getChildren().size(); i++) {
+                CheckBox c = (CheckBox) programPresetList.getChildren().get(i);
+                if (c.isSelected()) {
+                    programPresetList.getChildren().remove(i);
+                    synthaxView.deleteProgramPreset(c.getText());
+                    i--;
+                }
+            }
+            synthaxView.updateProgramPresetList(); //TODO ändra detta
         }
     }
 }

@@ -43,7 +43,7 @@
       <Label layoutX="650.0" layoutY="47.0" styleClass="smallLabel2" text="Delete program presets" />
       <ScrollPane hbarPolicy="NEVER" hmax="0.0" layoutX="650.0" layoutY="71.0" prefHeight="127.0" prefWidth="142.0">
               <content>
-                 <VBox layoutX="650.0" layoutY="71.0" prefHeight="127.0" prefWidth="142.0"/>
+                 <VBox fx:id="programPresetList" prefHeight="127.0" prefWidth="142.0" spacing="2.0"/>
               </content>
       </ScrollPane>
       <Button layoutX="800.0" layoutY="130.0" mnemonicParsing="false" onAction="#onActionDeleteProgramPresets" prefHeight="25.0" prefWidth="25.0" styleClass="deleteButton" />
