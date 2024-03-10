@@ -21,6 +21,7 @@ public class SettingsView implements Initializable {
     @FXML private ComboBox<String> cmbLoadPresets;
     @FXML private VBox programPresetList;
     private SynthaxView synthaxView;
+    private String selectedPresetName = "";
 
 
     // TODO: 2022-05-20 Only pass call to controller,
@@ -94,6 +95,10 @@ public class SettingsView implements Initializable {
                 toggleMonophonic.setSelected(false);
             }
         });
+
+        if (!selectedPresetName.isEmpty()) {
+            cmbLoadPresets.getSelectionModel().select(selectedPresetName);
+        }
     }
 
     /**
@@ -131,11 +136,12 @@ public class SettingsView implements Initializable {
      */
     public void setProgramPresetList(String[] presetNames, String chosenPreset) {
         Platform.runLater(() -> {
-            cmbLoadPresets.setItems(FXCollections.observableList(Arrays.stream(presetNames).toList()));
+            cmbLoadPresets.setItems(FXCollections.observableList(Arrays.asList(presetNames)));
             if (chosenPreset.equals("")) {
-                //cmbLoadPresets.getSelectionModel().selectFirst();
+                cmbLoadPresets.setPromptText("Default");
             } else {
-                //cmbLoadPresets.getSelectionModel().select(chosenPreset);
+                cmbLoadPresets.getSelectionModel().select(chosenPreset);
+                selectedPresetName = chosenPreset; // Store the selected preset name
             }
         });
     }
@@ -159,7 +165,7 @@ public class SettingsView implements Initializable {
                     i--;
                 }
             }
-            synthaxView.updateProgramPresetList(); //TODO ändra detta
+            synthaxView.updateProgramPresetList();
         }
     }
 }
