@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42cfc92d-5b7d-4b56-ad9b-ba43eb4af22b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SynthaX-master/Program/src/main/java/com/synthax/model/effects/SynthaxDelay.java" beforeDir="false" afterPath="$PROJECT_DIR$/SynthaX-master/Program/src/main/java/com/synthax/model/effects/SynthaxDelay.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SynthaX-master/Program/src/test/java/com/synthax/model/effects/ADSRValuesTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/SynthaX-master/Program/src/test/java/com/synthax/model/effects/ADSRValuesTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SynthaX-master/Program/src/test/java/com/synthax/model/effects/DelayValuesTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/SynthaX-master/Program/src/test/java/com/synthax/model/effects/DelayValuesTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SynthaX-master/Program/src/test/java/com/synthax/test/controller/ProgramPresetManagerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/SynthaX-master/Program/src/test/java/com/synthax/test/controller/ProgramPresetManagerTest.java" afterDir="false" />
-    </list>
+    <list default="true" id="42cfc92d-5b7d-4b56-ad9b-ba43eb4af22b" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -28,6 +22,13 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
