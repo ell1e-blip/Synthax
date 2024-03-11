@@ -29,6 +29,16 @@ public class SettingsView implements Initializable {
     // TODO: 2022-05-20 Only pass call to controller,
     //  then let controller create thread and call on SeqPresetLoader
     //  and when that thread is done - callBack to update GUI.
+
+    public SettingsView() {
+        Runtime.getRuntime().addShutdownHook(new Thread(this::resetSelectedPresetName));
+    }
+
+    private void resetSelectedPresetName() {
+        Preferences prefs = Preferences.userNodeForPackage(SettingsView.class);
+        prefs.remove(PREF_SELECTED_PRESET_NAME);
+    }
+
     @FXML
     public void onActionDelete() {
         int choice = Dialogs.getConfirmationYesCancel("Remove Preset", "This will remove the selected presets, are you sure?");
