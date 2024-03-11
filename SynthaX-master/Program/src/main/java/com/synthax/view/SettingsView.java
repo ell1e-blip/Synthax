@@ -19,7 +19,9 @@ public class SettingsView implements Initializable {
     @FXML private VBox presetsList;
     @FXML private Spinner<Integer> voiceCountSpinner;
     @FXML private ComboBox<String> cmbLoadPresets;
+    @FXML private VBox programPresetList;
     private SynthaxView synthaxView;
+    private String selectedPresetName = "";
 
 
     // TODO: 2022-05-20 Only pass call to controller,
@@ -93,6 +95,10 @@ public class SettingsView implements Initializable {
                 toggleMonophonic.setSelected(false);
             }
         });
+
+        if (!selectedPresetName.isEmpty()) {
+            cmbLoadPresets.getSelectionModel().select(selectedPresetName);
+        }
     }
 
     /**
@@ -130,12 +136,36 @@ public class SettingsView implements Initializable {
      */
     public void setProgramPresetList(String[] presetNames, String chosenPreset) {
         Platform.runLater(() -> {
-            cmbLoadPresets.setItems(FXCollections.observableList(Arrays.stream(presetNames).toList()));
+            cmbLoadPresets.setItems(FXCollections.observableList(Arrays.asList(presetNames)));
             if (chosenPreset.equals("")) {
-                //cmbLoadPresets.getSelectionModel().selectFirst();
+                cmbLoadPresets.setPromptText("Default");
             } else {
-                //cmbLoadPresets.getSelectionModel().select(chosenPreset);
+                cmbLoadPresets.getSelectionModel().select(chosenPreset);
+                selectedPresetName = chosenPreset; // Store the selected preset name
             }
         });
+    }
+
+    public void populateProgramPresets(String[] programPresetList) {
+        initProgramPresetButtons();
+        for (String presetName : programPresetList) {
+            this.programPresetList.getChildren().add(new CheckBox(presetName));
+        }
+    }
+
+    public void onActionDeleteProgramPresets() {
+        int choice = Dialogs.getConfirmationYesCancel("Remove Program Preset", "This will remove the selected program presets, are you sure?");
+
+        if (choice == Dialogs.YES_OPTION) {
+            for (int i = 0; i < programPresetList.getChildren().size(); i++) {
+                CheckBox c = (CheckBox) programPresetList.getChildren().get(i);
+                if (c.isSelected()) {
+                    programPresetList.getChildren().remove(i);
+                    synthaxView.deleteProgramPreset(c.getText());
+                    i--;
+                }
+            }
+            synthaxView.updateProgramPresetList();
+        }
     }
 }

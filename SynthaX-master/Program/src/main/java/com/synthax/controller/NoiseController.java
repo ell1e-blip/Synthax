@@ -10,7 +10,7 @@ import net.beadsproject.beads.core.UGen;
  * @author Joel Eriksson Sinclair
  */
 public class NoiseController extends VoiceController {
-    private static final float MAX_GAIN = 0.3f;
+    private static final float MAX_GAIN = 1f;
 
     private float savedGain = MAX_GAIN / 2f;
     private boolean isActive = false;
@@ -50,6 +50,11 @@ public class NoiseController extends VoiceController {
             savedGain = voiceOutputGlide.getTargetValue();
             voiceOutputGlide.setValue(0f);
         }
+    }
+
+    public float getGain() {
+        System.out.println("VoiceOutputGlide: " + voiceOutputGlide.getCurrentValue());
+        return voiceOutputGlide.getCurrentValue();
     }
 
     @Override

@@ -9,5 +9,8 @@
         <module name="Synthax_Beads" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Synthax_Beads" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>

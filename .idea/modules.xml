@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Synthax.iml" filepath="$PROJECT_DIR$/.idea/Synthax.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SynthaX-master/Program/Synthax_Beads.iml" filepath="$PROJECT_DIR$/SynthaX-master/Program/Synthax_Beads.iml" />
     </modules>
   </component>
 </project>
