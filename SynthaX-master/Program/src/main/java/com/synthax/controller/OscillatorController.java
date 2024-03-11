@@ -209,5 +209,12 @@ public class OscillatorController extends VoiceController {
             ((OscillatorVoice)voice).getDelay().setActive();
         }
     }
-    //endregion delay-setters
+
+    /**
+     * @author Marcus Larsson
+     * @return
+     */
+    public OctaveOperands getOctaveOperand() {
+        return octaveOperand;
+    }
 }

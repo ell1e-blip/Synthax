@@ -108,4 +108,12 @@ public class OscillatorVoice extends Voice {
     private float applyOctaveOffset(float frequency, OctaveOperands octaveOperand) {
         return frequency * octaveOperand.getValue();
     }
+
+    /**
+     * Probably wrong implementation below
+     * @return
+     */
+    public Object getWavePlayerBuffer() {
+        return wavePlayer;
+    }
 }
