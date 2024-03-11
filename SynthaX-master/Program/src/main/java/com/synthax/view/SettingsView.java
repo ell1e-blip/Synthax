@@ -9,10 +9,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import org.controlsfx.control.ToggleSwitch;
-
+import java.util.prefs.Preferences;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.ResourceBundle;
+
 
 public class SettingsView implements Initializable {
     @FXML private ToggleSwitch toggleMonophonic;
@@ -22,6 +23,7 @@ public class SettingsView implements Initializable {
     @FXML private VBox programPresetList;
     private SynthaxView synthaxView;
     private String selectedPresetName = "";
+    private static final String PREF_SELECTED_PRESET_NAME = "selectedPresetName";
 
 
     // TODO: 2022-05-20 Only pass call to controller,
@@ -56,6 +58,8 @@ public class SettingsView implements Initializable {
         synthaxView.updateProgramPresetList();
         cmbLoadPresets.setOnAction(actionEvent -> {
             System.out.println(cmbLoadPresets.getValue());
+            selectedPresetName = cmbLoadPresets.getValue();
+            saveSelectedPresetName(selectedPresetName);
             synthaxView.onSelectProgramPreset(cmbLoadPresets.getValue());
         });
 
@@ -82,6 +86,12 @@ public class SettingsView implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        loadSelectedPresetName();
+
+        if (!selectedPresetName.isEmpty()) {
+            cmbLoadPresets.getSelectionModel().select(selectedPresetName);
+        }
+
         toggleMonophonic.setSelected(VoiceController.MONOPHONIC_STATUS);
         toggleMonophonic.selectedProperty().addListener((observableValue, oldValue, newValue) -> {
             setMonophonicState(newValue);
@@ -96,9 +106,6 @@ public class SettingsView implements Initializable {
             }
         });
 
-        if (!selectedPresetName.isEmpty()) {
-            cmbLoadPresets.getSelectionModel().select(selectedPresetName);
-        }
     }
 
     /**
@@ -129,7 +136,7 @@ public class SettingsView implements Initializable {
     }
 
     /**
-     * @author Ellie Rosander
+     * @author Ellie Rosander, Edin Jahic
      * metod för att uppdatera cmbLoadPresets med presets från resources>program_presets
      * @param presetNames
      * @param chosenPreset
@@ -137,15 +144,19 @@ public class SettingsView implements Initializable {
     public void setProgramPresetList(String[] presetNames, String chosenPreset) {
         Platform.runLater(() -> {
             cmbLoadPresets.setItems(FXCollections.observableList(Arrays.asList(presetNames)));
-            if (chosenPreset.equals("")) {
+            if (selectedPresetName.isEmpty()) {
                 cmbLoadPresets.setPromptText("Default");
             } else {
-                cmbLoadPresets.getSelectionModel().select(chosenPreset);
-                selectedPresetName = chosenPreset; // Store the selected preset name
+                cmbLoadPresets.getSelectionModel().select(selectedPresetName);
             }
         });
     }
 
+    /**
+     * @author Edin Jahic
+     * Metod för att fylla listan med de presets som finns sparade i programmet.
+     * @param programPresetList
+     */
     public void populateProgramPresets(String[] programPresetList) {
         initProgramPresetButtons();
         for (String presetName : programPresetList) {
@@ -153,6 +164,10 @@ public class SettingsView implements Initializable {
         }
     }
 
+    /**
+     * @author Edin Jahic
+     * Metod som hanterar vad som händer när man klickar på delete ikonen i remove presets panelen.
+     */
     public void onActionDeleteProgramPresets() {
         int choice = Dialogs.getConfirmationYesCancel("Remove Program Preset", "This will remove the selected program presets, are you sure?");
 
@@ -167,5 +182,24 @@ public class SettingsView implements Initializable {
             }
             synthaxView.updateProgramPresetList();
         }
+    }
+
+    /**
+     * @author Edin Jahic
+     * Används för att ladda in senast valda presets och visa dessa i cmbLoadPresets.
+     */
+    private void loadSelectedPresetName() {
+        Preferences prefs = Preferences.userNodeForPackage(SettingsView.class);
+        selectedPresetName = prefs.get(PREF_SELECTED_PRESET_NAME, "");
+    }
+
+    /**
+     * @author Edin Jahic
+     * Används för att spara senast valda presets för att sedan kunna ladda in dessa även efter man stängt ner och
+     * öppnar settings på nytt.
+     */
+    private void saveSelectedPresetName(String presetName) {
+        Preferences prefs = Preferences.userNodeForPackage(SettingsView.class);
+        prefs.put(PREF_SELECTED_PRESET_NAME, presetName);
     }
 }

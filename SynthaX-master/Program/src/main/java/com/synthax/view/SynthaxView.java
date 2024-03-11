@@ -1404,6 +1404,10 @@ public class SynthaxView implements Initializable {
     }
     //endregion initialize methods
 
+    /**
+     * @author Edin Jahic
+     * @param gain
+     */
     public void setKnobNoise(float gain) {
         bKnobNoiseGain.knobValueProperty().setValue(gain);
         bKnobNoiseGain.setRotation(gain);
