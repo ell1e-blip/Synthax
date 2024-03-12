@@ -15,6 +15,12 @@ class OscillatorLFOTest {
     /**
      * @author Oliver Berggren
      */
+
+    /**
+     * @author Oliver Berggren
+     * This is used to create an instance object OscillatorLFO to be able to do Unit tests
+     * on that class and its functions.
+     */
     @BeforeEach
     void setUp() {
         lfo = new OscillatorLFO();
@@ -22,6 +28,11 @@ class OscillatorLFOTest {
 
     /**
      * @author Oliver Berggren
+     * This method tests the initial values or initilazed value of:
+     * FrequencyModulation
+     * PlayedFrequency
+     * Depth
+     * They are ran by assertAll which runs all the assert-tests.
      */
     @Test
     void testInitialConditions() {
@@ -33,6 +44,11 @@ class OscillatorLFOTest {
     }
     /**
      * @author Oliver Berggren
+     * This method sets the frequency value to a known frequency (440.0f).
+     * Then it returns the value to verify if the value is set correctly.
+     *
+     * If test fail, the following will be printed:
+     * "Played frequency should match what was set."
      */
     @Test
     void setAndGetFrequencyModulation() {
@@ -46,6 +62,11 @@ class OscillatorLFOTest {
 
     /**
      * @author Oliver Berggren
+     * This method sets the rate value to a known rate (1.0f).
+     * Then it returns the value to verify if the value is set correctly.
+     *
+     * If test fail, the following will be printed:
+     * "The rate should match what was set."
      */
     @Test
     void setRate() {
@@ -58,6 +79,12 @@ class OscillatorLFOTest {
 
     /**
      * @author Oliver Berggren
+     * This method sets the depth value to a known depth (0.5f).
+     * Then the expected value is multiplied by 35 as done in the setDepth method.
+     * Then it returns the value to verify if the value is set correctly
+     *
+     * If test fail, the following will be printed:
+     * "Depth scaling should be correct."
      */
     @Test
     void setDepth() {
