@@ -264,6 +264,8 @@ public class SynthaxView implements Initializable {
 
     KnobBehavior bKnobFilterLPCutoff;
 
+    KnobBehavior bKnobNoiseGain;
+
 
     public SynthaxView() {
         synthaxController = new SynthaxController(this);
@@ -437,6 +439,7 @@ public class SynthaxView implements Initializable {
                 Node settingsRoot = fxmlLoader.load();
                 settingsView = fxmlLoader.getController();
                 settingsView.populatePresetsBox(synthaxController.getSequencerPresetList(), this);
+                settingsView.populateProgramPresets(synthaxController.getProgramPresetList());
                 synthaxController.updateProgramPresetList();
                 popOverSettings = new PopOver(settingsRoot);
                 popOverSettings.setTitle("Settings");
@@ -516,6 +519,10 @@ public class SynthaxView implements Initializable {
     //region forwarding from SettingsView (click to open/collapse)
     public void deletePreset(String text) {
         synthaxController.deletePreset(text);
+    }
+
+    public void deleteProgramPreset(String text) {
+        synthaxController.deleteProgramPreset(text);
     }
 
     public void updateSequencerPresetList() {
@@ -957,9 +964,10 @@ public class SynthaxView implements Initializable {
     }
 
     private void initNoise() {
-        KnobBehavior bKnobNoiseGain = new KnobBehavior(knobNoiseGain);
+        bKnobNoiseGain = new KnobBehavior(knobNoiseGain);
         knobNoiseGain.setOnMouseDragged(bKnobNoiseGain);
-        bKnobNoiseGain.setRotation(0.5f);
+        synthaxController.setNoiseGain(0f);
+        //bKnobNoiseGain.setRotation(0.0f); //var 0,5 innan
         bKnobNoiseGain.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setNoiseGain(newValue.floatValue());
         });
@@ -1394,4 +1402,13 @@ public class SynthaxView implements Initializable {
         bKnobDelayLevel.setRotation(delayLevel);
     }
     //endregion initialize methods
+
+    /**
+     * @author Edin Jahic
+     * @param gain
+     */
+    public void setKnobNoise(float gain) {
+        bKnobNoiseGain.knobValueProperty().setValue(gain);
+        bKnobNoiseGain.setRotation(gain);
+    }
 }

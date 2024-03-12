@@ -4,6 +4,7 @@ module com.synthax.synthax_beads {
     requires beads;
     requires org.controlsfx.controls;
     requires java.desktop;
+    requires java.prefs;
 
 
     exports com.synthax.controller;

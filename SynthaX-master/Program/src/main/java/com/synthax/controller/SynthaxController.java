@@ -511,6 +511,10 @@ public class SynthaxController {
         seqPresetLoader.deleteFile(text);
     }
 
+    public void deleteProgramPreset(String text) {
+        programPresetManager.deleteFile(text);
+    }
+
     public boolean midiConnected() {
         return midi.midiConnected();
     }
@@ -836,5 +840,20 @@ public class SynthaxController {
     public void setViewASDRSliderRelease(float release) {
         synthaxView.setSliderRelease(release);
 
+    }
+
+    /**
+     * @author Edin Jahic
+     */
+    public float getNoiseGainValue() {
+        return oscillatorManager.getNoiseController().getGain();
+    }
+
+    /**
+     * @author Edin Jahic
+     * @param gain
+     */
+    public void setNoise(float gain) {
+        synthaxView.setKnobNoise(gain);
     }
 }

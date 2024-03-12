@@ -17,6 +17,7 @@ import java.util.ArrayList;
 public class ProgramPresetManager {
 
     private final SynthaxController synthaxController;
+    //private final NoiseController noiseController;
 
     private final static int PRESET_VERSION_ID = 2;
     private final static int PRESET_UID = 133769421;
@@ -32,6 +33,7 @@ public class ProgramPresetManager {
 
     public ProgramPresetManager(SynthaxController synthaxController) {
         this.synthaxController = synthaxController;
+        //this.noiseController =
     }
 
     public void savePresetGetFile(String presetName) {
@@ -86,6 +88,10 @@ public class ProgramPresetManager {
         float ADSRSustain = synthaxController.getSustainValue();
         float ADSRRelease = synthaxController.getReleaseValue();
 
+        //Noise
+        System.out.println("noiseBefore: " + synthaxController.getNoiseGainValue());
+        float noise = synthaxController.getNoiseGainValue();
+
         /*
         System.out.println("depthvalue: " + depthvalue);
         System.out.println("Buffer: " + waveformBuffer.toString());
@@ -131,6 +137,8 @@ public class ProgramPresetManager {
             dos.writeFloat(ADSRDecay);
             dos.writeFloat(ADSRSustain);
             dos.writeFloat(ADSRRelease);
+
+            dos.writeFloat(noise);
 
             dos.flush();
 
@@ -231,6 +239,9 @@ public class ProgramPresetManager {
             Float ADSRSustain = dis.readFloat();
             Float ADSRRelease = dis.readFloat();
 
+            //Noise
+            Float noise = dis.readFloat();
+            System.out.println("noiseAfter: " + noise);
 
             dis.close();
 
@@ -251,6 +262,8 @@ public class ProgramPresetManager {
             synthaxController.setViewASDRSliderDecay(ADSRDecay);
             synthaxController.setViewASDRSliderSustain(ADSRSustain);
             synthaxController.setViewASDRSliderRelease(ADSRRelease);
+
+            synthaxController.setNoise(noise);
 
         } catch (IOException e) {
             e.printStackTrace();
