@@ -89,8 +89,10 @@ public class ProgramPresetManager {
         float ADSRRelease = synthaxController.getReleaseValue();
 
         //Noise
-        System.out.println("noiseBefore: " + synthaxController.getNoiseGainValue());
         float noise = synthaxController.getNoiseGainValue();
+
+        //Master
+        float master = synthaxController.getMasterGainGlide();
 
         /*
         System.out.println("depthvalue: " + depthvalue);
@@ -138,7 +140,11 @@ public class ProgramPresetManager {
             dos.writeFloat(ADSRSustain);
             dos.writeFloat(ADSRRelease);
 
+            //Noise
             dos.writeFloat(noise);
+
+            //Master
+            dos.writeFloat(master);
 
             dos.flush();
 
@@ -243,6 +249,9 @@ public class ProgramPresetManager {
             Float noise = dis.readFloat();
             System.out.println("noiseAfter: " + noise);
 
+            //Master
+            Float master = dis.readFloat();
+
             dis.close();
 
             synthaxController.setViewLFODepth(depthvalue);
@@ -264,6 +273,8 @@ public class ProgramPresetManager {
             synthaxController.setViewASDRSliderRelease(ADSRRelease);
 
             synthaxController.setNoise(noise);
+
+            synthaxController.setMasterGain(master);
 
         } catch (IOException e) {
             e.printStackTrace();

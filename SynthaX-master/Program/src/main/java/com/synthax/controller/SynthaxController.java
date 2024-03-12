@@ -496,6 +496,7 @@ public class SynthaxController {
     }
 
     public void setMasterGain(float gain) {
+        synthaxView.setSliderMasterGain(gain);
         masterGainGlide.setValue(gain);
     }
 
@@ -855,5 +856,13 @@ public class SynthaxController {
      */
     public void setNoise(float gain) {
         synthaxView.setKnobNoise(gain);
+    }
+
+    /**
+     * @author Edin Jahic
+     * @return
+     */
+    public float getMasterGainGlide() {
+        return masterGainGlide.getCurrentValue();
     }
 }

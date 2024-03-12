@@ -1412,4 +1412,9 @@ public class SynthaxView implements Initializable {
         bKnobNoiseGain.knobValueProperty().setValue(gain);
         bKnobNoiseGain.setRotation(gain);
     }
+
+    public void setSliderMasterGain(float gain) {
+        sliderMasterGain.setValue(gain);
+        sliderMasterGain.setRotate(gain);
+    }
 }
