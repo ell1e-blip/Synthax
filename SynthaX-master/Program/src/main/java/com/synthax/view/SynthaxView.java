@@ -39,6 +39,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import net.beadsproject.beads.data.Buffer;
 import org.controlsfx.control.PopOver;
+import org.controlsfx.control.ToggleSwitch;
 
 import java.io.File;
 import java.io.IOException;
@@ -265,6 +266,16 @@ public class SynthaxView implements Initializable {
     KnobBehavior bKnobFilterLPCutoff;
 
     KnobBehavior bKnobNoiseGain;
+
+    public ToggleSwitch LFOActive;
+    public ToggleSwitch HPActive;
+    public ToggleSwitch noiseActive;
+    public ToggleSwitch reverbActive;
+    public ToggleSwitch LPActive;
+    public ToggleSwitch EQ1Active;
+    public ToggleSwitch EQ2Active;
+    public ToggleSwitch EQ3Active;
+    public ToggleSwitch delayActive;
 
 
     public SynthaxView() {
