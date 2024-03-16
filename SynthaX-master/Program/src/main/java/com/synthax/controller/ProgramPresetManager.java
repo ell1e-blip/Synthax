@@ -2,12 +2,14 @@ package com.synthax.controller;
 
 import com.synthax.model.effects.SynthaxADSR;
 import com.synthax.model.effects.SynthaxLFO;
+import com.synthax.model.enums.OctaveOperands;
 import com.synthax.model.enums.Waveforms;
 import net.beadsproject.beads.data.Buffer;
 
 import java.io.*;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * @author Ellie Rosander
@@ -94,6 +96,29 @@ public class ProgramPresetManager {
         //Master
         float master = synthaxController.getMasterGainGlide();
 
+        //Oscillatorer
+        ArrayList<OscillatorController> oscillatorControllers = synthaxController.getOscillatorManager().getOscillatorControllers(); //Sparar antalet oscillatorer
+        System.out.println("Antal oscillatorer: " + oscillatorControllers.size());
+
+        for (OscillatorController oscillatorController : oscillatorControllers) {
+            Buffer waveFormOsc = oscillatorController.getWaveform().getBuffer();
+            OctaveOperands octave = oscillatorController.getOctave();
+            //float gain = TODO gain bugg
+            float detune = oscillatorController.getDetuneCent();
+            float depth = oscillatorController.getOscDepth();
+            float rate = oscillatorController.getOscRate();
+        }
+
+        //TEST:
+        for (OscillatorController oscillatorController : oscillatorControllers) {
+            System.out.println("****** TEST ******");
+            System.out.println("WaveForm: " + oscillatorController.getWaveform());
+            System.out.println("Octave: " + oscillatorController.getOctave());
+            System.out.println("Detune: " + oscillatorController.getDetuneCent());
+            System.out.println("Depth: " + oscillatorController.getOscDepth());
+            System.out.println("Rate: " + oscillatorController.getOscRate());
+        }
+
         /*
         System.out.println("depthvalue: " + depthvalue);
         System.out.println("Buffer: " + waveformBuffer.toString());
@@ -145,6 +170,9 @@ public class ProgramPresetManager {
 
             //Master
             dos.writeFloat(master);
+
+            //Oscillatorer
+            // TODO
 
             dos.flush();
 

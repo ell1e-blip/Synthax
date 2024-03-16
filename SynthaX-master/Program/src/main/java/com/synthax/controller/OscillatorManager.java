@@ -183,6 +183,14 @@ public class OscillatorManager {
         return noiseController;
     }
 
+    /**
+     * @author Edin Jahic
+     */
+    public ArrayList<OscillatorController> getOscillatorControllers() {
+        return oscillatorControllers;
+    }
+
+
     //region Delay-setters (click to open/collapse)
     /**
      * @author Oliver Berggren

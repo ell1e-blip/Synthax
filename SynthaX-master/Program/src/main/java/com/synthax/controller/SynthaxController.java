@@ -865,4 +865,8 @@ public class SynthaxController {
     public float getMasterGainGlide() {
         return masterGainGlide.getCurrentValue();
     }
+
+    public OscillatorManager getOscillatorManager() {
+        return oscillatorManager;
+    }
 }
