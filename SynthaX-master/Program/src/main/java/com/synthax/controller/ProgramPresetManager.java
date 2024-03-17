@@ -96,11 +96,6 @@ public class ProgramPresetManager {
         //Master
         float master = synthaxController.getMasterGainGlide();
 
-        //Oscillatorer
-        ArrayList<OscillatorController> oscillatorControllers = synthaxController.getOscillatorManager().getOscillatorControllers(); //Sparar antalet oscillatorer
-        System.out.println("Antal oscillatorer: " + oscillatorControllers.size());
-
-
         /*
         System.out.println("depthvalue: " + depthvalue);
         System.out.println("Buffer: " + waveformBuffer.toString());
@@ -154,6 +149,9 @@ public class ProgramPresetManager {
             dos.writeFloat(master);
 
             //Oscillatorer
+            ArrayList<OscillatorController> oscillatorControllers = synthaxController.getOscillatorManager().getOscillatorControllers(); //Sparar antalet oscillatorer
+            System.out.println("Antal oscillatorer: " + oscillatorControllers.size());
+            
             for (OscillatorController oscillatorController : oscillatorControllers) {
                 Buffer waveFormOsc = oscillatorController.getWaveform().getBuffer();
                 OctaveOperands octave = oscillatorController.getOctave();
@@ -161,12 +159,17 @@ public class ProgramPresetManager {
                 float detune = oscillatorController.getDetuneCent();
                 float depth = oscillatorController.getOscDepth();
                 float rate = oscillatorController.getOscRate();
-
+                
+                dos.writeInt(oscillatorControllers.size());
+                /*
                 dos.writeInt(waveFormOsc.buf.length);
                 for (float value : waveFormOsc.buf) {
                     dos.writeFloat(value);
                 }
+
+                 */
                 dos.writeInt(octave.getOperandValue());
+                //dos.writeFloat(gain);
                 dos.writeFloat(detune);
                 dos.writeFloat(depth);
                 dos.writeFloat(rate);
@@ -176,7 +179,7 @@ public class ProgramPresetManager {
             for (OscillatorController oscillatorController : oscillatorControllers) {
                 System.out.println("****** TEST ******");
                 System.out.println("WaveForm: " + oscillatorController.getWaveform());
-                System.out.println("Octave: " + oscillatorController.getOctave());
+                System.out.println("Octave: " + oscillatorController.getOctave().getOperandValue());
                 System.out.println("Detune: " + oscillatorController.getDetuneCent());
                 System.out.println("Depth: " + oscillatorController.getOscDepth());
                 System.out.println("Rate: " + oscillatorController.getOscRate());
@@ -289,9 +292,41 @@ public class ProgramPresetManager {
             Float master = dis.readFloat();
 
             //Oscillator
-            //TODO
+            int nbrOfOscillators = dis.readInt();
+            //int oscWaveFormSize = dis.readInt();
+            System.out.println("LOAD - nbrOfOscillators: " + nbrOfOscillators);
+
+            for (int i = 0; i < nbrOfOscillators; i++) {
+
+                /*
+                for (int j = 0; j < oscWaveFormSize; j++) {
+                    float oscWave = dis.readFloat();
+                }
+
+                 */
+
+                int octave = dis.readInt();
+                System.out.println("LOAD - Octave: " + octave);
+                //Float gain = dis.readFloat
+                Float detune = dis.readFloat();
+                System.out.println("LOAD - Detune: " + detune);
+                Float depth = dis.readFloat();
+                System.out.println("LOAD - Depth: " + depth);
+                Float rate = dis.readFloat();
+                System.out.println("LOAD - Rate: " + rate);
+
+                OscillatorController osc = new OscillatorController(octave);
+                osc.setWaveform(Waveforms.SINE);
+                //gain
+                osc.setDetuneCent(detune);
+                osc.setLFODepth(depth);
+                osc.setLFORate(rate);
+                synthaxController.addOscillator(osc);
+            }
+
 
             dis.close();
+
 
             synthaxController.setViewLFODepth(depthvalue);
             synthaxController.setViewLFORate(knobRate);
