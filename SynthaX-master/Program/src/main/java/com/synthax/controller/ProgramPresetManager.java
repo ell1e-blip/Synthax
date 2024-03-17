@@ -100,24 +100,6 @@ public class ProgramPresetManager {
         ArrayList<OscillatorController> oscillatorControllers = synthaxController.getOscillatorManager().getOscillatorControllers(); //Sparar antalet oscillatorer
         System.out.println("Antal oscillatorer: " + oscillatorControllers.size());
 
-        for (OscillatorController oscillatorController : oscillatorControllers) {
-            Buffer waveFormOsc = oscillatorController.getWaveform().getBuffer();
-            OctaveOperands octave = oscillatorController.getOctave();
-            //float gain = TODO gain bugg
-            float detune = oscillatorController.getDetuneCent();
-            float depth = oscillatorController.getOscDepth();
-            float rate = oscillatorController.getOscRate();
-        }
-
-        //TEST:
-        for (OscillatorController oscillatorController : oscillatorControllers) {
-            System.out.println("****** TEST ******");
-            System.out.println("WaveForm: " + oscillatorController.getWaveform());
-            System.out.println("Octave: " + oscillatorController.getOctave());
-            System.out.println("Detune: " + oscillatorController.getDetuneCent());
-            System.out.println("Depth: " + oscillatorController.getOscDepth());
-            System.out.println("Rate: " + oscillatorController.getOscRate());
-        }
 
         /*
         System.out.println("depthvalue: " + depthvalue);
@@ -172,7 +154,33 @@ public class ProgramPresetManager {
             dos.writeFloat(master);
 
             //Oscillatorer
-            // TODO
+            for (OscillatorController oscillatorController : oscillatorControllers) {
+                Buffer waveFormOsc = oscillatorController.getWaveform().getBuffer();
+                OctaveOperands octave = oscillatorController.getOctave();
+                //float gain = TODO gain bugg
+                float detune = oscillatorController.getDetuneCent();
+                float depth = oscillatorController.getOscDepth();
+                float rate = oscillatorController.getOscRate();
+
+                dos.writeInt(waveFormOsc.buf.length);
+                for (float value : waveFormOsc.buf) {
+                    dos.writeFloat(value);
+                }
+                dos.writeInt(octave.getOperandValue());
+                dos.writeFloat(detune);
+                dos.writeFloat(depth);
+                dos.writeFloat(rate);
+            }
+
+            //TEST:
+            for (OscillatorController oscillatorController : oscillatorControllers) {
+                System.out.println("****** TEST ******");
+                System.out.println("WaveForm: " + oscillatorController.getWaveform());
+                System.out.println("Octave: " + oscillatorController.getOctave());
+                System.out.println("Detune: " + oscillatorController.getDetuneCent());
+                System.out.println("Depth: " + oscillatorController.getOscDepth());
+                System.out.println("Rate: " + oscillatorController.getOscRate());
+            }
 
             dos.flush();
 
@@ -279,6 +287,9 @@ public class ProgramPresetManager {
 
             //Master
             Float master = dis.readFloat();
+
+            //Oscillator
+            //TODO
 
             dis.close();
 
