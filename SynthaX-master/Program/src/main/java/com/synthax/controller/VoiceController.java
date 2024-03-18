@@ -170,5 +170,10 @@ public abstract class VoiceController {
     public abstract void setGain(float gain);
     public abstract void setActive(boolean active);
     public abstract UGen getOutput();
+
+    public Voice[] getVoices() {
+        return voices;
+    }
+
     //endregion getters & setters
 }

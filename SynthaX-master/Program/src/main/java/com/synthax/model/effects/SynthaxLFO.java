@@ -66,7 +66,14 @@ public class SynthaxLFO {
     }
 
     public void setWaveform(Waveforms waveform) {
+        System.out.println(waveform.getBuffer());
         lfo.setBuffer(waveform.getBuffer());
+    }
+
+
+    public void setBuffer(Buffer buff) {
+        System.out.println(buff);
+        lfo.setBuffer(buff);
     }
 
     public void setRate(float rate) {
@@ -92,5 +99,55 @@ public class SynthaxLFO {
             savedDepth = depth.getValue();
             depth.setValue(DEPTH_DISABLE);
         }
+    }
+
+    public boolean getActive() {
+        return isActive;
+    }
+
+    /**
+     * author Ellie Rosander
+     * @return
+     */
+    public float getDepthValue() {
+        if(isActive) {
+            return this.depth.getValue();
+        } else {
+            return this.savedDepth;
+        }
+    }
+
+    /**
+     * author Ellie Rosander
+     * @return
+     */
+    public Buffer getWaveformBuffer() {
+        return lfo.getBuffer();
+    }
+
+    /**
+     * author Ellie Rosander
+     * @return
+     */
+    public float getRateFrequency() {
+        System.out.println(lfo.getFrequency());
+        return lfo.getFrequency();
+    }
+
+    /**
+     * author Ellie Rosander
+     * @return
+     */
+    public float getPhase() {
+        return lfo.getPhase();
+    }
+
+    /**
+     * author ellie Rosander
+     * @param phase
+     */
+
+    public void setPhase(Float phase) {
+        lfo.setPhase(phase);
     }
 }

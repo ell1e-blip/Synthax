@@ -37,7 +37,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import net.beadsproject.beads.data.Buffer;
 import org.controlsfx.control.PopOver;
+import org.controlsfx.control.ToggleSwitch;
 
 import java.io.File;
 import java.io.IOException;
@@ -209,6 +211,10 @@ public class SynthaxView implements Initializable {
     private Button[] arrSeqDetuneKnobs;
     private Button[] arrSeqGainKnobs;
     private Button[] arrEQGainKnobs;
+
+    private KnobBehaviorDetune[] arrEQKnobBehaviourGain = new KnobBehaviorDetune[3];
+    private KnobBehavior[] arrEQKnobBehaviourFreq = new KnobBehavior[3];
+    private KnobBehavior[] arrEQKnobBehaviourRange = new KnobBehavior[3];
     private Button[] arrEQFreqKnobs;
     private Button[] arrEQRangeKnobs;
     private ToggleButton[] arrSeqStepsOnOff;
@@ -231,6 +237,46 @@ public class SynthaxView implements Initializable {
     private final SynthaxController synthaxController;
 
     private int easterCounter = 0;
+
+    private SettingsView settingsView;
+
+    KnobBehavior bKnobLFODepth;
+
+    KnobBehavior bKnobLFORate;
+
+    KnobBehaviorWave bKnobLFOWaveform;
+
+    KnobBehavior bKnobReverbSize;
+
+    KnobBehavior bKnobReverbDecay;
+
+    KnobBehavior bKnobReverbAmount;
+
+    KnobBehavior bKnobDelayFeedback;
+
+    KnobBehavior bKnobDelayTime;
+
+    KnobBehavior bKnobDelayDecay;
+
+    KnobBehavior bKnobDelayLevel;
+
+
+    KnobBehavior bKnobFilterHPCutoff;
+
+    KnobBehavior bKnobFilterLPCutoff;
+
+    KnobBehavior bKnobNoiseGain;
+
+    public ToggleSwitch LFOActive;
+    public ToggleSwitch HPActive;
+    public ToggleSwitch noiseActive;
+    public ToggleSwitch reverbActive;
+    public ToggleSwitch LPActive;
+    public ToggleSwitch EQ1Active;
+    public ToggleSwitch EQ2Active;
+    public ToggleSwitch EQ3Active;
+    public ToggleSwitch delayActive;
+
 
     public SynthaxView() {
         synthaxController = new SynthaxController(this);
@@ -402,8 +448,10 @@ public class SynthaxView implements Initializable {
                 URL fxmlLocation = MainApplication.class.getResource("view/Settings-view.fxml");
                 FXMLLoader fxmlLoader = new FXMLLoader(fxmlLocation);
                 Node settingsRoot = fxmlLoader.load();
-                SettingsView settingsView = fxmlLoader.getController();
+                settingsView = fxmlLoader.getController();
                 settingsView.populatePresetsBox(synthaxController.getSequencerPresetList(), this);
+                settingsView.populateProgramPresets(synthaxController.getProgramPresetList());
+                synthaxController.updateProgramPresetList();
                 popOverSettings = new PopOver(settingsRoot);
                 popOverSettings.setTitle("Settings");
                 popOverSettings.setDetachable(false);
@@ -482,6 +530,10 @@ public class SynthaxView implements Initializable {
     //region forwarding from SettingsView (click to open/collapse)
     public void deletePreset(String text) {
         synthaxController.deletePreset(text);
+    }
+
+    public void deleteProgramPreset(String text) {
+        synthaxController.deleteProgramPreset(text);
     }
 
     public void updateSequencerPresetList() {
@@ -923,34 +975,38 @@ public class SynthaxView implements Initializable {
     }
 
     private void initNoise() {
-        KnobBehavior bKnobNoiseGain = new KnobBehavior(knobNoiseGain);
+        bKnobNoiseGain = new KnobBehavior(knobNoiseGain);
         knobNoiseGain.setOnMouseDragged(bKnobNoiseGain);
-        bKnobNoiseGain.setRotation(0.5f);
+        synthaxController.setNoiseGain(0f);
+        //bKnobNoiseGain.setRotation(0.0f); //var 0,5 innan
         bKnobNoiseGain.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setNoiseGain(newValue.floatValue());
         });
     }
 
+    /**
+     * @author Oliver Berggren
+     */
     private void initDelay() {
-        KnobBehavior bKnobDelayFeedback = new KnobBehavior(knobDelayFeedback);
+        bKnobDelayFeedback = new KnobBehavior(knobDelayFeedback);
         knobDelayFeedback.setOnMouseDragged(bKnobDelayFeedback);
         bKnobDelayFeedback.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setDelayFeedback(newValue.floatValue());
         });
 
-        KnobBehavior bKnobDelayTime = new KnobBehavior(knobDelayTime);
+        bKnobDelayTime = new KnobBehavior(knobDelayTime);
         knobDelayTime.setOnMouseDragged(bKnobDelayTime);
         bKnobDelayTime.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setDelayTime(newValue.floatValue());
         });
 
-        KnobBehavior bKnobDelayDecay = new KnobBehavior(knobDelayDecay);
+        bKnobDelayDecay = new KnobBehavior(knobDelayDecay);
         knobDelayDecay.setOnMouseDragged(bKnobDelayDecay);
         bKnobDelayDecay.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setDelayDecay(newValue.floatValue());
         });
 
-        KnobBehavior bKnobDelayLevel = new KnobBehavior(knobDelayLevel);
+        bKnobDelayLevel = new KnobBehavior(knobDelayLevel);
         knobDelayLevel.setOnMouseDragged(bKnobDelayLevel);
         bKnobDelayLevel.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setDelayLevel(newValue.floatValue());
@@ -958,46 +1014,53 @@ public class SynthaxView implements Initializable {
     }
 
     private void initReverb() {
-        KnobBehavior bKnobReverbSize = new KnobBehavior(knobReverbSize);
+        bKnobReverbSize = new KnobBehavior(knobReverbSize);
         knobReverbSize.setOnMouseDragged(bKnobReverbSize);
         bKnobReverbSize.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setReverbSize(newValue.floatValue());
         });
 
-        KnobBehavior bKnobReverbDecay = new KnobBehavior(knobReverbTone);
+        bKnobReverbDecay = new KnobBehavior(knobReverbTone);
         knobReverbTone.setOnMouseDragged(bKnobReverbDecay);
         bKnobReverbDecay.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setReverbTone(newValue.floatValue());
         });
 
-        KnobBehavior bKnobReverbAmount = new KnobBehavior(knobReverbAmount);
+        bKnobReverbAmount = new KnobBehavior(knobReverbAmount);
         knobReverbAmount.setOnMouseDragged(bKnobReverbAmount);
         bKnobReverbAmount.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setReverbAmount(newValue.floatValue());
         });
     }
 
+
+
+
     private void initLFO() {
-        KnobBehavior bKnobLFODepth = new KnobBehavior(knobLFODepth);
+        bKnobLFODepth = new KnobBehavior(knobLFODepth);
+
         knobLFODepth.setOnMouseDragged(bKnobLFODepth);
         bKnobLFODepth.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setLFODepth(newValue.floatValue());
         });
 
-        KnobBehavior bKnobLFORate = new KnobBehavior(knobLFORate);
+        bKnobLFORate = new KnobBehavior(knobLFORate);
         knobLFORate.setOnMouseDragged(bKnobLFORate);
         bKnobLFORate.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setLFORate(newValue.floatValue());
         });
 
-        KnobBehaviorWave bKnobLFOWaveform = new KnobBehaviorWave(knobLFOWaveForm);
+        bKnobLFOWaveform = new KnobBehaviorWave(knobLFOWaveForm);
         knobLFOWaveForm.setOnMouseDragged(bKnobLFOWaveform);
+
         bKnobLFOWaveform.knobValueProperty().addListener((v, oldValue, newValue) -> {
+            System.out.println("in knoblfowaveform listener");
             synthaxController.setLFOWaveform(Waveforms.values()[newValue.intValue()]);
         });
     }
 
     private void initFilter() {
+
         for (int i = 0; i < arrEQGainKnobs.length; i++) {
             int finalI = i;
             KnobBehaviorDetune b = new KnobBehaviorDetune(arrEQGainKnobs[i]);
@@ -1005,6 +1068,7 @@ public class SynthaxView implements Initializable {
             b.knobValueProperty().addListener((v, oldValue, newValue) -> {
                 synthaxController.setEQGain(finalI, newValue.floatValue());
             });
+            arrEQKnobBehaviourGain[i] = b;
         }
         for (int i = 0; i < arrEQRangeKnobs.length; i++) {
             int finalI = i;
@@ -1014,6 +1078,7 @@ public class SynthaxView implements Initializable {
 
                 synthaxController.setEQRange(finalI, newValue.floatValue());
             });
+            arrEQKnobBehaviourRange[i] = b;
         }
         for (int i = 0; i < arrEQFreqKnobs.length; i++) {
             int finalI = i;
@@ -1022,15 +1087,16 @@ public class SynthaxView implements Initializable {
             b.knobValueProperty().addListener((v, oldValue, newValue) -> {
                 synthaxController.setEQFreq(finalI, newValue.floatValue());
             });
+            arrEQKnobBehaviourFreq[i] = b;
         }
 
-        KnobBehavior bKnobFilterHPCutoff = new KnobBehavior(knobFilterHPCutoff);
+        bKnobFilterHPCutoff = new KnobBehavior(knobFilterHPCutoff);
         knobFilterHPCutoff.setOnMouseDragged(bKnobFilterHPCutoff);
         bKnobFilterHPCutoff.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setHPCutoff(newValue.floatValue());
         });
 
-        KnobBehavior bKnobFilterLPCutoff = new KnobBehavior(knobFilterLPCutoff);
+        bKnobFilterLPCutoff = new KnobBehavior(knobFilterLPCutoff);
         knobFilterLPCutoff.setOnMouseDragged(bKnobFilterLPCutoff);
         bKnobFilterLPCutoff.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setLPCutoff(newValue.floatValue());
@@ -1039,32 +1105,31 @@ public class SynthaxView implements Initializable {
 
     private void initADSR() {
         setupLineChart();
-
         sliderAttack.setMax(SynthaxADSR.ATTACK_MAX);
         sliderAttack.setMin(SynthaxADSR.ATTACK_MIN);
         sliderAttack.valueProperty().addListener((observableValue, number, newValue) -> {
-            SynthaxADSR.setAttackValue(newValue.floatValue());
+            synthaxController.setAttackValue(newValue.floatValue());
             onAttackDrag();
         });
 
         sliderDecay.setMax(SynthaxADSR.DECAY_MAX);
         sliderDecay.setMin(SynthaxADSR.DECAY_MIN);
         sliderDecay.valueProperty().addListener((observableValue, number, newValue) -> {
-            SynthaxADSR.setDecayValue(newValue.floatValue());
+            synthaxController.setDecayValue(newValue.floatValue());
             onDecayDrag();
         });
 
         sliderSustain.setMax(SynthaxADSR.SUSTAIN_MAX);
         sliderSustain.setValue(SynthaxADSR.getSustainValue());
         sliderSustain.valueProperty().addListener((observableValue, number, newValue) -> {
-            SynthaxADSR.setSustainValue(newValue.floatValue());
+            synthaxController.setSustainValue(newValue.floatValue());
             onSustainDrag();
         });
 
         sliderRelease.setMax(SynthaxADSR.RELEASE_MAX);
         sliderRelease.setMin(SynthaxADSR.RELEASE_MIN);
         sliderRelease.valueProperty().addListener((observableValue, number, newValue) -> {
-            SynthaxADSR.setReleaseValue(newValue.floatValue());
+            synthaxController.setReleaseValue(newValue.floatValue());
             onReleaseDrag();
         });
     }
@@ -1114,5 +1179,253 @@ public class SynthaxView implements Initializable {
             }
         });
     }
+
+    /**
+     * author Ellie Rosander
+     * @param presetName
+     */
+    public void onActionSavePresetTest(String presetName) {
+        synthaxController.onSavePresetTest(presetName);
+    }
+
+    /**
+     * author Ellie Rosander
+     * @param presetNames
+     * @param chosenPreset
+     */
+    public void setProgramPresetList(String[] presetNames, String chosenPreset) {
+        settingsView.setProgramPresetList(presetNames, chosenPreset);
+
+    }
+
+    public void updateProgramPresetList() {
+        synthaxController.updateProgramPresetList();
+    }
+
+    /**
+     * author Ellie Rosander
+     * @param value
+     */
+    public void onSelectProgramPreset(String value) {
+        synthaxController.onSelectProgramPreset(value);
+    }
+
+    public float getKnobLFORate() {
+        return bKnobLFORate.getRotation();
+    }
+
+
+    /**
+     * @author Marcus Larsson
+     * @param i
+     * @param value
+     */
+    public void setKnobEQGain(int i, float value) {
+        float mappedValue = HelperMath.map(value, -25, 25f, -50f, 50f);
+        arrEQKnobBehaviourGain[i].knobValueProperty().setValue(mappedValue);
+        arrEQKnobBehaviourGain[i].setRotation(mappedValue);
+    }
+
+    /**
+     * @author Marcus Larsson
+     * @param i
+     * @param value
+     */
+    public void setKnobEQFreq(int i, float value) {
+        float mappedValue = HelperMath.map(value, 200f, 1800f, 0f, 1f);
+        arrEQKnobBehaviourFreq[i].knobValueProperty().setValue(mappedValue);
+        arrEQKnobBehaviourFreq[i].setRotation(mappedValue);
+    }
+
+    /**
+     * @author Marcus Larsson
+     * @param i
+     * @param value
+     */
+    public void setKnobEQRange(int i, float value) {
+        float mappedValue = HelperMath.map(value, 10f, 1f, 0f, 1f);
+        arrEQKnobBehaviourRange[i].knobValueProperty().setValue(mappedValue);
+        arrEQKnobBehaviourRange[i].setRotation(mappedValue);
+    }
+
+    public void setKnobHPCutoff(float hpCutoff) {
+        float mapped = HelperMath.map(hpCutoff, 400f, 2000f,0f, 1f);
+        bKnobFilterHPCutoff.knobValueProperty().setValue(mapped);
+        bKnobFilterHPCutoff.setRotation(mapped);
+    }
+
+    public void setKnobLPCutoff(float lpCutoff) {
+        float mapped = HelperMath.map(lpCutoff, 100f, 1500f,0f, 1f);
+        bKnobFilterLPCutoff.knobValueProperty().setValue(mapped);
+        bKnobFilterLPCutoff.setRotation(mapped);
+    }
+
+    /**
+     * @author Oliver Berggren
+     * @param attack
+     */
+    public void setSliderAttack(float attack) {
+        sliderAttack.valueProperty().setValue(attack);
+    }
+
+    /**
+     * @author Oliver Berggren
+     * @param decay
+     */
+    public void setSliderDecay(float decay) {
+        sliderDecay.valueProperty().setValue(decay);
+    }
+
+    /**
+     * @author Oliver Berggren
+     * @param sustain
+     */
+    public void setSliderSustain(float sustain) {
+        sliderSustain.valueProperty().setValue(sustain);
+    }
+
+    /**
+     * @author Oliver Berggren
+     * @param release
+     */
+    public void setSliderRelease(float release) {
+        sliderRelease.valueProperty().setValue(release);
+    }
+
+    /**
+     * @author Marcus Larsson
+     * @param size
+     */
+    public void setKnobReverbSize(float size) {
+        bKnobReverbSize.knobValueProperty().setValue(size);
+        bKnobReverbSize.setRotation(size);
+    }
+
+    /**
+     * @author Marcus Larsson
+     * @param tone
+     */
+    public void setKnobReverbTone(float tone) {
+        bKnobReverbDecay.knobValueProperty().setValue(tone);
+        bKnobReverbDecay.setRotation(tone);
+
+    }
+
+    /**
+     * @author Marcus Larsson
+     * @param amount
+     */
+    public void setKnobReverbAmount(float amount) {
+        bKnobReverbAmount.knobValueProperty().setValue(amount);
+        bKnobReverbAmount.setRotation(amount);
+    }
+
+    /**
+     * author Ellie Rosander
+     * för att uppdatera knob LFO > Rate
+     * bug: Går ej att dra "ned" efter loadPreset, verkar som laddad position blir
+     * ny min position.
+     */
+    public void setKnobLFORate(Float rateFreq) {
+
+        float orig = bKnobLFORate.getInvalue(rateFreq);
+        bKnobLFORate.knobValueProperty().setValue(orig);
+        bKnobLFORate.setRotation(orig);
+
+        /**
+         * author Ellie Rosander
+         * för att uppdatera knob LFO > Depth
+         * bug: Går ej att dra "ned" efter loadPreset, verkar som laddad position blir
+         * ny min position.
+         */
+    }
+    public void setKnobLFODepth(Float depth) {
+        bKnobLFODepth.knobValueProperty().setValue(depth);
+        bKnobLFODepth.setRotation(depth);
+    }
+
+    /**
+     * @author Ellie Rosander
+     * metod för att spara waveformBuffer,
+     * vilken kan vara satt på 4 lägen.
+     * Detta är kanske en lite ful lösning, men jag har tagit en sekvens siffror från buffern,
+     * för att se vilken position knobben ska sättas till.
+     * @param waveformBuffer
+     */
+    public void setKnobLFOWaveForm(Buffer waveformBuffer) {
+        int waveformva = 0;
+
+        Double value = 225.0;
+        if(waveformBuffer.toString().contains("0.0 0.0015339801 0.0030679568")) {
+            value = 225.0;
+            waveformva = 0;
+        } else if (waveformBuffer.toString().contains("1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0")) {
+            value = 315.0;
+            waveformva = 1;
+        } else if (waveformBuffer.toString().contains("-1.0 -0.9995117 -0.99902344 -0.99853516 -0.9980469")) {
+            value = 45.0;
+            waveformva = 2;
+        } else if (waveformBuffer.toString().contains("-1.0 -0.99902344 -0.9980469 -0.9970703 -0.99609375")) {
+            value = 135.0;
+            waveformva = 3;
+        }
+        bKnobLFOWaveform.knobValueProperty().setValue(waveformva);
+        bKnobLFOWaveform.setRotation(value);
+
+
+    }
+
+    public Button getLFORateKnobForTest() {
+        return knobLFORate;
+    }
+
+    /**
+     * @author Oliver Berggren
+     * @param origTime
+     */
+    public void setKnobDelayTime(float origTime) {
+        bKnobDelayTime.knobValueProperty().setValue(origTime);
+        bKnobDelayTime.setRotation(origTime);
+    }
+
+    /**
+     * @author Oliver Berggren
+     * @param originalFeedbackDuration
+     */
+    public void setKnobDelayFeedback(float originalFeedbackDuration) {
+        bKnobDelayFeedback.knobValueProperty().setValue(originalFeedbackDuration);
+        bKnobDelayFeedback.setRotation(originalFeedbackDuration);
+    }
+
+    /**
+     * @author Oliver Berggren
+     * @param delayDecay
+     */
+    public void setKnobDelayDecay(float delayDecay) {
+        bKnobDelayDecay.knobValueProperty().setValue(delayDecay);
+        bKnobDelayDecay.setRotation(delayDecay);
+    }
+    /**
+     * @author Oliver Berggren
+     * @param delayLevel
+     */
+    public void setKnobDelayLevel(float delayLevel) {
+        bKnobDelayLevel.knobValueProperty().setValue(delayLevel);
+        bKnobDelayLevel.setRotation(delayLevel);
+    }
     //endregion initialize methods
+
+    /**
+     * @author Edin Jahic
+     * @param gain
+     */
+    public void setKnobNoise(float gain) {
+        bKnobNoiseGain.knobValueProperty().setValue(gain);
+        bKnobNoiseGain.setRotation(gain);
+    }
+
+    public void setSliderMasterGain(float gain) {
+        sliderMasterGain.setValue(gain);
+        sliderMasterGain.setRotate(gain);
+    }
 }

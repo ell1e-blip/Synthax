@@ -63,6 +63,10 @@ public class SynthaxDelay {
         return output;
     }
 
+    /**
+     * @author Oliver Berggren
+     * @author Ellie Rosander
+     */
     public void setActive() {
         isActive = !isActive;
         if(!isActive) {
@@ -85,6 +89,10 @@ public class SynthaxDelay {
         }
     }
 
+    /**
+     * @author Oliver Berggren
+     * @author Ellie Rosander
+     */
     public void setDelayTime(float delayTime) {
         if (!isActive) {
             cachedDelayTime = HelperMath.map(delayTime, 0, 1, 100, 1000);
@@ -93,6 +101,10 @@ public class SynthaxDelay {
         }
     }
 
+    /**
+     * @author Oliver Berggren
+     * @author Ellie Rosander
+     */
     public void setDecay(float decayValue) {
         if (!isActive) {
             cachedDecayValue = decayValue;
@@ -101,6 +113,10 @@ public class SynthaxDelay {
         }
     }
 
+    /**
+     * @author Oliver Berggren
+     * @author Ellie Rosander
+     */
     public void setLevel(float levelValue) {
         if (!isActive) {
             cachedLevelValue = levelValue;
@@ -109,6 +125,10 @@ public class SynthaxDelay {
         }
     }
 
+    /**
+     * @author Oliver Berggren
+     * @author Ellie Rosander
+     */
     public void setFeedbackDuration(float feedbackDuration) {
         if (!isActive) {
             cachedFeedbackDuration = HelperMath.map(feedbackDuration, 0, 1, 100, 2500);
@@ -120,8 +140,14 @@ public class SynthaxDelay {
     public Envelope getEnvelope() {
         return delayFeedbackEnvelope;
     }
-
+    /**
+     * @author Oliver Berggren
+     */
     public float getFeedbackDuration() {
         return feedbackDuration;
+    }
+
+    public float getCachedDelayTime() {
+        return cachedDelayTime;
     }
 }

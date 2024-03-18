@@ -183,31 +183,51 @@ public class OscillatorManager {
         return noiseController;
     }
 
+    /**
+     * @author Edin Jahic
+     */
+    public ArrayList<OscillatorController> getOscillatorControllers() {
+        return oscillatorControllers;
+    }
+
+
     //region Delay-setters (click to open/collapse)
+    /**
+     * @author Oliver Berggren
+     */
     public void setDelayFeedback(float feedBackDuration) {
         for(OscillatorController controller : oscillatorControllers) {
             controller.setDelayFeedback(feedBackDuration);
         }
     }
 
+    /**
+     * @author Oliver Berggren
+     */
     public void setDelayTime(float delayTime) {
         for (OscillatorController controller : oscillatorControllers) {
             controller.setDelayTime(delayTime);
         }
     }
-
+    /**
+     * @author Oliver Berggren
+     */
     public void setDelayDecay(float decayValue) {
         for (OscillatorController controller : oscillatorControllers) {
             controller.setDelayDecay(decayValue);
         }
     }
-
+    /**
+     * @author Oliver Berggren
+     */
     public void setDelayLevel(float levelValue) {
         for (OscillatorController controller : oscillatorControllers) {
             controller.setDelayLevel(levelValue);
         }
     }
-
+    /**
+     * @author Oliver Berggren
+     */
     public void setDelayActive() {
         for (OscillatorController controller : oscillatorControllers) {
             controller.setDelayActive();

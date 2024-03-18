@@ -5,6 +5,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
+import net.beadsproject.beads.data.Buffer;
 
 /**
  * Class that represents the behavior of a rotating Waveform knob.
@@ -53,5 +54,9 @@ public class KnobBehaviorWave implements EventHandler<MouseEvent> {
 
     public IntegerProperty knobValueProperty() {
         return knobValue;
+    }
+
+    public void setRotation(Double value) {
+        knob.setRotate(value);
     }
 }

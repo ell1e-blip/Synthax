@@ -53,4 +53,21 @@ public class OscillatorLFO {
         //Converts the passed float value to correspond to the range used by the LFO
         return (float) (rate * 19.9 + 0.1);
     }
+
+    /**
+     * @author Edin Jahic
+     * @param rate
+     * @return
+     */
+    private float deConvertRate(float rate) {
+        return (rate - 0.1f)/19.9f;
+    }
+
+    public float getDepth() {
+        return depth;
+    }
+
+    public float getRate() {
+        return deConvertRate(lfo.getFrequency());
+    }
 }
