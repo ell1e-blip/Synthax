@@ -1,4 +1,4 @@
-package com.synthax.test.controller;
+package com.synthax.model.effects;
 
 import com.synthax.model.effects.SynthaxLFO;
 import com.synthax.model.enums.Waveforms;

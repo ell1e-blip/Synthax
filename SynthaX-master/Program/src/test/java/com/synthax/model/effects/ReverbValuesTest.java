@@ -1,4 +1,4 @@
-package com.synthax.test.controller;
+package com.synthax.model.effects;
 import com.synthax.MainApplication;
 import com.synthax.controller.OscillatorManager;
 import com.synthax.controller.SynthaxController;
