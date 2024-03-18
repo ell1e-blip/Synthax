@@ -150,4 +150,16 @@ public class SynthaxDelay {
     public float getCachedDelayTime() {
         return cachedDelayTime;
     }
+
+    public float getCachedDecayValue() {
+        return cachedDecayValue;
+    }
+
+    public float getCachedLevelValue() {
+        return cachedLevelValue;
+    }
+
+    public boolean getDelayIsActive() {
+        return isActive;
+    }
 }

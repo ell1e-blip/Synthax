@@ -1,6 +1,5 @@
 package com.synthax.controller;
 
-import com.synthax.model.oscillator.OscillatorLFO;
 import com.synthax.model.oscillator.OscillatorVoice;
 import com.synthax.model.oscillator.Voice;
 import com.synthax.model.enums.Waveforms;
@@ -9,10 +8,7 @@ import com.synthax.model.enums.MidiNote;
 import com.synthax.model.enums.OctaveOperands;
 import net.beadsproject.beads.core.AudioContext;
 import net.beadsproject.beads.core.UGen;
-import net.beadsproject.beads.data.Buffer;
 import net.beadsproject.beads.ugens.*;
-
-import java.util.ArrayList;
 
 /**
  * Accepts MIDI-signals and forwards these to be played by an available voice.
@@ -213,40 +209,12 @@ public class OscillatorController extends VoiceController {
             ((OscillatorVoice)voice).getDelay().setActive();
         }
     }
-    //endregion delay-setters
 
     /**
-     * @author Edin Jahic
+     * @author Marcus Larsson
+     * @return
      */
-    public Waveforms getWaveform() {
-        return waveform;
-    }
-
-    /**
-     * @author Edin Jahic
-     */
-    public OctaveOperands getOctave() {
+    public OctaveOperands getOctaveOperand() {
         return octaveOperand;
-    }
-
-    /**
-     * @author Edin Jahic
-     */
-    public float getDetuneCent() {
-        return detuneCent;
-    }
-
-    public float getOscDepth() {
-        for (Voice voice : voices) {
-            return ((OscillatorVoice) voice).getOscillatorLFO().getDepth();
-        }
-        return 0;
-    }
-
-    public float getOscRate() {
-        for (Voice voice : voices) {
-            return ((OscillatorVoice) voice).getOscillatorLFO().getRate();
-        }
-        return 0;
     }
 }

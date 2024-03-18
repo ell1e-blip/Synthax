@@ -1308,7 +1308,6 @@ public class SynthaxView implements Initializable {
     public void setKnobReverbTone(float tone) {
         bKnobReverbDecay.knobValueProperty().setValue(tone);
         bKnobReverbDecay.setRotation(tone);
-
     }
 
     /**
