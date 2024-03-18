@@ -28,7 +28,7 @@ public class WaveformsUnitTest {
         oscillatorVoice = new OscillatorVoice(null, oscillatorController, 0);
 
         oscillatorVoice.setWavePlayerBuffer(Waveforms.SINE.getBuffer());
-        assertEquals(Waveforms.SINE.getBuffer(), oscillatorVoice.getWavePlayerBuffer());
+        assertEquals(Waveforms.SINE.getBuffer(), oscillatorVoice.getWavePlayerBufferValue());
 
     }
 
@@ -45,7 +45,7 @@ public class WaveformsUnitTest {
         oscillatorVoice = new OscillatorVoice(null, oscillatorController, 0);
 
         oscillatorVoice.setWavePlayerBuffer(Waveforms.TRIANGLE.getBuffer());
-        assertEquals(Waveforms.TRIANGLE.getBuffer(), oscillatorVoice.getWavePlayerBuffer());
+        assertEquals(Waveforms.TRIANGLE.getBuffer(), oscillatorVoice.getWavePlayerBufferValue());
 
     }
 
@@ -62,7 +62,7 @@ public class WaveformsUnitTest {
         oscillatorVoice = new OscillatorVoice(null, oscillatorController, 0);
 
         oscillatorVoice.setWavePlayerBuffer(Waveforms.SAWTOOTH.getBuffer());
-        assertEquals(Waveforms.SAWTOOTH.getBuffer(), oscillatorVoice.getWavePlayerBuffer());
+        assertEquals(Waveforms.SAWTOOTH.getBuffer(), oscillatorVoice.getWavePlayerBufferValue());
 
     }
 
@@ -79,7 +79,7 @@ public class WaveformsUnitTest {
         oscillatorVoice = new OscillatorVoice(null, oscillatorController, 0);
 
         oscillatorVoice.setWavePlayerBuffer(Waveforms.SQUARE.getBuffer());
-        assertEquals(Waveforms.SQUARE.getBuffer(), oscillatorVoice.getWavePlayerBuffer());
+        assertEquals(Waveforms.SQUARE.getBuffer(), oscillatorVoice.getWavePlayerBufferValue());
 
     }
 }

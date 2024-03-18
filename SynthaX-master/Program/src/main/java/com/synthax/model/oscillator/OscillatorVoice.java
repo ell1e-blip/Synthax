@@ -116,4 +116,12 @@ public class OscillatorVoice extends Voice {
     public Object getWavePlayerBuffer() {
         return wavePlayer;
     }
+
+    /**
+     * @author Edin Jahic
+     * @return
+     */
+    public Buffer getWavePlayerBufferValue() {
+        return wavePlayer.getBuffer();
+    }
 }
