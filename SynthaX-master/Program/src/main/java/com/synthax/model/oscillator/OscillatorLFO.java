@@ -52,13 +52,6 @@ public class OscillatorLFO {
         this.depth = depth * 35;
     }
 
-    public float getDepth() {
-        return depth;
-    }
-
-    public float getRate() {
-        return rate;
-    }
 
     public float convertRate(float rate) {
         //Converts the passed float value to correspond to the range used by the LFO
