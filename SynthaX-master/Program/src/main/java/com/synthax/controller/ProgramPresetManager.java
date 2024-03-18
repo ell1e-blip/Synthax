@@ -148,6 +148,9 @@ public class ProgramPresetManager {
             //Master
             dos.writeFloat(master);
 
+            /*
+            TODO Presets för oscillator som vi inte hann implementera.
+
             //Oscillatorer
             ArrayList<OscillatorController> oscillatorControllers = synthaxController.getOscillatorManager().getOscillatorControllers(); //Sparar antalet oscillatorer
             System.out.println("Antal oscillatorer: " + oscillatorControllers.size());
@@ -161,13 +164,13 @@ public class ProgramPresetManager {
                 float rate = oscillatorController.getOscRate();
                 
                 dos.writeInt(oscillatorControllers.size());
-                /*
+
                 dos.writeInt(waveFormOsc.buf.length);
                 for (float value : waveFormOsc.buf) {
                     dos.writeFloat(value);
                 }
 
-                 */
+
                 dos.writeInt(octave.getOperandValue());
                 //dos.writeFloat(gain);
                 dos.writeFloat(detune);
@@ -184,6 +187,8 @@ public class ProgramPresetManager {
                 System.out.println("Depth: " + oscillatorController.getOscDepth());
                 System.out.println("Rate: " + oscillatorController.getOscRate());
             }
+
+             */
 
             dos.flush();
 
@@ -291,6 +296,10 @@ public class ProgramPresetManager {
             //Master
             Float master = dis.readFloat();
 
+
+            /*
+            TODO Presets för oscillator som vi inte hann implementera.
+
             //Oscillator
             int nbrOfOscillators = dis.readInt();
             //int oscWaveFormSize = dis.readInt();
@@ -298,12 +307,12 @@ public class ProgramPresetManager {
 
             for (int i = 0; i < nbrOfOscillators; i++) {
 
-                /*
+
                 for (int j = 0; j < oscWaveFormSize; j++) {
                     float oscWave = dis.readFloat();
                 }
 
-                 */
+
 
                 int octave = dis.readInt();
                 System.out.println("LOAD - Octave: " + octave);
@@ -323,6 +332,8 @@ public class ProgramPresetManager {
                 osc.setLFORate(rate);
                 synthaxController.addOscillator(osc);
             }
+
+             */
 
 
             dis.close();
