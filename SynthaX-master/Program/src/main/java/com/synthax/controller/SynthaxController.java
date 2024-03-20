@@ -161,9 +161,21 @@ public class SynthaxController {
     public void setEQGain(int i, float newVal) {
         filters.setEQGain(i, newVal);
     }
+
+    /**
+     * @author Marcus Larsson
+     * @param i
+     * @param newVal
+     */
     public void setViewEQGain(int i, float newVal) {
         synthaxView.setKnobEQGain(i, newVal);
     }
+
+    /**
+     * @author Marcus Larsson
+     * @param i
+     * @return
+     */
     public float getEQGain(int i) {
         return filters.getEQGain(i);
     }
@@ -171,10 +183,21 @@ public class SynthaxController {
     public void setEQFreq(int i, float newVal) {
         filters.setEQFrequency(i, newVal);
     }
+
+    /**
+     * @author Marcus Larsson
+     * @param i
+     * @param newVal
+     */
     public void setViewEQFreq(int i, float newVal) {
         synthaxView.setKnobEQFreq(i, newVal);
     }
 
+    /**
+     * @author Marcus Larsson
+     * @param i
+     * @return
+     */
     public float getEQFreq(int i) {
         return filters.getEQFrequency(i);
     }
@@ -182,9 +205,21 @@ public class SynthaxController {
     public void setEQRange(int i, float newVal) {
         filters.setEQRange(i, newVal);
     }
+
+    /**
+     * @author Marcus Larsson
+     * @param i
+     * @param newVal
+     */
     public void setViewEQRange(int i, float newVal) {
         synthaxView.setKnobEQRange(i, newVal);
     }
+
+    /**
+     * @author Marcus Larsson
+     * @param i
+     * @return
+     */
     public float getEQRange(int i) {
         return filters.getEQRange(i);
     }
@@ -475,6 +510,11 @@ public class SynthaxController {
         reverb.setReverbAmount(amount);
     }
 
+    /**
+     * @author Marcus Larsson
+     * @return
+     */
+
     public float getReverbAmount() {
         return reverb.getReverbAmount();
     }
@@ -483,6 +523,10 @@ public class SynthaxController {
         reverb.setReverbSize(size);
     }
 
+    /**
+     * @author Marcus Larsson
+     * @return
+     */
     public float getReverbSize() {
         return reverb.getReverbSize();
     }
@@ -491,6 +535,10 @@ public class SynthaxController {
         reverb.setReverbTone(tone);
     }
 
+    /**
+     * @author Marcus Larsson
+     * @return
+     */
     public float getReverbTone() {
         return reverb.getReverbTone();
     }
