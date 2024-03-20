@@ -7,7 +7,7 @@
 
 There are multiple ways to execute SynthaX. Below are two ways one can execute it.
 Directly through main application or through Maven:
-1. Navigate to MainApplication.java by going src > main > java > com.synthax > and then execute MainApplication.java.
+1. Navigate to MainApplication.java by going SynthaX-master > Program > src > main > java > com.synthax > and then execute MainApplication.java.
 If errors would occur while executing the java file, do these following steps:
 1. To the right side there is a vertical bar. Click on "m" that is maven.
 2. Press plugins and execute the install:install jar file that is within install and then compiler:compile that is within compiler.
