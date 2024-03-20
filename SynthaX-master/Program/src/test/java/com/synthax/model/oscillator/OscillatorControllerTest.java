@@ -13,6 +13,11 @@ import org.mockito.stubbing.Answer;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
+/**
+ * @author Marcus Larsson
+ * OscillatorControllerTest checks important functions and checks their result.
+ * These tests are important for saving and loading presets.
+ */
 class OscillatorControllerTest {
 
     private OscillatorController controller;
@@ -35,46 +40,52 @@ class OscillatorControllerTest {
         });
     }
 
+    /**
+     * @author Marcus Larsson
+     * This method sets the detune value to a known rate (100.0f).
+     * Then it returns the value to verify if the value is set correctly.
+     */
     @Test
     void testSetDetuneCent() {
         float detuneCent = 100.0f;
         controller.setDetuneCent(detuneCent);
         verify(mockVoice, times(1)).updateDetuneValue(detuneCent, controller.getOctaveOperand());
     }
+
+    /**
+     * @author Marcus Larsson
+     * This method sets the waveform value to a known enum.
+     * Then it returns the value to verify if the value is set correctly.
+     */
     @Test
     void testSetWaveform() {
-        // Given
-        Waveforms testWaveform = Waveforms.SQUARE; // Assume this is a valid enum value
-
-        // When
+        Waveforms testWaveform = Waveforms.SQUARE;
         controller.setWaveform(testWaveform);
-
-        // Then
         verify(mockVoice, times(1)).setWavePlayerBuffer(testWaveform.getBuffer());
     }
-
+    /**
+     * @author Marcus Larsson
+     * This method sets the CombineMode value to a known enum.
+     * Then it returns the value to verify if the value is set correctly.
+     */
     @Test
     void testSetOutputTypeAdd() {
-        // Given
-        CombineMode testCombineMode = CombineMode.ADD; // Assume this is a valid enum value
-
-        // When
+        CombineMode testCombineMode = CombineMode.ADD;
         controller.setOutputType(testCombineMode);
-
-        // Then
         assertTrue(controller.getOutput() instanceof Add);
     }
 
+    /**
+     * @author Marcus Larsson
+     * This method sets the CombineMode value to a known enum.
+     * Then it returns the value to verify if the value is set correctly.
+     */
     @Test
     void testSetOutputTypeMult() {
         CombineMode testCombineMode = CombineMode.MULT;
-
         controller.setOutputType(testCombineMode);
-
         assertTrue(controller.getOutput() instanceof Mult);
     }
-
-
 
 
 }

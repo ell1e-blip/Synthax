@@ -13,6 +13,8 @@ import java.util.Arrays;
 
 /**
  * @author Ellie Rosander
+ * @author Marcus Larsson
+ * @author Oliver Berggren
  * Class for saving and loading preset of the program settings
  *
  */
@@ -68,6 +70,12 @@ public class ProgramPresetManager {
 
         return presetNames.toArray(new String[0]);
     }
+
+    /**
+     * @author Ellie Rosander
+     * @author Marcus Larsson
+     * @param saveFile
+     */
 
     private void savePreset(File saveFile) {
         System.out.println("test2");
@@ -224,6 +232,11 @@ public class ProgramPresetManager {
         }
     }
 
+    /**
+     * @author Ellie Rosander
+     * @author Marcus Larsson
+     * @param loadFile
+     */
     private void loadPreset(File loadFile) {
         System.out.println("LOADING: " + loadFile);
 
