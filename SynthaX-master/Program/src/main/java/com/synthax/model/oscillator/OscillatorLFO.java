@@ -67,10 +67,18 @@ public class OscillatorLFO {
         return (rate - 0.1f)/19.9f;
     }
 
+    /**
+     * @author Edin Jahic
+     * @return
+     */
     public float getDepth() {
         return depth;
     }
 
+    /**
+     * @author Edin Jahic
+     * @return
+     */
     public float getRate() {
         return deConvertRate(lfo.getFrequency());
     }

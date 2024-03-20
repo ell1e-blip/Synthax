@@ -543,6 +543,10 @@ public class SynthaxController {
         return reverb.getReverbTone();
     }
 
+    /**
+     * @author Edin Jahic
+     * @param gain
+     */
     public void setMasterGain(float gain) {
         synthaxView.setSliderMasterGain(gain);
         masterGainGlide.setValue(gain);
@@ -560,6 +564,10 @@ public class SynthaxController {
         seqPresetLoader.deleteFile(text);
     }
 
+    /**
+     * @author Edin Jahic
+     * @param text
+     */
     public void deleteProgramPreset(String text) {
         programPresetManager.deleteFile(text);
     }

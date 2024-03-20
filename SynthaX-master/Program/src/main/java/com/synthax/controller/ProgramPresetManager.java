@@ -15,6 +15,7 @@ import java.util.Arrays;
  * @author Ellie Rosander
  * @author Marcus Larsson
  * @author Oliver Berggren
+ * @author Edin Jahic
  * Class for saving and loading preset of the program settings
  *
  */
@@ -74,6 +75,7 @@ public class ProgramPresetManager {
     /**
      * @author Ellie Rosander
      * @author Marcus Larsson
+     * @author Edin Jahic
      * @param saveFile
      */
 
@@ -235,6 +237,7 @@ public class ProgramPresetManager {
     /**
      * @author Ellie Rosander
      * @author Marcus Larsson
+     * @author Edin Jahic
      * @param loadFile
      */
     private void loadPreset(File loadFile) {
